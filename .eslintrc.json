@@ -1,0 +1,66 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": ["tsconfig.(app|spec|home).json"]
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+
+        // recommended
+        "@tinkoff/eslint-config/app",
+        "@tinkoff/eslint-config-angular",
+        // optional
+        "@tinkoff/eslint-config-angular/rxjs",
+        "@tinkoff/eslint-config-angular/promise",
+        "@tinkoff/eslint-config-angular/imports",
+        "@tinkoff/eslint-config-angular/unicorn",
+        "@tinkoff/eslint-config-angular/html-eslint",
+        "@tinkoff/eslint-config-angular/file-progress",
+        "@tinkoff/eslint-config-angular/line-statements",
+        "@tinkoff/eslint-config-angular/member-ordering",
+        "@tinkoff/eslint-config-angular/decorator-position",
+        "@tinkoff/eslint-config-angular/function-return-type",
+        // experimental strict rules
+        "@tinkoff/eslint-config-angular/experimental"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    }
+  ]
+}
