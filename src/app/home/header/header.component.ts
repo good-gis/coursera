@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   username = 'Ivan Glushkov';
-
 }

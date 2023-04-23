@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./search.component.less'],
 })
 export class SearchComponent {
-  public searchValue = '';
+  searchValue = '';
 
   onClickSearch(value: string) {
     console.log(value);

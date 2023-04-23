@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class LoadMoreComponent {
   onClickLoadMore() {
-    console.log('Load more button was pressed')
+    console.log('Load more button was pressed');
   }
 }
