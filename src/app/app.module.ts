@@ -1,11 +1,11 @@
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import {
-    TuiRootModule,
-    TuiDialogModule,
-    TuiAlertModule,
-    TUI_SANITIZER,
-    TuiLinkModule,
-    TuiSvgModule
+  TuiRootModule,
+  TuiDialogModule,
+  TuiAlertModule,
+  TUI_SANITIZER,
+  TuiLinkModule,
+  TuiSvgModule, TuiButtonModule
 } from "@taiga-ui/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
@@ -19,7 +19,9 @@ import { FooterComponent } from './home/footer/footer.component';
 import { HeaderComponent } from './home/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './home/search/search.component';
+import { FormsModule } from '@angular/forms';
 import {RouterLink} from "@angular/router";
+import {TuiInputModule} from "@taiga-ui/kit";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import {RouterLink} from "@angular/router";
     LoadMoreComponent,
     FooterComponent,
   ],
-    imports: [BrowserModule, BrowserAnimationsModule, TuiRootModule, TuiDialogModule, TuiAlertModule, TuiLinkModule, RouterLink, TuiSvgModule],
+  imports: [BrowserModule, FormsModule, BrowserAnimationsModule, TuiRootModule, TuiDialogModule, TuiAlertModule, TuiLinkModule, RouterLink, TuiSvgModule, TuiButtonModule, TuiInputModule],
   providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent],
 })
