@@ -1,12 +1,19 @@
 header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #FFFFFF;
   height: 64px;
-  padding: 0 28px; /* добавляем внутренний отступ слева и справа */
+  padding: 0 28px;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-  z-index: 2;
+  z-index: 1;
 }
 
 .logo {
