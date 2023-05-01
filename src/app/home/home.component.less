@@ -1,27 +1,21 @@
-.app-container {
+.root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
 
-.app-content {
-  flex: 1;
-  padding: 0 104px;
-}
+  .content {
+    display: flex;
+    flex-direction: column;
 
-.app-footer {
-  margin-left: 104px;
-  height: 104px;
-  display: flex;
-  align-items: center;
-  font-family: 'Roboto', serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 24px;
-}
+    margin: 0 104px;
+    background-color: white;
+    height: calc(100vh - 168px);
+  }
 
-.content-field {
-  background-color: #FFFFFF;
-  height: calc(100vh - 168px);
+  .footer {
+    display: flex;
+    align-items: center;
+
+    margin: 0 104px;
+    height: 104px;
+  }
 }
