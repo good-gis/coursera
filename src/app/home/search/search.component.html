@@ -2,25 +2,29 @@
   <div class="search-bar">
     <tui-input
       [(ngModel)]="searchValue"
-      class="search-input">
-      <tui-svg
-        class="search-element"
-        src="tuiIconSearch">
-      </tui-svg>
+      tuiTextfieldIconLeft="tuiIconSearch"
+      class="search-input"
+    >
       Name, fragment or date
-      <input tuiTextfield/>
+      <input tuiTextfield />
     </tui-input>
 
     <button
       (click)="onClickSearch(searchValue)"
       appearance="secondary"
       class="search-button"
-      size="l" tuiButton>
+      size="l" tuiButton
+    >
       Search
     </button>
   </div>
 
-  <button class="add-course-button" icon="tuiIconPlus" size="l" tuiButton>
+  <button
+    class="add-course-button"
+    icon="tuiIconPlus"
+    size="l"
+    tuiButton
+  >
     Add course
   </button>
 </div>
