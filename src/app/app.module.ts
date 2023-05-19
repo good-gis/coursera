@@ -1,5 +1,20 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterLink } from '@angular/router';
+import {
+  TUI_SANITIZER,
+  TuiAlertModule,
+  TuiButtonModule,
+  TuiDialogModule,
+  TuiLinkModule,
+  TuiRootModule,
+  TuiSvgModule,
+  TuiTextfieldControllerModule,
+} from '@taiga-ui/core';
+import { TuiInputModule } from '@taiga-ui/kit';
+import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './home/course-list/course/course.component';
@@ -21,8 +36,21 @@ import { SearchComponent } from './home/search/search.component';
     LoadMoreComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    TuiRootModule,
+    TuiDialogModule,
+    TuiAlertModule,
+    TuiLinkModule,
+    RouterLink,
+    TuiSvgModule,
+    TuiButtonModule,
+    TuiInputModule,
+    TuiTextfieldControllerModule,
+  ],
+  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

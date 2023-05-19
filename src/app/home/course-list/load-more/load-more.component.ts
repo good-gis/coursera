@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './load-more.component.html',
   styleUrls: ['./load-more.component.less'],
 })
-export class LoadMoreComponent {}
+export class LoadMoreComponent {
+  onClickLoadMore() {
+    console.log('Load more button was pressed');
+  }
+}

@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  username = 'Ivan Glushkov';
+}

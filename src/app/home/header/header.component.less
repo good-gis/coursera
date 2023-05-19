@@ -1,0 +1,47 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+  background-color: var(--tui-base-01);
+  height: 64px;
+  padding: 0 28px;
+
+  .logo {
+    display: flex;
+  }
+
+  .auth-group {
+    display: flex;
+    align-items: center;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+
+      .username {
+        margin-right: 4px;
+      }
+
+      .username-icon {
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 4px 24px var(--tui-secondary-hover);
+  z-index: 1;
+}
+
+
+
+
+
+
+
