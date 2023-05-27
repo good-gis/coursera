@@ -1,1 +1,61 @@
-<p>course works!</p>
+<div class="course">
+
+  <div class="course-info">
+    <div class="date">02.29.2018</div>
+    <div class="title-and-duration">
+        <tui-line-clamp
+          class="title"
+          [content]="title"
+          [lineHeight]="28"
+          [linesLimit]="1"
+        ></tui-line-clamp>
+        <tui-badge
+          class="duration"
+          size="m"
+          value="1 h 28 min"
+        ></tui-badge>
+    </div>
+    <div class="description">
+      <tui-line-clamp
+        [content]="description"
+        [lineHeight]="24"
+        [linesLimit]="2"
+      ></tui-line-clamp>
+    </div>
+  </div>
+
+  <div class="course-buttons">
+    <button
+      tuiButton
+      class="edit"
+      icon="tuiIconEdit3Large"
+      size="m"
+      appearance="secondary"
+      >
+      Edit
+    </button>
+    <button
+      tuiButton
+      class="delete"
+      icon="tuiIconTrash2Large"
+      size="m"
+      appearance="secondary-destructive"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+
+<ng-template #description>
+  <div class="hint">
+    Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the
+    First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven
+    Kingdoms, Breaker of Chains and Mother of Dragons
+  </div>
+</ng-template>
+
+<ng-template #title>
+  <div class="hint">
+    Video Course 1
+  </div>
+</ng-template>
