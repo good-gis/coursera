@@ -1,7 +1,7 @@
 .course {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+
   padding: 20px;
   margin-bottom: 20px;
 
@@ -9,7 +9,14 @@
   box-shadow: 0 4px 24px var(--tui-secondary-hover);
   border-radius: 8px;
 
+  .course-info {
+    display: flex;
+    flex-direction: column;
+  }
+
   .course-buttons {
+    display: flex;
+    flex-direction: column;
     button {
       width: 128px;
     }
@@ -29,8 +36,8 @@
     margin-bottom: 12px;
 
     .title {
-      font-size: 19px;
-      font-weight: 800;
+      font-size: 17px;
+      font-weight: bold;
       margin-right: 8px;
     }
 
@@ -45,7 +52,6 @@
 
   .description {
     font-size: 15px;
-    font-weight: 500;
     margin-right: 32px;
   }
 }

@@ -6,18 +6,15 @@ export const courses: Course[] = [
     title: 'Video Course 1',
     creationDate: '02.29.2018',
     duration: '1 h 28 min',
-    description:
-      'Create a repository at github/bitbucket Install ng-cli: npm install -g @angular/cli Use ng-cli to create initial a project Run the project by executing “ng serve” Explore a project structure Setup TS lint according to your preferences (indentation, spacing...)',
+    description: 'Create a repository at github/bitbucket Install ng-cli: npm install -g @angular/cli Use ng-cli to create initial a project Run the project by executing “ng serve” Explore a project structure Setup TS lint according to your preferences (indentation, spacing...)',
     topRated: true,
   },
   {
     id: '2',
-    title:
-      'Super long title of difficult video course about programming and frontend developme...',
-    creationDate: '02.28.2018',
-    duration: '1 h 28 min',
-    description:
-      'Create a repository at github/bitbucket Install ng-cli: npm install -g @angular/cli Use ng-cli to create initial a project Run the project by executing “ng serve” Explore a project structure Setup TS lint according to your preferences (indentation, spacing...)',
-    topRated: false,
-  },
+    title: 'Super Long Course Title with Detailed Description',
+    creationDate: '05.28.2023',
+    duration: '2 h 30 min',
+    description: 'This is a super long course title with a detailed description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt elit vel congue aliquam. Morbi id est sed risus tempor tristique. Duis condimentum leo ac convallis luctus. Proin consectetur lobortis tortor, nec blandit massa sagittis vitae. Aliquam id metus ac tellus rutrum cursus at vitae leo. Nullam ac venenatis felis. Nulla facilisi. Sed et efficitur risus, quis iaculis eros. Aliquam vestibulum dapibus ligula, id semper sem lobortis et. Aenean convallis, ipsum at efficitur volutpat, ligula erat tincidunt nisl, ut consectetur velit justo at lectus. Aenean eget erat vel diam scelerisque posuere. Integer ut ex nec erat feugiat facilisis at ac ipsum. Aliquam nec fermentum eros. Nulla facilisi.',
+    topRated: false
+  }
 ];
