@@ -13,7 +13,11 @@ import {
   TuiSvgModule,
   TuiTextfieldControllerModule,
 } from '@taiga-ui/core';
-import {TuiBadgeModule, TuiInputModule, TuiLineClampModule} from '@taiga-ui/kit';
+import {
+  TuiBadgeModule,
+  TuiInputModule,
+  TuiLineClampModule,
+} from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 import { AppComponent } from './app.component';
