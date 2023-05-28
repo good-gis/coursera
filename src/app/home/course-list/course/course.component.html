@@ -1,8 +1,7 @@
 <div class="course">
-
   <div class="course-info">
-    <div class="date">02.29.2018</div>
-    <div class="title-and-duration">
+    <div class="date">{{ course.creationDate }}</div>
+    <div class="title-duration-star">
         <tui-line-clamp
           class="title"
           [content]="title"
@@ -12,8 +11,13 @@
         <tui-badge
           class="duration"
           size="m"
-          value="1 h 28 min"
+          value="{{ course.duration }}"
         ></tui-badge>
+      <tui-svg
+      src="tuiIconStarLarge"
+      class="icon"
+      *ngIf="course.topRated"
+      ></tui-svg>
     </div>
     <div class="description">
       <tui-line-clamp
@@ -40,6 +44,7 @@
       icon="tuiIconTrash2Large"
       size="m"
       appearance="secondary-destructive"
+      (click)="onDeleteClick()"
     >
       Delete
     </button>
@@ -48,14 +53,12 @@
 
 <ng-template #description>
   <div class="hint">
-    Daenerys of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the
-    First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven
-    Kingdoms, Breaker of Chains and Mother of Dragons
+    {{ course.description }}
   </div>
 </ng-template>
 
 <ng-template #title>
   <div class="hint">
-    Video Course 1
+    {{ course.title }}
   </div>
 </ng-template>
