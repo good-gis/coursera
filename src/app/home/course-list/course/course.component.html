@@ -1,9 +1,9 @@
 <div class="course">
   <div class="course-info">
-    <div class="date">{{ course.creationDate }}</div>
+    <div class="date tui-text_body-s-2">{{ course.creationDate }}</div>
     <div class="title-duration-star">
         <tui-line-clamp
-          class="title"
+          class="title tui-text_body-xl"
           [content]="title"
           [lineHeight]="28"
           [linesLimit]="1"
@@ -19,7 +19,7 @@
       *ngIf="course.topRated"
       ></tui-svg>
     </div>
-    <div class="description">
+    <div class="description tui-text_body-m">
       <tui-line-clamp
         [content]="description"
         [lineHeight]="24"

@@ -9,22 +9,11 @@ import { courses } from './courses-mock';
 })
 export class CourseListComponent {
   public courses = courses.sort((a, b) => {
-    const dateA = this.parseDate(a.creationDate);
-    const dateB = this.parseDate(b.creationDate);
+    const dateA = new Date(a.creationDate);
+    const dateB = new Date(b.creationDate);
 
     return dateA.getTime() - dateB.getTime();
   });
-
-  // Для формата даты 'MM.DD.YYYY'
-  protected parseDate(dateString: string): Date {
-    const parts = dateString.split('.');
-
-    const day = parseInt(parts[1], 10);
-    const month = parseInt(parts[0], 10) - 1;
-    const year = parseInt(parts[2], 10);
-
-    return new Date(year, month, day);
-  }
 
   protected onCourseDeleted(courseId: string): void {
     // eslint-disable-next-line no-console
