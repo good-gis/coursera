@@ -1,0 +1,57 @@
+.course {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px;
+  margin-bottom: 20px;
+
+  border: 1px solid var(--tui-text-04);
+  box-shadow: 0 4px 24px var(--tui-secondary-hover);
+  border-radius: 8px;
+
+  .course-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .course-buttons {
+    display: flex;
+    flex-direction: column;
+    button {
+      width: 128px;
+    }
+    .edit {
+      margin-bottom: 20px;
+    }
+  }
+
+  .date {
+    margin-bottom: 4px;
+    color: var(--tui-text-03);
+  }
+
+  .title-duration-star {
+    display: flex;
+    margin-bottom: 12px;
+    align-items: center;
+
+    .title {
+      display: flex;
+
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .duration {
+      margin-right: 9px;
+    }
+
+    .star {
+      color: var(--tui-link-hover);
+    }
+  }
+
+  .description {
+    margin-right: 32px;
+  }
+}

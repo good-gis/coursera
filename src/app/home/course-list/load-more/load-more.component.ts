@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./load-more.component.less'],
 })
 export class LoadMoreComponent {
-  onClickLoadMore() {
+  onClickLoadMore(): void {
+    // eslint-disable-next-line no-console
     console.log('Load more button was pressed');
   }
 }

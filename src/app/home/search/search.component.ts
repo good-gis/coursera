@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class SearchComponent {
   searchValue = '';
 
-  onClickSearch(value: string) {
+  onClickSearch(value: string): void {
+    // eslint-disable-next-line no-console
     console.log(value);
   }
 }

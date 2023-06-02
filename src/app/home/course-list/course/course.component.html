@@ -1,1 +1,63 @@
-<p>course works!</p>
+<div class="course">
+  <div class="course-info">
+    <div class="date tui-text_body-s-2">{{ course.creationDate }}</div>
+    <div class="title-duration-star">
+        <tui-line-clamp
+          class="title tui-text_body-xl"
+          [content]="title"
+          [lineHeight]="28"
+          [linesLimit]="1"
+        ></tui-line-clamp>
+        <tui-badge
+          class="duration"
+          size="m"
+          value="{{ course.duration }}"
+        ></tui-badge>
+      <tui-svg
+      src="tuiIconStarLarge"
+      class="star"
+      *ngIf="course.topRated"
+      ></tui-svg>
+    </div>
+    <div class="description tui-text_body-m">
+      <tui-line-clamp
+        [content]="description"
+        [lineHeight]="24"
+        [linesLimit]="2"
+      ></tui-line-clamp>
+    </div>
+  </div>
+  <div class="course-buttons">
+    <button
+      tuiButton
+      class="edit"
+      icon="tuiIconEdit3Large"
+      size="m"
+      appearance="secondary"
+      >
+      Edit
+    </button>
+    <button
+      tuiButton
+      class="delete"
+      icon="tuiIconTrash2Large"
+      size="m"
+      appearance="secondary-destructive"
+      (click)="onDeleteClick()"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+
+<ng-template #description>
+  <div class="hint">
+    {{ course.description }}
+  </div>
+</ng-template>
+
+<ng-template #title>
+  <div class="hint">
+    {{ course.title }}
+  </div>
+</ng-template>
