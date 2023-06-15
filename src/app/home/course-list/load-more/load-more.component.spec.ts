@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {LoadMoreComponent} from "./load-more.component";
+
+import { LoadMoreComponent } from './load-more.component';
 
 describe('LoadMoreComponent', () => {
   let component: LoadMoreComponent;
@@ -7,9 +8,8 @@ describe('LoadMoreComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoadMoreComponent ]
-    })
-    .compileComponents();
+      declarations: [LoadMoreComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoadMoreComponent);
     component = fixture.componentInstance;

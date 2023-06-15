@@ -8,7 +8,7 @@ import { courses } from './courses-mock';
   styleUrls: ['./course-list.component.less'],
 })
 export class CourseListComponent {
-  public courses = courses.sort((a, b) => {
+  courses = courses.sort((a, b) => {
     const dateA = new Date(a.creationDate);
     const dateB = new Date(b.creationDate);
 
