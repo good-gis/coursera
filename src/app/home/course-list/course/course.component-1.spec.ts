@@ -4,7 +4,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { courses } from '../courses-mock';
 import { CourseComponent } from './course.component';
 
-// Test host component
 @Component({
   template: `
     <app-course
