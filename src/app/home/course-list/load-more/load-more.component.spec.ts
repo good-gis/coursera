@@ -19,4 +19,14 @@ describe('LoadMoreComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call the onClickLoadMore method once when the "Load more" button is clicked', () => {
+    jest.spyOn(component, 'onClickLoadMore');
+    const loadMoreButton =
+      fixture.nativeElement.querySelector('.load-more-btn');
+
+    loadMoreButton.click();
+
+    expect(component.onClickLoadMore).toHaveBeenCalledTimes(1);
+  });
 });

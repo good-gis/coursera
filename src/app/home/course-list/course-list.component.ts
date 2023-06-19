@@ -15,7 +15,7 @@ export class CourseListComponent {
     return dateA.getTime() - dateB.getTime();
   });
 
-  protected onCourseDeleted(courseId: string): void {
+  onCourseDeleted(courseId: string): void {
     // eslint-disable-next-line no-console
     console.log('Удален курс с id:', courseId);
   }
