@@ -8,8 +8,8 @@ describe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    void TestBed.configureTestingModule({
       declarations: [SearchComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

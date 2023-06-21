@@ -6,8 +6,8 @@ describe('LoadMoreComponent', () => {
   let component: LoadMoreComponent;
   let fixture: ComponentFixture<LoadMoreComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    void TestBed.configureTestingModule({
       declarations: [LoadMoreComponent],
     }).compileComponents();
 

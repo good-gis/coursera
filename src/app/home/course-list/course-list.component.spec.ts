@@ -11,8 +11,8 @@ describe('CourseListComponent', () => {
   let component: CourseListComponent;
   let fixture: ComponentFixture<CourseListComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    void TestBed.configureTestingModule({
       declarations: [CourseListComponent, LoadMoreComponent, CourseComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
