@@ -22,6 +22,7 @@ import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './home/course-list/course/course.component';
+import { CourseBorderDirective } from './home/course-list/course/course-border.directive';
 import { DurationPipe } from './home/course-list/course/duration.pipe';
 import { CourseListComponent } from './home/course-list/course-list.component';
 import { LoadMoreComponent } from './home/course-list/load-more/load-more.component';
@@ -43,6 +44,7 @@ import { SearchComponent } from './home/search/search.component';
     FooterComponent,
     DurationPipe,
     FilterPipe,
+    CourseBorderDirective,
   ],
   imports: [
     BrowserModule,
