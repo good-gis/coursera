@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { faker } from '@faker-js/faker';
 
+import { courses } from '../courses-mock';
 import { Course } from './course';
 import { CourseComponent } from './course.component';
 import { DurationPipe } from './duration.pipe';
@@ -10,14 +10,7 @@ import { DurationPipe } from './duration.pipe';
 describe('CourseComponent', () => {
   let component: CourseComponent;
   let fixture: ComponentFixture<CourseComponent>;
-  const course: Course = {
-    id: '1',
-    title: faker.internet.emoji(),
-    creationDate: faker.date.past(),
-    duration: faker.number.int({ min: 1, max: 1000 }),
-    description: faker.lorem.lines(8),
-    topRated: true,
-  };
+  const course: Course = courses[0];
 
   beforeEach(() => {
     void TestBed.configureTestingModule({
