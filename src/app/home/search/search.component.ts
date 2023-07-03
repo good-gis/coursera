@@ -14,4 +14,10 @@ export class SearchComponent {
   onClickSearch(): void {
     this.search.emit(this.searchText);
   }
+
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.search.emit(this.searchText);
+    }
+  }
 }

@@ -4,6 +4,7 @@
       [(ngModel)]="searchText"
       tuiTextfieldIconLeft="tuiIconSearch"
       class="search-input"
+      (keydown)="onKeydown($event)"
     >
       Name, fragment or date
       <input tuiTextfield />
