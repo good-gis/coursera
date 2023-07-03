@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+import { Course } from './course/course';
 import { courses } from './courses-mock';
 
 @Component({
@@ -8,12 +9,25 @@ import { courses } from './courses-mock';
   styleUrls: ['./course-list.component.less'],
 })
 export class CourseListComponent {
-  courses = courses.sort((a, b) => {
-    const dateA = new Date(a.creationDate);
-    const dateB = new Date(b.creationDate);
+  @Input()
+  searchText!: string;
 
-    return dateA.getTime() - dateB.getTime();
+  courses: Course[] = courses.sort((a, b) => {
+    const dateA = a.creationDate;
+    const dateB = b.creationDate;
+
+    return dateB.getTime() - dateA.getTime();
   });
+
+  get filteredCourses(): Course[] {
+    if (!this.searchText) {
+      return this.courses;
+    }
+
+    return this.courses.filter((course) =>
+      course.title.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
 
   onCourseDeleted(courseId: string): void {
     // eslint-disable-next-line no-console

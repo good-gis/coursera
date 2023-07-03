@@ -5,6 +5,7 @@ import { faker } from '@faker-js/faker';
 
 import { Course } from './course';
 import { CourseComponent } from './course.component';
+import { DurationPipe } from './duration.pipe';
 
 describe('CourseComponent', () => {
   let component: CourseComponent;
@@ -12,15 +13,15 @@ describe('CourseComponent', () => {
   const course: Course = {
     id: '1',
     title: faker.internet.emoji(),
-    creationDate: faker.date.past().toString(),
-    duration: '1 h 28 min',
+    creationDate: faker.date.past(),
+    duration: faker.number.int({ min: 1, max: 1000 }),
     description: faker.lorem.lines(8),
     topRated: true,
   };
 
   beforeEach(() => {
     void TestBed.configureTestingModule({
-      declarations: [CourseComponent],
+      declarations: [CourseComponent, DurationPipe],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 

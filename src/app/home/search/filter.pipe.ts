@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Course} from "../course-list/course/course";
+
+import { Course } from '../course-list/course/course';
 
 @Pipe({
   name: 'filter',
@@ -12,6 +13,8 @@ export class FilterPipe implements PipeTransform {
 
     searchText = searchText.toLowerCase();
 
-    return courses.filter(course => course.title.toLowerCase().includes(searchText));
+    return courses.filter((course) =>
+      course.title.toLowerCase().includes(searchText)
+    );
   }
 }

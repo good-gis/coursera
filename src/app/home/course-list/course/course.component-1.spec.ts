@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { courses } from '../courses-mock';
 import { CourseComponent } from './course.component';
+import { DurationPipe } from './duration.pipe';
 
 @Component({
   template: `
@@ -27,7 +28,7 @@ describe('CourseComponentWithTestHost', () => {
 
   beforeEach(() => {
     void TestBed.configureTestingModule({
-      declarations: [CourseComponent, TestHostComponent],
+      declarations: [CourseComponent, TestHostComponent, DurationPipe],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { CourseComponent } from './course/course.component';
+import { DurationPipe } from './course/duration.pipe';
 import { CourseListComponent } from './course-list.component';
 import { courses } from './courses-mock';
 import { LoadMoreComponent } from './load-more/load-more.component';
@@ -13,7 +14,12 @@ describe('CourseListComponent', () => {
 
   beforeEach(() => {
     void TestBed.configureTestingModule({
-      declarations: [CourseListComponent, LoadMoreComponent, CourseComponent],
+      declarations: [
+        CourseListComponent,
+        LoadMoreComponent,
+        CourseComponent,
+        DurationPipe,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

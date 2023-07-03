@@ -22,14 +22,14 @@ import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
 import { AppComponent } from './app.component';
 import { CourseComponent } from './home/course-list/course/course.component';
+import { DurationPipe } from './home/course-list/course/duration.pipe';
 import { CourseListComponent } from './home/course-list/course-list.component';
 import { LoadMoreComponent } from './home/course-list/load-more/load-more.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { HeaderComponent } from './home/header/header.component';
 import { HomeComponent } from './home/home.component';
+import { FilterPipe } from './home/search/filter.pipe';
 import { SearchComponent } from './home/search/search.component';
-import {DurationPipe} from "./home/course-list/course/duration.pipe";
-import {FilterPipe} from "./home/search/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import {FilterPipe} from "./home/search/filter.pipe";
     LoadMoreComponent,
     FooterComponent,
     DurationPipe,
-    FilterPipe
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
