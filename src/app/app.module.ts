@@ -28,6 +28,8 @@ import { FooterComponent } from './home/footer/footer.component';
 import { HeaderComponent } from './home/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './home/search/search.component';
+import {DurationPipe} from "./home/course-list/course/duration.pipe";
+import {FilterPipe} from "./home/search/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { SearchComponent } from './home/search/search.component';
     CourseComponent,
     LoadMoreComponent,
     FooterComponent,
+    DurationPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

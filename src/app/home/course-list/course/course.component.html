@@ -1,6 +1,6 @@
 <div class="course" *ngIf="course">
   <div class="course-info">
-    <div class="date tui-text_body-s-2">{{ course.creationDate }}</div>
+    <div class="date tui-text_body-s-2">{{ course.creationDate | date:'LL.dd.YYYY' }}</div>
     <div class="title-duration-star">
         <tui-line-clamp
           class="title tui-text_body-xl"
@@ -11,7 +11,7 @@
         <tui-badge
           class="duration"
           size="m"
-          value="{{ course.duration }}"
+          value="{{ course.duration | duration }}"
         ></tui-badge>
       <tui-svg
       src="tuiIconStarLarge"
@@ -58,6 +58,6 @@
 
 <ng-template #title>
   <div class="hint">
-    {{ course.title }}
+    {{ course.title | titlecase }}
   </div>
 </ng-template>
