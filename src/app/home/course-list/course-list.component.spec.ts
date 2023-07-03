@@ -38,12 +38,12 @@ describe('CourseListComponent', () => {
     expect(courseComponents.length).toBe(0);
   });
 
-  it('should display the "Load more" button even if courses array is empty', () => {
+  it('should not display the "Load more" button if courses array is empty', () => {
     component.courses = [];
     fixture.detectChanges();
     const loadMoreButton = fixture.nativeElement.querySelector('app-load-more');
 
-    expect(loadMoreButton).toBeTruthy();
+    expect(loadMoreButton).toBeFalsy();
   });
 
   it('should display at least one course component when courses array is not empty', () => {

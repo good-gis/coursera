@@ -17,6 +17,7 @@ import {
   TuiBadgeModule,
   TuiInputModule,
   TuiLineClampModule,
+  TuiMarkerIconModule,
 } from '@taiga-ui/kit';
 import { NgDompurifySanitizer } from '@tinkoff/ng-dompurify';
 
@@ -61,6 +62,7 @@ import { SearchComponent } from './home/search/search.component';
     TuiTextfieldControllerModule,
     TuiLineClampModule,
     TuiBadgeModule,
+    TuiMarkerIconModule,
   ],
   providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
   bootstrap: [AppComponent],
