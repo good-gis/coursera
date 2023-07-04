@@ -1,35 +1,35 @@
-import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from "@angular/core";
 
 @Directive({
-  selector: '[appCourseBorder]',
+    selector: "[appCourseBorder]",
 })
-export class CourseBorderDirective implements OnChanges {
-  @Input()
-  appCourseBorder!: Date;
+export class CourseBorderDirective implements OnInit {
+    @Input()
+    appCourseBorder!: Date;
 
-  creationDate!: Date;
+    creationDate!: Date;
 
-  constructor(private readonly elementRef: ElementRef) {}
+    constructor(private readonly elementRef: ElementRef) {}
 
-  ngOnChanges(): void {
-    this.creationDate = this.appCourseBorder;
-    const currentDate = new Date();
-    const twoWeeksAgo = new Date();
+    ngOnInit(): void {
+        this.creationDate = this.appCourseBorder;
+        const currentDate = new Date();
+        const twoWeeksAgo = new Date();
 
-    twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+        twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
-    if (this.creationDate < currentDate && this.creationDate >= twoWeeksAgo) {
-      this.setBorderColor('var(--tui-positive-hover)');
+        if (this.creationDate < currentDate && this.creationDate >= twoWeeksAgo) {
+            this.setBorderColor("var(--tui-positive-hover)");
 
-      return;
+            return;
+        }
+
+        if (this.creationDate > currentDate) {
+            this.setBorderColor("var(--tui-primary-hover)");
+        }
     }
 
-    if (this.creationDate > currentDate) {
-      this.setBorderColor('var(--tui-primary-hover)');
+    private setBorderColor(color: string): void {
+        this.elementRef.nativeElement.style.border = `1px solid ${color}`;
     }
-  }
-
-  private setBorderColor(color: string): void {
-    this.elementRef.nativeElement.style.border = `1px solid ${color}`;
-  }
 }
