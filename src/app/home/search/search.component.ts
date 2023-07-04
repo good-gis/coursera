@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.less'],
+    selector: "app-search",
+    templateUrl: "./search.component.html",
+    styleUrls: ["./search.component.less"],
 })
 export class SearchComponent {
-  searchValue = '';
+    @Output()
+    search: EventEmitter<string> = new EventEmitter<string>();
 
-  onClickSearch(value: string): void {
-    // eslint-disable-next-line no-console
-    console.log(value);
-  }
+    searchText = "";
+
+    onClickSearch(): void {
+        this.search.emit(this.searchText);
+    }
+
+    onKeydown(event: KeyboardEvent): void {
+        if (event.key === "Enter") {
+            this.search.emit(this.searchText);
+        }
+    }
 }

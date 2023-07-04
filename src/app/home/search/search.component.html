@@ -1,16 +1,17 @@
 <div class="search">
   <div class="search-bar">
     <tui-input
-      [(ngModel)]="searchValue"
+      [(ngModel)]="searchText"
       tuiTextfieldIconLeft="tuiIconSearch"
       class="search-input"
+      (keydown)="onKeydown($event)"
     >
       Name, fragment or date
       <input tuiTextfield />
     </tui-input>
 
     <button
-      (click)="onClickSearch(searchValue)"
+      (click)="onClickSearch()"
       appearance="secondary"
       class="search-button"
       size="l" tuiButton

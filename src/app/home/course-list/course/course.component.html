@@ -1,22 +1,22 @@
-<div class="course" *ngIf="course">
+<div class="course" *ngIf="course" [appCourseBorder]="course.creationDate" [ngClass]="backgroundColorClass">
   <div class="course-info">
-    <div class="date tui-text_body-s-2">{{ course.creationDate }}</div>
+    <div class="date tui-text_body-s-2">{{ course.creationDate | date:'LL.dd.YYYY' }}</div>
     <div class="title-duration-star">
-        <tui-line-clamp
-          class="title tui-text_body-xl"
-          [content]="title"
-          [lineHeight]="28"
-          [linesLimit]="1"
-        ></tui-line-clamp>
-        <tui-badge
-          class="duration"
-          size="m"
-          value="{{ course.duration }}"
-        ></tui-badge>
+      <tui-line-clamp
+        class="title tui-text_body-xl"
+        [content]="title"
+        [lineHeight]="28"
+        [linesLimit]="1"
+      ></tui-line-clamp>
+      <tui-badge
+        class="duration"
+        size="m"
+        value="{{ course.duration | duration }}"
+      ></tui-badge>
       <tui-svg
-      src="tuiIconStarLarge"
-      class="star"
-      *ngIf="course.topRated"
+        src="tuiIconStarLarge"
+        class="star"
+        *ngIf="course.topRated"
       ></tui-svg>
     </div>
     <div class="description tui-text_body-m">
@@ -34,7 +34,7 @@
       icon="tuiIconEdit3Large"
       size="m"
       appearance="secondary"
-      >
+    >
       Edit
     </button>
     <button
@@ -58,6 +58,6 @@
 
 <ng-template #title>
   <div class="hint">
-    {{ course.title }}
+    {{ course.title | titlecase }}
   </div>
 </ng-template>
