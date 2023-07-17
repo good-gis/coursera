@@ -27,6 +27,7 @@ import { LoadMoreComponent } from "./courses-page/course-list/load-more/load-mor
 import { CoursesPageComponent } from "./courses-page/courses-page.component";
 import { FilterPipe } from "./courses-page/search/filter.pipe";
 import { SearchComponent } from "./courses-page/search/search.component";
+import {CoursesService} from "../service/courses.service";
 
 @NgModule({
     declarations: [
@@ -59,7 +60,7 @@ import { SearchComponent } from "./courses-page/search/search.component";
         FooterModule,
         HeaderModule,
     ],
-    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, CoursesService],
     exports: [CoursesPageComponent],
 })
 export class CoursesPageModule {}

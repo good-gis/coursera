@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
+import {Component, Input} from "@angular/core";
 
-import { FilterPipe } from "../search/filter.pipe";
-import { Course } from "./course/course";
-import { courses } from "./courses-mock";
+import {FilterPipe} from "../search/filter.pipe";
+import {Course} from "./course/course";
+import {CoursesService} from "../../../service/courses.service";
 
 @Component({
     selector: "app-course-list",
@@ -13,22 +13,35 @@ import { courses } from "./courses-mock";
 export class CourseListComponent {
     @Input()
     searchText!: string;
+    courses: Course[] | undefined;
 
-    courses: Course[] = courses.sort((a, b) => {
-        const dateA = a.creationDate;
-        const dateB = b.creationDate;
+    constructor(private readonly filterPipe: FilterPipe, private coursesService: CoursesService) {
+    }
 
-        return dateB.getTime() - dateA.getTime();
-    });
+    get filteredCourses(): Course[] | void {
+        if (this.courses) {
+            return this.filterPipe.transform(this.courses, this.searchText);
+        }
+    }
 
-    constructor(private readonly filterPipe: FilterPipe) {}
-
-    get filteredCourses(): Course[] {
-        return this.filterPipe.transform(this.courses, this.searchText);
+    ngOnInit(): void {
+        this.courses = this.sortCoursesByDate(this.coursesService.getCourses());
     }
 
     onCourseDeleted(courseId: string): void {
-        // eslint-disable-next-line no-console
-        console.log("Удален курс с id:", courseId);
+        const confirmation = confirm('Do you really want to delete this course?');
+        if (confirmation && this.courses) {
+            this.coursesService.deleteCourse(courseId);
+            this.courses = this.courses.filter(course => course.id !== courseId);
+        }
+    }
+
+    private sortCoursesByDate(courses: Course[]): Course[] {
+        return courses.sort((a, b) => {
+            const dateA = a.creationDate;
+            const dateB = b.creationDate;
+
+            return dateB.getTime() - dateA.getTime();
+        });
     }
 }
