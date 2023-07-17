@@ -67,6 +67,6 @@ describe("CourseListComponent", () => {
         courseComponent.triggerEventHandler("courseDeleted", courseId);
 
         expect(deleteCourseSpy).toHaveBeenCalledTimes(1);
-        expect(deleteCourseSpy).toHaveBeenCalledWith(courseId);
+        expect(deleteCourseSpy).toHaveBeenCalledWith(courseId, expect.any(Object));
     });
 });

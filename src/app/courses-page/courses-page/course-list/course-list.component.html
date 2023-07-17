@@ -2,7 +2,7 @@
   <app-course
     *ngFor="let course of filteredCourses"
     [course]="course"
-    (courseDeleted)="onCourseDeleted($event)"
+    (courseDeleted)="onCourseDeleted($event, deleteDialog)"
   ></app-course>
   <app-load-more></app-load-more>
 </div>
@@ -19,4 +19,31 @@
   <p class="text tui-text_h1">No data</p>
   <p class="advice tui-text_body-s-2">Feel free to add new course</p>
 </div>
+</ng-template>
+
+
+<ng-template
+    #deleteDialog
+    let-observer
+>
+    <p>Do you really want to delete this course?</p>
+    <button
+        tuiButton
+        type="button"
+        size="m"
+        class="tui-space_right-3"
+        appearance="secondary-destructive"
+        (click)="deleteCourse(); observer.complete()"
+    >
+        Yes
+    </button>
+    <button
+        tuiButton
+        type="button"
+        size="m"
+        (click)="observer.complete()"
+        appearance="secondary"
+    >
+        Cancel
+    </button>
 </ng-template>
