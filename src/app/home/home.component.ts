@@ -5,10 +5,4 @@ import { Component } from "@angular/core";
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.less"],
 })
-export class HomeComponent {
-    searchText!: string;
-
-    onClickSearch(query: string): void {
-        this.searchText = query;
-    }
-}
+export class HomeComponent {}

@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -16,15 +17,28 @@ import {
 import { TuiBadgeModule, TuiInputModule, TuiLineClampModule, TuiMarkerIconModule } from "@taiga-ui/kit";
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
-import { AppComponent } from "./app.component";
-import { CoursesPageModule } from "./courses-page/courses-page.module";
-import { FooterComponent } from "./home/footer/footer.component";
-import { HeaderComponent } from "./home/header/header.component";
-import { HomeComponent } from "./home/home.component";
+import { CourseComponent } from "./course-list/course/course.component";
+import { CourseBorderDirective } from "./course-list/course/course-border.directive";
+import { DurationPipe } from "./course-list/course/duration.pipe";
+import { CourseListComponent } from "./course-list/course-list.component";
+import { LoadMoreComponent } from "./course-list/load-more/load-more.component";
+import { CoursesPageComponent } from "./courses-page/courses-page.component";
+import { FilterPipe } from "./search/filter.pipe";
+import { SearchComponent } from "./search/search.component";
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent],
+    declarations: [
+        SearchComponent,
+        CourseListComponent,
+        CourseComponent,
+        LoadMoreComponent,
+        DurationPipe,
+        FilterPipe,
+        CourseBorderDirective,
+        CoursesPageComponent,
+    ],
     imports: [
+        CommonModule,
         BrowserModule,
         FormsModule,
         BrowserAnimationsModule,
@@ -40,9 +54,8 @@ import { HomeComponent } from "./home/home.component";
         TuiLineClampModule,
         TuiBadgeModule,
         TuiMarkerIconModule,
-        CoursesPageModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
-    bootstrap: [AppComponent],
+    exports: [CoursesPageComponent],
 })
-export class AppModule {}
+export class CoursesPageModule {}
