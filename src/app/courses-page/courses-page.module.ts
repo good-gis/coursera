@@ -19,6 +19,7 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
+import { CoursesService } from "../service/courses.service";
 import { CourseComponent } from "./courses-page/course-list/course/course.component";
 import { CourseBorderDirective } from "./courses-page/course-list/course/course-border.directive";
 import { DurationPipe } from "./courses-page/course-list/course/duration.pipe";
@@ -27,7 +28,6 @@ import { LoadMoreComponent } from "./courses-page/course-list/load-more/load-mor
 import { CoursesPageComponent } from "./courses-page/courses-page.component";
 import { FilterPipe } from "./courses-page/search/filter.pipe";
 import { SearchComponent } from "./courses-page/search/search.component";
-import {CoursesService} from "../service/courses.service";
 
 @NgModule({
     declarations: [
