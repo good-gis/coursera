@@ -18,12 +18,9 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AppComponent } from "./app.component";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
-import { FooterComponent } from "./home/footer/footer.component";
-import { HeaderComponent } from "./home/header/header.component";
-import { HomeComponent } from "./home/home.component";
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
