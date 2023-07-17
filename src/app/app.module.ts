@@ -18,6 +18,8 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AppComponent } from "./app.component";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
+import { LoginPageModule } from "./login-page/login-page.module";
+import { AuthService } from "./service/auth.service";
 
 @NgModule({
     declarations: [AppComponent],
@@ -38,8 +40,9 @@ import { CoursesPageModule } from "./courses-page/courses-page.module";
         TuiBadgeModule,
         TuiMarkerIconModule,
         CoursesPageModule,
+        LoginPageModule,
     ],
-    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

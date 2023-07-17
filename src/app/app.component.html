@@ -1,3 +1,11 @@
 <tui-root>
-    <app-courses-page></app-courses-page>
+    <ng-container *ngIf="authService.isAuthorized(); else loginPage">
+        <app-courses-page></app-courses-page>
+    </ng-container>
+
+    <ng-template #loginPage>
+        <app-login-page></app-login-page>
+    </ng-template>
 </tui-root>
+
+

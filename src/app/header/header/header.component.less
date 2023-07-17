@@ -7,6 +7,7 @@ header {
   background-color: var(--tui-base-01);
   height: 64px;
   padding: 0 28px;
+  box-shadow: 0 4px 24px var(--tui-secondary-hover);
 
   .logo {
     display: flex;
@@ -30,18 +31,6 @@ header {
     }
   }
 }
-
-header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  box-shadow: 0 4px 24px var(--tui-secondary-hover);
-  z-index: 1;
-}
-
-
-
-
 
 
 
