@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef } from "@angular/core";
-import { TuiDialogContext, TuiDialogService } from "@taiga-ui/core";
-import { PolymorpheusContent } from "@tinkoff/ng-polymorpheus";
+import { TuiDialogService } from "@taiga-ui/core";
 
-import { CoursesService } from "../../../service/courses.service";
+import { CoursesService } from "../../service/courses.service";
 import { FilterPipe } from "../search/filter.pipe";
 import { Course } from "./course/course";
 
@@ -14,8 +13,6 @@ import { Course } from "./course/course";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements OnInit {
-    private courseId: string | undefined;
-
     @Input()
     searchText!: string;
 
@@ -27,10 +24,6 @@ export class CourseListComponent implements OnInit {
         @Inject(TuiDialogService) private readonly dialogs: TuiDialogService
     ) {}
 
-    ngOnInit(): void {
-        this.courses = this.sortCoursesByDate(this.coursesService.getCourses());
-    }
-
     get filteredCourses(): Course[] | [] {
         if (this.courses) {
             return this.filterPipe.transform(this.courses, this.searchText);
@@ -39,20 +32,17 @@ export class CourseListComponent implements OnInit {
         return [];
     }
 
+    ngOnInit(): void {
+        this.courses = this.sortCoursesByDate(this.coursesService.getCourses());
+    }
+
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {
-        this.courseId = courseId;
-        this.showDialogWithYesNoButtons(deleteDialog);
-    }
-
-    showDialogWithYesNoButtons(content: PolymorpheusContent<TuiDialogContext>): void {
-        this.dialogs.open(content, { label: "Be careful", size: "m" }).subscribe();
-    }
-
-    deleteCourse(): void {
-        if (this.courses && this.courseId) {
-            this.coursesService.deleteCourse(this.courseId);
-            this.courses = this.courses.filter((course) => course.id !== this.courseId);
-        }
+        this.dialogs.open(deleteDialog, { label: "Be careful", size: "m" }).subscribe((result: boolean | void) => {
+            if (result === true && this.courses) {
+                this.coursesService.deleteCourse(courseId);
+                this.courses = this.courses.filter((course) => course.id !== courseId);
+            }
+        });
     }
 
     private sortCoursesByDate(courses: Course[]): Course[] {

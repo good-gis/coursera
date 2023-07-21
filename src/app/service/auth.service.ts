@@ -7,9 +7,9 @@ export class AuthService {
     private readonly tokenKey = "token";
     private readonly usernameKey = "username";
 
-    login(username: string): void {
+    login(username: string, password: string): void {
         localStorage.setItem(this.usernameKey, username);
-        localStorage.setItem(this.tokenKey, "fake-token"); // Здесь можно использовать фейковый токен или токен, полученный от сервера
+        localStorage.setItem(this.tokenKey, btoa(password));
     }
 
     logout(): void {

@@ -33,7 +33,7 @@
         size="m"
         class="tui-space_right-3"
         appearance="secondary-destructive"
-        (click)="deleteCourse(); observer.complete()"
+        (click)="observer.next(true); observer.complete()"
     >
         Yes
     </button>
@@ -41,7 +41,7 @@
         tuiButton
         type="button"
         size="m"
-        (click)="observer.complete()"
+        (click)="observer.next(false); observer.complete()"
         appearance="secondary"
     >
         Cancel
