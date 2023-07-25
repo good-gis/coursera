@@ -17,31 +17,12 @@ import { TuiBadgeModule, TuiInputModule, TuiLineClampModule, TuiMarkerIconModule
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AppComponent } from "./app.component";
-import { CourseComponent } from "./home/course-list/course/course.component";
-import { CourseBorderDirective } from "./home/course-list/course/course-border.directive";
-import { DurationPipe } from "./home/course-list/course/duration.pipe";
-import { CourseListComponent } from "./home/course-list/course-list.component";
-import { LoadMoreComponent } from "./home/course-list/load-more/load-more.component";
-import { FooterComponent } from "./home/footer/footer.component";
-import { HeaderComponent } from "./home/header/header.component";
-import { HomeComponent } from "./home/home.component";
-import { FilterPipe } from "./home/search/filter.pipe";
-import { SearchComponent } from "./home/search/search.component";
+import { CoursesPageModule } from "./courses-page/courses-page.module";
+import { LoginPageModule } from "./login-page/login-page.module";
+import { AuthService } from "./service/auth.service";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        HeaderComponent,
-        SearchComponent,
-        CourseListComponent,
-        CourseComponent,
-        LoadMoreComponent,
-        FooterComponent,
-        DurationPipe,
-        FilterPipe,
-        CourseBorderDirective,
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -58,8 +39,10 @@ import { SearchComponent } from "./home/search/search.component";
         TuiLineClampModule,
         TuiBadgeModule,
         TuiMarkerIconModule,
+        CoursesPageModule,
+        LoginPageModule,
     ],
-    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

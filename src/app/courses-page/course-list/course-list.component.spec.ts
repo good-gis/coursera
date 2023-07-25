@@ -22,11 +22,11 @@ describe("CourseListComponent", () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CourseListComponent);
         component = fixture.componentInstance;
+        window.confirm = jest.fn().mockReturnValue(true);
     });
 
     it("should not display any course component if courses array is empty", () => {
         component.courses = [];
-        fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
         expect(courseComponents.length).toBe(0);
@@ -34,7 +34,6 @@ describe("CourseListComponent", () => {
 
     it('should not display the "Load more" button if courses array is empty', () => {
         component.courses = [];
-        fixture.detectChanges();
         const loadMoreButton = fixture.nativeElement.querySelector("app-load-more");
 
         expect(loadMoreButton).toBeFalsy();
@@ -68,6 +67,6 @@ describe("CourseListComponent", () => {
         courseComponent.triggerEventHandler("courseDeleted", courseId);
 
         expect(deleteCourseSpy).toHaveBeenCalledTimes(1);
-        expect(deleteCourseSpy).toHaveBeenCalledWith(courseId);
+        expect(deleteCourseSpy).toHaveBeenCalledWith(courseId, expect.any(Object));
     });
 });

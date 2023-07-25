@@ -1,0 +1,43 @@
+<div class="content">
+    <div class="auth-form">
+        <img alt="Логотип" class="logo" src="./assets/logo.svg">
+        <p class="text-tip tui-text_body-s-2">Please enter your login information below</p>
+
+        <form [formGroup]="authForm" class="form">
+            <tui-input
+                [tuiTextfieldCleaner]="true"
+                class="email form-item"
+                formControlName="email"
+            >
+                Email
+                <input
+                    placeholder="Email"
+                    tuiTextfield
+                    type="email"
+                />
+            </tui-input>
+            <tui-input-password
+                class="password form-item"
+                formControlName="password"
+            >
+                Password
+                <input
+                    placeholder="Password"
+                    tuiTextfield
+                />
+            </tui-input-password>
+
+            <button
+                (click)="login()"
+                appearance="primary"
+                class="login-btn form-item"
+                tuiButton
+                type="button"
+            >
+                Login
+            </button>
+
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>

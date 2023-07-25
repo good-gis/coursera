@@ -4,13 +4,13 @@
   </div>
 
   <div class="auth-group">
-    <div class="user-info">
+    <div class="user-info" *ngIf="username">
       <img class="username-icon" src="./assets/username-icon.svg" alt="">
       <span class="username">{{username}}</span>
     </div>
 
     <div class="log-out-btn">
-      <a tuiLink icon="tuiIconCheckCircle" iconAlign="left">Log out</a>
+      <a tuiLink icon="tuiIconCheckCircle" iconAlign="left" (click)="logout()">Log out</a>
     </div>
   </div>
 </header>
