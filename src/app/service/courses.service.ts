@@ -16,7 +16,6 @@ export class CoursesService {
             return EMPTY;
         }
 
-        console.log(filterString);
         const filteredCourses = this.filterPipe.transform(courses, filterString);
         this.coursesSubject.next(Object.values(filteredCourses));
 

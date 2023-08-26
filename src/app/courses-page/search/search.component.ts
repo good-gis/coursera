@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {CoursesService} from "../../service/courses.service";
 import {debounceTime, filter, fromEvent, switchMap, takeUntil} from "rxjs";
 import {TuiDestroyService} from "@taiga-ui/cdk";
@@ -8,7 +8,7 @@ import {TuiDestroyService} from "@taiga-ui/cdk";
     templateUrl: "./search.component.html",
     styleUrls: ["./search.component.less"],
 })
-export class SearchComponent implements AfterViewInit, OnDestroy {
+export class SearchComponent implements AfterViewInit {
 
     @ViewChild('searchInput')
     searchInput: any;
@@ -25,9 +25,5 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe();
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.unsubscribe();
     }
 }

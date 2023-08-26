@@ -20,6 +20,7 @@ import { AppComponent } from "./app.component";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
+import {LoadingOverlayModule} from "./loading-overlay/loading-overlay.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -41,6 +42,7 @@ import { AuthService } from "./service/auth.service";
         TuiMarkerIconModule,
         CoursesPageModule,
         LoginPageModule,
+        LoadingOverlayModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],
