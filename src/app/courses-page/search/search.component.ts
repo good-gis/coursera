@@ -1,23 +1,33 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import {AfterViewInit, Component, OnDestroy, ViewChild} from "@angular/core";
+import {CoursesService} from "../../service/courses.service";
+import {debounceTime, filter, fromEvent, switchMap, takeUntil} from "rxjs";
+import {TuiDestroyService} from "@taiga-ui/cdk";
 
 @Component({
     selector: "app-search",
     templateUrl: "./search.component.html",
     styleUrls: ["./search.component.less"],
 })
-export class SearchComponent {
-    @Output()
-    search: EventEmitter<string> = new EventEmitter<string>();
+export class SearchComponent implements AfterViewInit, OnDestroy {
 
-    searchText = "";
+    @ViewChild('searchInput')
+    searchInput: any;
 
-    onClickSearch(): void {
-        this.search.emit(this.searchText);
+    constructor(private coursesService: CoursesService, private destroy$: TuiDestroyService) {
     }
 
-    onKeydown(event: KeyboardEvent): void {
-        if (event.key === "Enter") {
-            this.search.emit(this.searchText);
-        }
+    ngAfterViewInit(): void {
+        fromEvent(this.searchInput.el.nativeElement, 'keyup')
+            .pipe(
+                debounceTime(300),
+                filter(() => this.searchInput.el.nativeElement.value.length >= 3),
+                switchMap(() => this.coursesService.loadCourses$(this.searchInput.el.nativeElement.value)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.unsubscribe();
     }
 }

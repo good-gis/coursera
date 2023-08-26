@@ -1,10 +1,10 @@
-<div class="course-list" *ngIf="filteredCourses.length > 0; else noDataBlock">
-  <app-course
-    *ngFor="let course of filteredCourses"
-    [course]="course"
-    (courseDeleted)="onCourseDeleted($event, deleteDialog)"
-  ></app-course>
-  <app-load-more></app-load-more>
+<div class="course-list" *ngIf="(courses$ | async)!.length > 0; else noDataBlock">
+    <app-course
+        *ngFor="let course of courses$ | async"
+        [course]="course"
+        (courseDeleted)="onCourseDeleted($event, deleteDialog)"
+    ></app-course>
+    <app-load-more></app-load-more>
 </div>
 
 <ng-template #noDataBlock>
@@ -16,8 +16,8 @@
     src="tuiIconAlertCircleLarge"
     class="icon"
   ></tui-marker-icon>
-  <p class="text tui-text_h1">No data</p>
-  <p class="advice tui-text_body-s-2">Feel free to add new course</p>
+  <p class="text tui-text_h1">Looking for a course?</p>
+  <p class="advice tui-text_body-s-2">Just type in the course name in the search bar above. Happy learning!</p>
 </div>
 </ng-template>
 

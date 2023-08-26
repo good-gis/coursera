@@ -18,6 +18,7 @@ import { LoadMoreComponent } from "./course-list/load-more/load-more.component";
 import { CoursesPageComponent } from "./courses-page.component";
 import { FilterPipe } from "./search/filter.pipe";
 import { SearchComponent } from "./search/search.component";
+import {TuiDestroyService} from "@taiga-ui/cdk";
 
 @NgModule({
     declarations: [
@@ -50,7 +51,7 @@ import { SearchComponent } from "./search/search.component";
         FooterModule,
         HeaderModule,
     ],
-    providers: [CoursesService],
+    providers: [CoursesService, TuiDestroyService],
     exports: [CoursesPageComponent],
 })
 export class CoursesPageModule {}

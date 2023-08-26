@@ -22,14 +22,4 @@ describe("SearchComponent", () => {
     it("should create", () => {
         expect(component).toBeTruthy();
     });
-
-    it("should call the search method once by click to the search btn", () => {
-        const onClickSearchSpy = jest.spyOn(component, "onClickSearch");
-
-        const searchButton: DebugElement = fixture.debugElement.query(By.css("[data-automation-id='search-button']"));
-
-        searchButton.triggerEventHandler("click");
-
-        expect(onClickSearchSpy).toHaveBeenCalledTimes(1);
-    });
 });
