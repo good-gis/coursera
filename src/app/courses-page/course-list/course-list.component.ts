@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef } from "@angular/core";
-import { TuiDialogService } from "@taiga-ui/core";
+import {ChangeDetectionStrategy, Component, Inject, Input, TemplateRef} from "@angular/core";
+import {TuiDialogService} from "@taiga-ui/core";
+import {takeUntil} from "rxjs";
 
-import { CoursesService } from "../../service/courses.service";
-import { FilterPipe } from "../search/filter.pipe";
-import { Course } from "./course/course";
+import {CoursesService} from "../../service/courses.service";
+import {FilterPipe} from "../search/filter.pipe";
+import {Course} from "./course/course";
 
 @Component({
     selector: "app-course-list",
@@ -12,7 +13,7 @@ import { Course } from "./course/course";
     providers: [FilterPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent {
     @Input()
     searchText!: string;
 
@@ -22,7 +23,8 @@ export class CourseListComponent implements OnInit {
         private readonly filterPipe: FilterPipe,
         private readonly coursesService: CoursesService,
         @Inject(TuiDialogService) private readonly dialogs: TuiDialogService
-    ) {}
+    ) {
+    }
 
     get filteredCourses(): Course[] | [] {
         if (this.courses) {
@@ -33,11 +35,15 @@ export class CourseListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courses = this.sortCoursesByDate(this.coursesService.getCourses());
+        this.coursesService.getCourses$().pipe(
+            takeUntil(this.coursesService.loadCourses$()),
+        ).subscribe(coursesArray => {
+            this.courses = this.sortCoursesByDate(coursesArray);
+        });
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {
-        this.dialogs.open(deleteDialog, { label: "Be careful", size: "m" }).subscribe((result: boolean | void) => {
+        this.dialogs.open(deleteDialog, {label: "Be careful", size: "m"}).subscribe((result: boolean | void) => {
             if (result === true && this.courses) {
                 this.coursesService.deleteCourse(courseId);
                 this.courses = this.courses.filter((course) => course.id !== courseId);

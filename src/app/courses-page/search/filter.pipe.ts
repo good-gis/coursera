@@ -6,7 +6,7 @@ import { Course } from "../course-list/course/course";
     name: "filter",
 })
 export class FilterPipe implements PipeTransform {
-    transform(courses: Course[], searchText: string): any[] {
+    transform(courses: Course[], searchText: string): Course[] {
         if (!courses || !searchText) {
             return courses;
         }
