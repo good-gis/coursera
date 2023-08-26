@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import {Component} from "@angular/core";
 
-import { AuthService } from "../service/auth.service";
+import {AuthService} from "../service/auth.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: "app-header",
@@ -8,15 +9,13 @@ import { AuthService } from "../service/auth.service";
     styleUrls: ["./header.component.less"],
 })
 export class HeaderComponent {
-    username: string | null;
+    username$: Observable<string | null>;
 
     constructor(private readonly authService: AuthService) {
-        this.username = this.authService.getUserInfo();
+        this.username$ = this.authService.getUserInfo$();
     }
 
     logout(): void {
         this.authService.logout();
-        // eslint-disable-next-line no-console
-        console.log("Logged out successfully");
     }
 }

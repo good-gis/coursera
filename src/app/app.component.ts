@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import {Component} from "@angular/core";
 
-import { AuthService } from "./service/auth.service";
+import {AuthService} from "./service/auth.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: "app-root",
@@ -9,9 +10,9 @@ import { AuthService } from "./service/auth.service";
 })
 export class AppComponent {
     title = "angular-course";
-    constructor(private readonly _authService: AuthService) {}
+    isAuthorized$: Observable<boolean>;
 
-    get isAuthorized(): boolean {
-        return this._authService.isAuthorized();
+    constructor(private readonly authService: AuthService) {
+        this.isAuthorized$ = this.authService.isAuthorized$();
     }
 }
