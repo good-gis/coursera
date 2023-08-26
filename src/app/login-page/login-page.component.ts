@@ -23,8 +23,6 @@ export class LoginPageComponent {
 
             if (email && password) {
                 this.authService.login(email, password);
-                // eslint-disable-next-line no-console
-                console.log("Logged in successfully");
             }
         }
     }
