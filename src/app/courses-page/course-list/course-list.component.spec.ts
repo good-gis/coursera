@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
+import { of } from "rxjs";
 
 import { CourseComponent } from "./course/course.component";
 import { DurationPipe } from "./course/duration.pipe";
@@ -26,21 +27,19 @@ describe("CourseListComponent", () => {
     });
 
     it("should not display any course component if courses array is empty", () => {
-        component.courses = [];
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
         expect(courseComponents.length).toBe(0);
     });
 
     it('should not display the "Load more" button if courses array is empty', () => {
-        component.courses = [];
         const loadMoreButton = fixture.nativeElement.querySelector("app-load-more");
 
         expect(loadMoreButton).toBeFalsy();
     });
 
     it("should display at least one course component when courses array is not empty", () => {
-        component.courses = [courses[0]]; // Assuming the first course from the mock data
+        component.courses$ = of([courses[0]]);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
@@ -48,15 +47,15 @@ describe("CourseListComponent", () => {
     });
 
     it("should display the same number of course components as the length of courses array", () => {
-        component.courses = courses;
+        component.courses$ = of([courses[0], courses[1]]);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
-        expect(courseComponents.length).toBe(component.courses.length);
+        expect(courseComponents.length).toBe(2);
     });
 
     it("should call the deleteCourse method once with the course ID as the argument when a course component emits the courseDeleted event", () => {
-        component.courses = [courses[0]];
+        component.courses$ = of([courses[0]]);
         const courseId = courses[0].id;
 
         fixture.detectChanges();
