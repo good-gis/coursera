@@ -1,11 +1,12 @@
 <div class="search">
     <div class="search-bar">
         <tui-input
+            [(ngModel)]="uselessValue"
             class="search-input"
             tuiTextfieldIconLeft="tuiIconSearch"
         >
             Name, fragment or date
-            <input #searchInput tuiTextfield type="text"/>
+            <input #searchInput tuiTextfield/>
         </tui-input>
     </div>
 

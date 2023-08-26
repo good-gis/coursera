@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
+import { LoadingService } from "../loading-overlay/loading.service";
 import { AuthService } from "../service/auth.service";
-import {LoadingService} from "../loading-overlay/loading.service";
 
 @Component({
     selector: "app-login-page",
@@ -15,7 +15,7 @@ export class LoginPageComponent {
         password: new FormControl("", [Validators.required]),
     });
 
-    constructor(private readonly authService: AuthService, private loadingService: LoadingService) {}
+    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService) {}
 
     login(): void {
         if (this.authForm.valid) {

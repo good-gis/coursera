@@ -18,9 +18,9 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AppComponent } from "./app.component";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
+import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
-import {LoadingOverlayModule} from "./loading-overlay/loading-overlay.module";
 
 @NgModule({
     declarations: [AppComponent],

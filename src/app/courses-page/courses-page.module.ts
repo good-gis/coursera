@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterLink } from "@angular/router";
+import { TuiDestroyService } from "@taiga-ui/cdk";
 import { TuiAlertModule, TuiButtonModule, TuiDialogModule, TuiLinkModule, TuiRootModule, TuiSvgModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
 import { TuiBadgeModule, TuiInputModule, TuiLineClampModule, TuiMarkerIconModule } from "@taiga-ui/kit";
 
@@ -18,7 +19,6 @@ import { LoadMoreComponent } from "./course-list/load-more/load-more.component";
 import { CoursesPageComponent } from "./courses-page.component";
 import { FilterPipe } from "./search/filter.pipe";
 import { SearchComponent } from "./search/search.component";
-import {TuiDestroyService} from "@taiga-ui/cdk";
 
 @NgModule({
     declarations: [

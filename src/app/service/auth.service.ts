@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, map, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -8,7 +8,7 @@ export class AuthService {
     private readonly tokenKey = "token";
     private readonly usernameKey = "username";
 
-    private authorizedSubject = new BehaviorSubject<boolean>(this.isAuthorized());
+    private readonly authorizedSubject = new BehaviorSubject<boolean>(this.isAuthorized());
 
     isAuthorized$(): Observable<boolean> {
         return this.authorizedSubject.asObservable();
@@ -27,9 +27,7 @@ export class AuthService {
     }
 
     getUserInfo$(): Observable<string | null> {
-        return this.authorizedSubject.asObservable().pipe(
-            map(authorized => authorized ? localStorage.getItem(this.usernameKey) : null)
-        );
+        return this.authorizedSubject.asObservable().pipe(map((authorized) => (authorized ? localStorage.getItem(this.usernameKey) : null)));
     }
 
     private isAuthorized(): boolean {

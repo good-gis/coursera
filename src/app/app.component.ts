@@ -1,7 +1,7 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
+import { Observable } from "rxjs";
 
-import {AuthService} from "./service/auth.service";
-import {Observable} from "rxjs";
+import { AuthService } from "./service/auth.service";
 
 @Component({
     selector: "app-root",

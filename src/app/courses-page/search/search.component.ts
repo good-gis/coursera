@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {CoursesService} from "../../service/courses.service";
-import {debounceTime, filter, fromEvent, switchMap, takeUntil} from "rxjs";
-import {TuiDestroyService} from "@taiga-ui/cdk";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { TuiDestroyService } from "@taiga-ui/cdk";
+import { debounceTime, filter, fromEvent, switchMap, takeUntil } from "rxjs";
+
+import { CoursesService } from "../../service/courses.service";
 
 @Component({
     selector: "app-search",
@@ -9,15 +10,15 @@ import {TuiDestroyService} from "@taiga-ui/cdk";
     styleUrls: ["./search.component.less"],
 })
 export class SearchComponent implements AfterViewInit {
-
-    @ViewChild('searchInput')
+    @ViewChild("searchInput")
     searchInput: any;
 
-    constructor(private coursesService: CoursesService, private destroy$: TuiDestroyService) {
-    }
+    uselessValue = "";
+
+    constructor(private readonly coursesService: CoursesService, private readonly destroy$: TuiDestroyService) {}
 
     ngAfterViewInit(): void {
-        fromEvent(this.searchInput.el.nativeElement, 'keyup')
+        fromEvent(this.searchInput.el.nativeElement, "keyup")
             .pipe(
                 debounceTime(300),
                 filter(() => this.searchInput.el.nativeElement.value.length >= 3),

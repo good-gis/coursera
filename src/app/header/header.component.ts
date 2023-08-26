@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
+import { Observable } from "rxjs";
 
-import {AuthService} from "../service/auth.service";
-import {Observable} from "rxjs";
-import {LoadingService} from "../loading-overlay/loading.service";
+import { LoadingService } from "../loading-overlay/loading.service";
+import { AuthService } from "../service/auth.service";
 
 @Component({
     selector: "app-header",
@@ -12,7 +12,7 @@ import {LoadingService} from "../loading-overlay/loading.service";
 export class HeaderComponent {
     username$: Observable<string | null>;
 
-    constructor(private readonly authService: AuthService, private loadingService: LoadingService) {
+    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService) {
         this.username$ = this.authService.getUserInfo$();
     }
 
