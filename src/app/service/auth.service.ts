@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import {BehaviorSubject, delay, finalize, map, Observable, of, tap} from "rxjs";
-import {courses} from "../courses-page/course-list/courses-mock";
+import { BehaviorSubject, delay, map, Observable, of } from "rxjs";
 
 @Injectable({
     providedIn: "root",

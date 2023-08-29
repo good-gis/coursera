@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import {map, Observable} from "rxjs";
+import { map, Observable } from "rxjs";
 
 import { CoursesService } from "../../service/courses.service";
 import { Course } from "./course/course";
@@ -15,15 +15,12 @@ export class CourseListComponent {
     courses$: Observable<Course[]>;
     hasCourses$: Observable<boolean>;
 
-    constructor(
-        private readonly coursesService: CoursesService,
-        @Inject(TuiDialogService) private readonly dialogs: TuiDialogService
-    ) {
+    constructor(private readonly coursesService: CoursesService, @Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {
         this.courses$ = this.coursesService
             .getCourses$()
             .pipe(map((courses) => courses.slice().sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime())));
 
-        this.hasCourses$ = this.courses$.pipe(map(courses => courses?.length > 0 ?? false));
+        this.hasCourses$ = this.courses$.pipe(map((courses) => courses?.length > 0 ?? false));
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {

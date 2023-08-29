@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {TuiDestroyService} from "@taiga-ui/cdk";
-import {debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { TuiDestroyService } from "@taiga-ui/cdk";
+import { debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap } from "rxjs";
 
-import {CoursesService} from "../../service/courses.service";
-import {LoadingService} from "../../loading-overlay/loading.service";
+import { LoadingService } from "../../loading-overlay/loading.service";
+import { CoursesService } from "../../service/courses.service";
 
 @Component({
     selector: "app-search",
@@ -17,8 +17,11 @@ export class SearchComponent implements AfterViewInit {
 
     uselessValue = "";
 
-    constructor(private readonly coursesService: CoursesService, private readonly destroy$: TuiDestroyService, private readonly loadingService: LoadingService) {
-    }
+    constructor(
+        private readonly coursesService: CoursesService,
+        private readonly destroy$: TuiDestroyService,
+        private readonly loadingService: LoadingService
+    ) {}
 
     ngAfterViewInit(): void {
         fromEvent(this.searchInput.el.nativeElement, "keyup")
@@ -35,21 +38,19 @@ export class SearchComponent implements AfterViewInit {
                         this.coursesService.clearCourses();
                         this.searchInput.el.nativeElement.disabled = false;
                         this.loadingService.hide();
+
                         return EMPTY;
                     }
 
-                    return this.coursesService.loadCourses$(searchString)
-                        .pipe(
-                            finalize(() => {
-                                this.loadingService.hide();
-                                this.searchInput.el.nativeElement.disabled = false;
-                            }),
-                        );
+                    return this.coursesService.loadCourses$(searchString).pipe(
+                        finalize(() => {
+                            this.loadingService.hide();
+                            this.searchInput.el.nativeElement.disabled = false;
+                        })
+                    );
                 }),
                 takeUntil(this.destroy$)
             )
             .subscribe();
     }
-
 }
-

@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { finalize } from "rxjs";
 
+import { LoadingService } from "../loading-overlay/loading.service";
 import { AuthService } from "../service/auth.service";
-import {finalize} from "rxjs";
-import {LoadingService} from "../loading-overlay/loading.service";
 
 @Component({
     selector: "app-login-page",
@@ -25,9 +25,12 @@ export class LoginPageComponent {
 
             if (email && password) {
                 this.loadingService.show();
-                this.authService.login$(email, password)
+                this.authService
+                    .login$(email, password)
                     .pipe(
-                        finalize(() => {this.loadingService.hide()}),
+                        finalize(() => {
+                            this.loadingService.hide();
+                        })
                     )
                     .subscribe();
             }
