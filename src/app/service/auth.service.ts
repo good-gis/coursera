@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable } from "rxjs";
+import {BehaviorSubject, delay, finalize, map, Observable, of, tap} from "rxjs";
+import {courses} from "../courses-page/course-list/courses-mock";
 
 @Injectable({
     providedIn: "root",
@@ -14,10 +15,15 @@ export class AuthService {
         return this.authorized$.asObservable();
     }
 
-    login(username: string, password: string): void {
-        localStorage.setItem(this.usernameKey, username);
-        localStorage.setItem(this.tokenKey, btoa(password));
-        this.authorized$.next(true);
+    login$(username: string, password: string): Observable<void> {
+        return of(null).pipe(
+            delay(1000),
+            map(() => {
+                localStorage.setItem(this.usernameKey, username);
+                localStorage.setItem(this.tokenKey, btoa(password));
+                this.authorized$.next(true);
+            })
+        );
     }
 
     logout(): void {
