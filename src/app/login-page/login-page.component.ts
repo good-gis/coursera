@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { LoadingService } from "../loading-overlay/loading.service";
 import { AuthService } from "../service/auth.service";
 
 @Component({
@@ -15,7 +14,7 @@ export class LoginPageComponent {
         password: new FormControl("", [Validators.required]),
     });
 
-    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService) {}
+    constructor(private readonly authService: AuthService) {}
 
     login(): void {
         if (this.authForm.valid) {
@@ -23,11 +22,7 @@ export class LoginPageComponent {
             const password = this.authForm.get("password")?.value;
 
             if (email && password) {
-                this.loadingService.show();
                 this.authService.login(email, password);
-                setInterval(() => {
-                    this.loadingService.hide();
-                }, 1000);
             }
         }
     }

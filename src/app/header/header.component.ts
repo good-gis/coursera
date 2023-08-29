@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs";
 
-import { LoadingService } from "../loading-overlay/loading.service";
 import { AuthService } from "../service/auth.service";
 
 @Component({
@@ -10,17 +8,11 @@ import { AuthService } from "../service/auth.service";
     styleUrls: ["./header.component.less"],
 })
 export class HeaderComponent {
-    username$: Observable<string | null>;
+    username$ = this.authService.getUserInfo$();
 
-    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService) {
-        this.username$ = this.authService.getUserInfo$();
-    }
+    constructor(private readonly authService: AuthService) {}
 
     logout(): void {
-        this.loadingService.show();
         this.authService.logout();
-        setInterval(() => {
-            this.loadingService.hide();
-        }, 1000);
     }
 }

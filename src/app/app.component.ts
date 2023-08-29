@@ -9,8 +9,7 @@ import { AuthService } from "./service/auth.service";
     styleUrls: ["./app.component.less"],
 })
 export class AppComponent {
-    title = "angular-course";
-    isAuthorized$: Observable<boolean>;
+    readonly isAuthorized$: Observable<boolean>;
 
     constructor(private readonly authService: AuthService) {
         this.isAuthorized$ = this.authService.isAuthorized$();

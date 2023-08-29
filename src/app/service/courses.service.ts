@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, EMPTY, Observable } from "rxjs";
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, delay, EMPTY, map, Observable, of} from "rxjs";
 
-import { Course } from "../courses-page/course-list/course/course";
-import { courses } from "../courses-page/course-list/courses-mock";
-import { FilterPipe } from "../courses-page/search/filter.pipe";
+import {Course} from "../courses-page/course-list/course/course";
+import {courses} from "../courses-page/course-list/courses-mock";
+import {FilterPipe} from "../courses-page/search/filter.pipe";
 
 @Injectable({
     providedIn: "root",
 })
 export class CoursesService {
-    private readonly coursesSubject: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
+    private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
     private readonly filterPipe = new FilterPipe();
 
     loadCourses$(filterString?: string): Observable<void> {
@@ -17,21 +17,24 @@ export class CoursesService {
             return EMPTY;
         }
 
-        const filteredCourses = this.filterPipe.transform(courses, filterString);
-
-        this.coursesSubject.next(Object.values(filteredCourses));
-
-        return EMPTY;
+        return of(null).pipe(
+            map(() => {this.courses$.next([]);}),
+            delay(1000),
+            map(() => {
+                const filteredCourses = this.filterPipe.transform(courses, filterString);
+                this.courses$.next(filteredCourses);
+            })
+        );
     }
 
     getCourses$(): Observable<Course[]> {
-        return this.coursesSubject.asObservable();
+        return this.courses$.asObservable();
     }
 
     deleteCourse(id: string): void {
-        const coursesArray = this.coursesSubject.getValue();
+        const coursesArray = this.courses$.getValue();
         const updatedCourses = coursesArray.filter((course) => course.id !== id);
 
-        this.coursesSubject.next(updatedCourses);
+        this.courses$.next(updatedCourses);
     }
 }

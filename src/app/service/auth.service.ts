@@ -8,26 +8,25 @@ export class AuthService {
     private readonly tokenKey = "token";
     private readonly usernameKey = "username";
 
-    private readonly authorizedSubject = new BehaviorSubject<boolean>(this.isAuthorized());
+    private readonly authorized$ = new BehaviorSubject<boolean>(this.isAuthorized());
 
     isAuthorized$(): Observable<boolean> {
-        return this.authorizedSubject.asObservable();
+        return this.authorized$.asObservable();
     }
 
     login(username: string, password: string): void {
         localStorage.setItem(this.usernameKey, username);
         localStorage.setItem(this.tokenKey, btoa(password));
-        this.authorizedSubject.next(true);
+        this.authorized$.next(true);
     }
 
     logout(): void {
-        localStorage.removeItem(this.usernameKey);
-        localStorage.removeItem(this.tokenKey);
-        this.authorizedSubject.next(false);
+        localStorage.clear();
+        this.authorized$.next(false);
     }
 
     getUserInfo$(): Observable<string | null> {
-        return this.authorizedSubject.asObservable().pipe(map((authorized) => (authorized ? localStorage.getItem(this.usernameKey) : null)));
+        return this.authorized$.pipe(map((authorized) => (authorized ? localStorage.getItem(this.usernameKey) : null)));
     }
 
     private isAuthorized(): boolean {
