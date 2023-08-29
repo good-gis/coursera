@@ -40,6 +40,7 @@ describe("CourseListComponent", () => {
 
     it("should display at least one course component when courses array is not empty", () => {
         component.courses$ = of([courses[0]]);
+        component.hasCourses$ = of(true);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
@@ -48,6 +49,7 @@ describe("CourseListComponent", () => {
 
     it("should display the same number of course components as the length of courses array", () => {
         component.courses$ = of([courses[0], courses[1]]);
+        component.hasCourses$ = of(true);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
@@ -56,6 +58,7 @@ describe("CourseListComponent", () => {
 
     it("should call the deleteCourse method once with the course ID as the argument when a course component emits the courseDeleted event", () => {
         component.courses$ = of([courses[0]]);
+        component.hasCourses$ = of(true);
         const courseId = courses[0].id;
 
         fixture.detectChanges();
