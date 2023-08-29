@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {TuiDestroyService} from "@taiga-ui/cdk";
-import {debounceTime, filter, finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
+import {debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap} from "rxjs";
 
 import {CoursesService} from "../../service/courses.service";
 import {LoadingService} from "../../loading-overlay/loading.service";
@@ -23,23 +23,33 @@ export class SearchComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         fromEvent(this.searchInput.el.nativeElement, "keyup")
             .pipe(
-                debounceTime(300),
-                filter(() => this.searchInput.el.nativeElement.value.length >= 3),
+                debounceTime(500),
                 tap(() => {
                     this.searchInput.el.nativeElement.disabled = true;
                     this.loadingService.show();
                 }),
-                switchMap(() => this.coursesService.loadCourses$(this.searchInput.el.nativeElement.value)
-                    .pipe(
-                        finalize(() => {
-                            this.loadingService.hide();
-                            this.searchInput.el.nativeElement.disabled = false;
-                        }),
-                    )
-                ),
+                switchMap(() => {
+                    const searchString = this.searchInput.el.nativeElement.value;
+
+                    if (searchString.length < 3) {
+                        this.coursesService.clearCourses();
+                        this.searchInput.el.nativeElement.disabled = false;
+                        this.loadingService.hide();
+                        return EMPTY;
+                    }
+
+                    return this.coursesService.loadCourses$(searchString)
+                        .pipe(
+                            finalize(() => {
+                                this.loadingService.hide();
+                                this.searchInput.el.nativeElement.disabled = false;
+                            }),
+                        );
+                }),
                 takeUntil(this.destroy$)
             )
             .subscribe();
     }
+
 }
 

@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { AuthService } from "../service/auth.service";
-import {finalize, tap} from "rxjs";
+import {finalize} from "rxjs";
 import {LoadingService} from "../loading-overlay/loading.service";
 
 @Component({

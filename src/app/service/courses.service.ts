@@ -31,6 +31,10 @@ export class CoursesService {
         return this.courses$.asObservable();
     }
 
+    clearCourses(): void {
+        this.courses$.next([]);
+    }
+
     deleteCourse(id: string): void {
         const coursesArray = this.courses$.getValue();
         const updatedCourses = coursesArray.filter((course) => course.id !== id);
