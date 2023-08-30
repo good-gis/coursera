@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, map, Observable, of } from "rxjs";
+import { BehaviorSubject, delay, map, Observable, of, tap } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -14,10 +14,11 @@ export class AuthService {
         return this.authorized$.asObservable();
     }
 
-    login$(username: string, password: string): Observable<void> {
+    login$(username: string, password: string): Observable<null> {
         return of(null).pipe(
             delay(1000),
-            map(() => {
+            // Оператор map используется, чтобы преобразовать значения в потоке, тут надо юзать tap (сайд действия)
+            tap(() => {
                 localStorage.setItem(this.usernameKey, username);
                 localStorage.setItem(this.tokenKey, btoa(password));
                 this.authorized$.next(true);

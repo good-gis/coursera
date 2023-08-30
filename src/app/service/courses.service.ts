@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, EMPTY, map, Observable, of } from "rxjs";
+import { BehaviorSubject, delay, EMPTY, Observable, of, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { courses } from "../courses-page/course-list/courses-mock";
@@ -12,17 +12,17 @@ export class CoursesService {
     private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
     private readonly filterPipe = new FilterPipe();
 
-    loadCourses$(filterString?: string): Observable<void> {
+    loadCourses$(filterString?: string): Observable<null> {
         if (!filterString) {
             return EMPTY;
         }
 
         return of(null).pipe(
-            map(() => {
+            tap(() => {
                 this.courses$.next([]);
             }),
             delay(1000),
-            map(() => {
+            tap(() => {
                 const filteredCourses = this.filterPipe.transform(courses, filterString);
 
                 this.courses$.next(filteredCourses);

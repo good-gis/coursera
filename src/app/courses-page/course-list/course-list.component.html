@@ -1,11 +1,14 @@
-<div class="course-list" *ngIf="hasCourses$ | async; else noDataBlock">
-    <app-course
-        *ngFor="let course of courses$ | async; trackBy: trackByCourseId"
-        [course]="course"
-        (courseDeleted)="onCourseDeleted($event, deleteDialog)"
-    ></app-course>
-    <app-load-more></app-load-more>
-</div>
+<ng-container *tuiLet="courses$ | async as courses">
+    <div class="course-list" *ngIf="courses?.length; else noDataBlock">
+        <app-course
+            *ngFor="let course of courses; trackBy: trackByCourseId"
+            [course]="course"
+            (courseDeleted)="onCourseDeleted($event, deleteDialog)"
+        ></app-course>
+        <app-load-more></app-load-more>
+    </div>
+</ng-container>
+
 
 <ng-template #noDataBlock>
 <div class="no-data">

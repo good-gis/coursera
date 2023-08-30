@@ -1,6 +1,7 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
+import { TuiLetModule } from "@taiga-ui/cdk";
 import { of } from "rxjs";
 
 import { CourseComponent } from "./course/course.component";
@@ -16,6 +17,7 @@ describe("CourseListComponent", () => {
     beforeEach(() => {
         void TestBed.configureTestingModule({
             declarations: [CourseListComponent, LoadMoreComponent, CourseComponent, DurationPipe],
+            imports: [TuiLetModule],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
     });
@@ -40,7 +42,6 @@ describe("CourseListComponent", () => {
 
     it("should display at least one course component when courses array is not empty", () => {
         component.courses$ = of([courses[0]]);
-        component.hasCourses$ = of(true);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
@@ -49,7 +50,6 @@ describe("CourseListComponent", () => {
 
     it("should display the same number of course components as the length of courses array", () => {
         component.courses$ = of([courses[0], courses[1]]);
-        component.hasCourses$ = of(true);
         fixture.detectChanges();
         const courseComponents = fixture.nativeElement.querySelectorAll("app-course");
 
@@ -58,7 +58,6 @@ describe("CourseListComponent", () => {
 
     it("should call the deleteCourse method once with the course ID as the argument when a course component emits the courseDeleted event", () => {
         component.courses$ = of([courses[0]]);
-        component.hasCourses$ = of(true);
         const courseId = courses[0].id;
 
         fixture.detectChanges();

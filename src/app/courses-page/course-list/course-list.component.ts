@@ -13,14 +13,11 @@ import { Course } from "./course/course";
 })
 export class CourseListComponent {
     courses$: Observable<Course[]>;
-    hasCourses$: Observable<boolean>;
 
     constructor(private readonly coursesService: CoursesService, @Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {
         this.courses$ = this.coursesService
             .getCourses$()
             .pipe(map((courses) => courses.slice().sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime())));
-
-        this.hasCourses$ = this.courses$.pipe(map((courses) => courses?.length > 0 ?? false));
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {
@@ -31,7 +28,7 @@ export class CourseListComponent {
         });
     }
 
-    protected trackByCourseId(index: number, course: Course): string {
+    protected trackByCourseId(_: number, course: Course): string {
         return course.id;
     }
 }
