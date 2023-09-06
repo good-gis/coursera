@@ -1,33 +1,22 @@
 <div class="search">
-  <div class="search-bar">
-    <tui-input
-      [(ngModel)]="searchText"
-      tuiTextfieldIconLeft="tuiIconSearch"
-      class="search-input"
-      (keydown)="onKeydown($event)"
-    >
-      Name, fragment or date
-      <input tuiTextfield />
-    </tui-input>
+    <div class="search-bar">
+        <tui-input
+            [(ngModel)]="uselessValue"
+            class="search-input"
+            tuiTextfieldIconLeft="tuiIconSearch"
+        >
+            Name, fragment or date
+            <input #searchInput tuiTextfield/>
+        </tui-input>
+    </div>
 
     <button
-      (click)="onClickSearch()"
-      appearance="secondary"
-      class="search-button"
-      size="l" tuiButton
-      data-automation-id="search-button"
+        class="add-course-button"
+        icon="tuiIconPlus"
+        size="l"
+        tuiButton
     >
-      Search
+        Add course
     </button>
-  </div>
-
-  <button
-    class="add-course-button"
-    icon="tuiIconPlus"
-    size="l"
-    tuiButton
-  >
-    Add course
-  </button>
 </div>
 <hr class="divide-line">

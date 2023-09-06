@@ -1,45 +1,47 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, delay, EMPTY, Observable, of, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { courses } from "../courses-page/course-list/courses-mock";
+import { FilterPipe } from "../courses-page/search/filter.pipe";
 
 @Injectable({
     providedIn: "root",
 })
 export class CoursesService {
-    private courses: Record<string, Course> = {};
+    private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
+    private readonly filterPipe = new FilterPipe();
 
-    constructor() {
-        this.initializeCourses();
-    }
-
-    getCourses(): Course[] {
-        return Object.values(this.courses);
-    }
-
-    getCourseById(id: string): Course | undefined {
-        return this.courses[id];
-    }
-
-    addCourse(course: Course): void {
-        this.courses[course.id] = course;
-    }
-
-    updateCourse(id: string, data: Course): void {
-        if (!this.courses[id]) {
-            throw new Error(`Course with ID ${id} not found.`);
+    loadCourses$(filterString?: string): Observable<null> {
+        if (!filterString) {
+            return EMPTY;
         }
 
-        this.courses[id] = { ...this.courses[id], ...data };
+        return of(null).pipe(
+            tap(() => {
+                this.courses$.next([]);
+            }),
+            delay(1000),
+            tap(() => {
+                const filteredCourses = this.filterPipe.transform(courses, filterString);
+
+                this.courses$.next(filteredCourses);
+            })
+        );
+    }
+
+    getCourses$(): Observable<Course[]> {
+        return this.courses$.asObservable();
+    }
+
+    clearCourses(): void {
+        this.courses$.next([]);
     }
 
     deleteCourse(id: string): void {
-        delete this.courses[id];
-    }
+        const coursesArray = this.courses$.getValue();
+        const updatedCourses = coursesArray.filter((course) => course.id !== id);
 
-    private initializeCourses(): void {
-        courses.forEach((course) => {
-            this.courses[course.id] = course;
-        });
+        this.courses$.next(updatedCourses);
     }
 }

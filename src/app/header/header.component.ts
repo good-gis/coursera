@@ -8,15 +8,11 @@ import { AuthService } from "../service/auth.service";
     styleUrls: ["./header.component.less"],
 })
 export class HeaderComponent {
-    username: string | null;
+    username$ = this.authService.getUserInfo$();
 
-    constructor(private readonly authService: AuthService) {
-        this.username = this.authService.getUserInfo();
-    }
+    constructor(private readonly authService: AuthService) {}
 
     logout(): void {
         this.authService.logout();
-        // eslint-disable-next-line no-console
-        console.log("Logged out successfully");
     }
 }
