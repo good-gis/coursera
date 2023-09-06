@@ -13,7 +13,15 @@ import {
     TuiSvgModule,
     TuiTextfieldControllerModule,
 } from "@taiga-ui/core";
-import { TuiBadgeModule, TuiInputModule, TuiLineClampModule, TuiMarkerIconModule } from "@taiga-ui/kit";
+import {
+    TuiBadgeModule,
+    TuiInputDateModule,
+    TuiInputModule,
+    TuiInputNumberModule,
+    TuiLineClampModule,
+    TuiMarkerIconModule,
+    TuiTextAreaModule
+} from "@taiga-ui/kit";
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AppComponent } from "./app.component";
@@ -21,9 +29,12 @@ import { CoursesPageModule } from "./courses-page/courses-page.module";
 import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
+import { AddCoursePageComponent } from './add-course-page/add-course-page.component';
+import {HeaderModule} from "./header/header.module";
+import {FooterModule} from "./footer/footer.module";
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, AddCoursePageComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -43,6 +54,11 @@ import { AuthService } from "./service/auth.service";
         CoursesPageModule,
         LoginPageModule,
         LoadingOverlayModule,
+        HeaderModule,
+        FooterModule,
+        TuiTextAreaModule,
+        TuiInputDateModule,
+        TuiInputNumberModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],

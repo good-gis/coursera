@@ -1,0 +1,59 @@
+<div class="root">
+    <app-header></app-header>
+    <div class="content">
+        <div class="add-course">
+            <h1>New course</h1>
+            <div class="title">
+                <label tuiLabel="title-label">Title</label>
+                <tui-input class="title-input" [tuiTextfieldCleaner]="true"></tui-input>
+            </div>
+
+            <div class="description">
+                <label tuiLabel="description-label">Description</label>
+                <tui-text-area class="description-textarea" [tuiTextfieldCleaner]="true"></tui-text-area>
+            </div>
+
+            <div class="date-and-duration">
+                <label tuiLabel="date-label">Date</label>
+                <tui-input-date class="date-input"></tui-input-date>
+                <label tuiLabel="duration-label">Duration</label>
+                <tui-input-number class="duration-input" [tuiTextfieldCleaner]="true"></tui-input-number>
+                <tui-badge
+                    class="duration-badge"
+                    size="m"
+                >1 h 58 min
+                </tui-badge>
+            </div>
+
+
+            <div class="authors">
+                <label tuiLabel="authors-label">Authors</label>
+                <tui-input class="authors-input"></tui-input>
+            </div>
+
+            <div class="buttons">
+                <button
+                    appearance="primary"
+                    class="save-btn"
+                    size="l"
+                    tuiButton
+                >
+                    Save
+                </button>
+                <button
+                    appearance="secondary"
+                    class="cancel-btn"
+                    size="l"
+                    tuiButton
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="footer">
+        <app-footer></app-footer>
+    </div>
+</div>

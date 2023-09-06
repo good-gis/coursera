@@ -43,7 +43,7 @@
       icon="tuiIconTrash2Large"
       size="m"
       appearance="secondary-destructive"
-      (click)="onDeleteClick()"
+      (click)="courseDeleted.emit(course.id)"
     >
       Delete
     </button>
