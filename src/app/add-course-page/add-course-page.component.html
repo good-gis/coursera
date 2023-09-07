@@ -4,35 +4,86 @@
         <div class="add-course">
             <h1>New course</h1>
             <div class="title">
-                <label tuiLabel="title-label">Title</label>
-                <tui-input class="title-input" [tuiTextfieldCleaner]="true"></tui-input>
+                <label tuiLabel="Title">
+                    <tui-input
+                        [(ngModel)]="course.title"
+                        [tuiTextfieldCleaner]="true"
+                        [tuiTextfieldLabelOutside]="true"
+                        class="title-input"
+                        required
+                    >
+                        <input tuiTextfield/>
+                    </tui-input>
+                </label>
             </div>
-
             <div class="description">
-                <label tuiLabel="description-label">Description</label>
-                <tui-text-area class="description-textarea" [tuiTextfieldCleaner]="true"></tui-text-area>
+                <label tuiLabel="Description">
+                    <tui-text-area
+                        [(ngModel)]="course.description"
+                        [tuiTextfieldCleaner]="true"
+                        [tuiTextfieldLabelOutside]="true"
+                        class="description-textarea"
+                        required
+                    >
+                    </tui-text-area>
+                </label>
             </div>
-
             <div class="date-and-duration">
-                <label tuiLabel="date-label">Date</label>
-                <tui-input-date class="date-input"></tui-input-date>
-                <label tuiLabel="duration-label">Duration</label>
-                <tui-input-number class="duration-input" [tuiTextfieldCleaner]="true"></tui-input-number>
-                <tui-badge
-                    class="duration-badge"
-                    size="m"
-                >1 h 58 min
-                </tui-badge>
+                <div class="date">
+                    <label tuiLabel="Date">
+                        <tui-input-date
+                            [(ngModel)]="course.publicationDate"
+                            [tuiTextfieldLabelOutside]="true"
+                            class="date-input"
+                            required
+                        >
+                            dd.mm.yyyy
+                        </tui-input-date>
+                    </label>
+                </div>
+
+                <div class="duration">
+                    <div class="duration-input-badge">
+                        <label tuiLabel="Duration">
+                            <tui-input-number
+                                [(ngModel)]="course.duration"
+                                [tuiTextfieldCleaner]="true"
+                                [tuiTextfieldLabelOutside]="true"
+                                class="duration-input"
+                                required
+                            >
+                                In minutes
+                            </tui-input-number>
+                        </label>
+
+                        <div class="duration-badge">
+                            <label
+                                class="badge tui-text_body-m-2"
+                            >{{ course.duration | duration }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
             <div class="authors">
-                <label tuiLabel="authors-label">Authors</label>
-                <tui-input class="authors-input"></tui-input>
+                <label tuiLabel="Authors">
+                    <tui-multi-select
+                        [(ngModel)]="course.authors"
+                        [(search)]="search"
+                        [tuiTextfieldLabelOutside]="true"
+                        class="authors-input"
+                    >
+                        <tui-data-list-wrapper
+                            *tuiDataList
+                            [items]="filter(search)"
+                            tuiMultiSelectGroup
+                        ></tui-data-list-wrapper>
+                    </tui-multi-select>
+                </label>
             </div>
-
             <div class="buttons">
                 <button
+                    (click)="onSubmitClicked()"
                     appearance="primary"
                     class="save-btn"
                     size="l"
@@ -41,6 +92,7 @@
                     Save
                 </button>
                 <button
+                    (click)="onCancelClicked()"
                     appearance="secondary"
                     class="cancel-btn"
                     size="l"
@@ -50,8 +102,6 @@
                 </button>
             </div>
         </div>
-
-
     </div>
     <div class="footer">
         <app-footer></app-footer>

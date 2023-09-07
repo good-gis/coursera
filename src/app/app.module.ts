@@ -20,21 +20,21 @@ import {
     TuiInputNumberModule,
     TuiLineClampModule,
     TuiMarkerIconModule,
-    TuiTextAreaModule
+    TuiTextAreaModule,
 } from "@taiga-ui/kit";
 import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
+import { AddCoursePageModule } from "./add-course-page/add-course-page.module";
 import { AppComponent } from "./app.component";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
+import { FooterModule } from "./footer/footer.module";
+import { HeaderModule } from "./header/header.module";
 import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
-import { AddCoursePageComponent } from './add-course-page/add-course-page.component';
-import {HeaderModule} from "./header/header.module";
-import {FooterModule} from "./footer/footer.module";
 
 @NgModule({
-    declarations: [AppComponent, AddCoursePageComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -59,6 +59,7 @@ import {FooterModule} from "./footer/footer.module";
         TuiTextAreaModule,
         TuiInputDateModule,
         TuiInputNumberModule,
+        AddCoursePageModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],

@@ -1,19 +1,41 @@
 .add-course {
-    width: 524px;
-    h1 {
-        margin-bottom: 24px;
-    }
+    width: 532px;
 
-    .title {
-        margin-bottom: 20px;
-    }
-
-    .description {
+    h1, .title, .description {
         margin-bottom: 20px;
     }
 
     .date-and-duration {
+        display: flex;
         margin-bottom: 20px;
+
+        .date {
+            width: 192px;
+            margin-right: 20px;
+        }
+
+        .duration {
+            display: flex;
+            flex-direction: column;
+
+            .duration-input-badge {
+                display: flex;
+
+                .duration-input {
+                    width: 192px;
+                    margin-right: 20px;
+                }
+
+                .duration-badge {
+                    display: flex;
+                    justify-content: center;
+
+                    .badge {
+                        margin-top: 40px;
+                    }
+                }
+            }
+        }
     }
 
     .authors {
@@ -25,5 +47,4 @@
             margin-right: 20px;
         }
     }
-
 }
