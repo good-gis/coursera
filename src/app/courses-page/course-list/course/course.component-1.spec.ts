@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { courses } from "../courses-mock";
 import { CourseComponent } from "./course.component";
-import { DurationPipe } from "./duration.pipe";
+import {SharedPipesModule} from "../../../shared-pipes/shared-pipes.module";
 
 @Component({
     template: ` <app-course [course]="course" (courseDeleted)="onCourseDeleted($event)"></app-course> `,
@@ -23,7 +23,8 @@ describe("CourseComponentWithTestHost", () => {
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            declarations: [CourseComponent, TestHostComponent, DurationPipe],
+            declarations: [CourseComponent, TestHostComponent],
+            imports: [SharedPipesModule],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
     });

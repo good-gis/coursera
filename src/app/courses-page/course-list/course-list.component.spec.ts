@@ -5,10 +5,10 @@ import { TuiLetModule } from "@taiga-ui/cdk";
 import { of } from "rxjs";
 
 import { CourseComponent } from "./course/course.component";
-import { DurationPipe } from "./course/duration.pipe";
 import { CourseListComponent } from "./course-list.component";
 import { courses } from "./courses-mock";
 import { LoadMoreComponent } from "./load-more/load-more.component";
+import {SharedPipesModule} from "../../shared-pipes/shared-pipes.module";
 
 describe("CourseListComponent", () => {
     let component: CourseListComponent;
@@ -16,8 +16,8 @@ describe("CourseListComponent", () => {
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            declarations: [CourseListComponent, LoadMoreComponent, CourseComponent, DurationPipe],
-            imports: [TuiLetModule],
+            declarations: [CourseListComponent, LoadMoreComponent, CourseComponent],
+            imports: [TuiLetModule, SharedPipesModule],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
     });
