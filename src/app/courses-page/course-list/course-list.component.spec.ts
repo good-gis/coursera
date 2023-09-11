@@ -4,11 +4,11 @@ import { By } from "@angular/platform-browser";
 import { TuiLetModule } from "@taiga-ui/cdk";
 import { of } from "rxjs";
 
+import { SharedPipesModule } from "../../shared-pipes/shared-pipes.module";
 import { CourseComponent } from "./course/course.component";
 import { CourseListComponent } from "./course-list.component";
 import { courses } from "./courses-mock";
 import { LoadMoreComponent } from "./load-more/load-more.component";
-import {SharedPipesModule} from "../../shared-pipes/shared-pipes.module";
 
 describe("CourseListComponent", () => {
     let component: CourseListComponent;
