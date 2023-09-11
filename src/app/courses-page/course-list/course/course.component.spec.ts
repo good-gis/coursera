@@ -2,10 +2,10 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 
+import { SharedPipesModule } from "../../../shared-pipes/shared-pipes.module";
 import { courses } from "../courses-mock";
 import { Course } from "./course";
 import { CourseComponent } from "./course.component";
-import { DurationPipe } from "./duration.pipe";
 
 describe("CourseComponent", () => {
     let component: CourseComponent;
@@ -14,7 +14,8 @@ describe("CourseComponent", () => {
 
     beforeEach(() => {
         void TestBed.configureTestingModule({
-            declarations: [CourseComponent, DurationPipe],
+            imports: [SharedPipesModule],
+            declarations: [CourseComponent],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
 
