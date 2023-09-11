@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { TuiDestroyService } from "@taiga-ui/cdk";
 import { debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap } from "rxjs";
 
@@ -14,9 +14,6 @@ import { CoursesService } from "../../service/courses.service";
 export class SearchComponent implements AfterViewInit {
     @ViewChild("searchInput")
     searchInput: any;
-
-    @Output()
-    addCourseClicked: EventEmitter<void> = new EventEmitter<void>();
 
     uselessValue = "";
 
@@ -55,9 +52,5 @@ export class SearchComponent implements AfterViewInit {
                 takeUntil(this.destroy$)
             )
             .subscribe();
-    }
-
-    onAddCourseClick(): void {
-        this.addCourseClicked.emit();
     }
 }

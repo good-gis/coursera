@@ -32,6 +32,7 @@ import { HeaderModule } from "./header/header.module";
 import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
+import {AppRoutingModule} from "./app-routing/app-routing.module";
 
 @NgModule({
     declarations: [AppComponent],
@@ -60,6 +61,7 @@ import { AuthService } from "./service/auth.service";
         TuiInputDateModule,
         TuiInputNumberModule,
         AddCoursePageModule,
+        AppRoutingModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],

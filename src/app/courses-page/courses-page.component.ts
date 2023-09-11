@@ -6,8 +6,4 @@ import { Component } from "@angular/core";
     styleUrls: ["../app.component.less"],
 })
 export class CoursesPageComponent {
-    showAddCoursePage = false;
-    onAddCourseClicked(): void {
-        this.showAddCoursePage = true;
-    }
 }

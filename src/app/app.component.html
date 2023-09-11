@@ -1,7 +1,3 @@
 <tui-root>
-    <app-courses-page *ngIf="(isAuthorized$ | async); else loginPage"></app-courses-page>
-    <ng-template #loginPage>
-        <app-login-page></app-login-page>
-    </ng-template>
     <app-loading-overlay></app-loading-overlay>
 </tui-root>
