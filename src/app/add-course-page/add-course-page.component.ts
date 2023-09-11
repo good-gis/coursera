@@ -20,7 +20,7 @@ export class AddCoursePageComponent {
         publicationDate: new TuiDay(2022, 8, 20),
     };
 
-    authors: string[] = ["Luke Skywalker", "Leia Organa Solo", "Darth Vader", "Han Solo", "Obi-Wan Kenobi", "Yoda"];
+    readonly authors: string[] = ["Luke Skywalker", "Leia Organa Solo", "Darth Vader", "Han Solo", "Obi-Wan Kenobi", "Yoda"];
 
     search: string | null = "";
 

@@ -1,9 +1,9 @@
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
+import { SharedPipesModule } from "../../../shared-pipes/shared-pipes.module";
 import { courses } from "../courses-mock";
 import { CourseComponent } from "./course.component";
-import {SharedPipesModule} from "../../../shared-pipes/shared-pipes.module";
 
 @Component({
     template: ` <app-course [course]="course" (courseDeleted)="onCourseDeleted($event)"></app-course> `,
