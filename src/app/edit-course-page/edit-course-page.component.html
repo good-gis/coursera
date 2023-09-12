@@ -8,15 +8,15 @@
                 <tbody>
                 <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
                     <td class="tui-table__td left-column">Title</td>
-                    <td class="tui-table__td">Video Course 1</td>
+                    <td class="tui-table__td">{{course.title | titlecase}}</td>
                 </tr>
                 <tr class="tui-table__tr tui-table__tr_border_top tui-table__tr_hover_disabled">
                     <td class="tui-table__td left-column">Date</td>
-                    <td class="tui-table__td">12.03.2021</td>
+                    <td class="tui-table__td">{{course.publicationDate}}</td>
                 </tr>
                 <tr class="tui-table__tr tui-table__tr_border_top tui-table__tr_hover_disabled">
                     <td class="tui-table__td left-column">Duration</td>
-                    <td class="tui-table__td">1h 58 min</td>
+                    <td class="tui-table__td">{{course.duration | duration}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -36,35 +36,37 @@
             <div class="authors">
                 <label tuiLabel="Authors">
                     <tui-multi-select
-                        [(ngModel)]="course.authors"
-                        [(search)]="search"
+                        (searchChange)="onSearchChange($event)"
+                        *tuiLet="items$ | async as items"
+                        [formControl]="authorsValue"
+                        [expandable]="true"
                         [tuiTextfieldLabelOutside]="true"
-                        class="authors-input"
+                        (keydown.enter)="onEnterCreateAuthor($event);"
+                        class="b-form authors-input"
                     >
                         <tui-data-list-wrapper
                             *tuiDataList
-                            [items]="filter(search)"
-                            tuiMultiSelectGroup
+                            [items]="items"
                         ></tui-data-list-wrapper>
                     </tui-multi-select>
                 </label>
             </div>
             <div class="buttons">
                 <button
+                    (click)="onClickSave(course)"
                     appearance="primary"
                     class="save-btn"
                     size="l"
                     tuiButton
-                    (click)="onClickSave()"
                 >
                     Save
                 </button>
                 <button
+                    (click)="onClickCancel()"
                     appearance="secondary"
                     class="cancel-btn"
                     size="l"
                     tuiButton
-                    (click)="onClickCancel()"
                 >
                     Cancel
                 </button>

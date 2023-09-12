@@ -5,7 +5,9 @@ import {TuiDataListWrapperModule, TuiInputDateModule, TuiInputModule, TuiInputNu
 import {HeaderModule} from "../header/header.module";
 import {FooterModule} from "../footer/footer.module";
 import {TuiButtonModule, TuiLabelModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SharedPipesModule} from "../shared-pipes/shared-pipes.module";
+import {TuiLetModule} from "@taiga-ui/cdk";
 
 
 @NgModule({
@@ -26,6 +28,9 @@ import {FormsModule} from "@angular/forms";
         FormsModule,
         TuiButtonModule,
         TuiLabelModule,
+        SharedPipesModule,
+        TuiLetModule,
+        ReactiveFormsModule,
     ],
     exports: [EditCoursePageComponent],
 })

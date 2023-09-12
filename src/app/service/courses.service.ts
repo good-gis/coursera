@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, EMPTY, Observable, of, tap } from "rxjs";
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, delay, EMPTY, Observable, of, tap} from "rxjs";
 
-import { Course } from "../courses-page/course-list/course/course";
-import { courses } from "../courses-page/course-list/courses-mock";
-import { FilterPipe } from "../courses-page/search/filter.pipe";
+import {Course} from "../courses-page/course-list/course/course";
+import {courses} from "../courses-page/course-list/courses-mock";
+import {FilterPipe} from "../courses-page/search/filter.pipe";
 
 @Injectable({
     providedIn: "root",
@@ -36,6 +36,20 @@ export class CoursesService {
 
     clearCourses(): void {
         this.courses$.next([]);
+    }
+
+    getCourse(id: string): Course[] {
+        const coursesArray = this.courses$.getValue();
+        return coursesArray.filter((course) => course.id == id);
+    }
+
+    updateCourse(updatedCourse: Course): void {
+        const coursesArray = this.courses$.getValue();
+        let course = coursesArray.find(obj => obj.id === updatedCourse.id);
+        if (course) {
+            course = updatedCourse;
+            this.courses$.next(coursesArray)
+        }
     }
 
     deleteCourse(id: string): void {
