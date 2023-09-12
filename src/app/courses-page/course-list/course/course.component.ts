@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 import { Course } from "./course";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "app-course",
@@ -17,6 +18,9 @@ export class CourseComponent implements OnInit {
 
     backgroundColorClass!: string;
 
+    constructor(private readonly router: Router) {
+    }
+
     ngOnInit(): void {
         this.setBackgroundColor();
     }
@@ -25,5 +29,9 @@ export class CourseComponent implements OnInit {
         if (this.course.topRated) {
             this.backgroundColorClass = "background-rated";
         }
+    }
+
+    onEditCourse(id: string) {
+        this.router.navigate(['/courses', id]);
     }
 }

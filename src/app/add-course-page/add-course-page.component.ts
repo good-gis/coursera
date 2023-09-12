@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { TUI_DEFAULT_MATCHER, TuiDay, tuiPure } from "@taiga-ui/cdk";
 
 import { Course } from "../courses-page/course-list/course/course";
+import {Location} from "@angular/common";
 
 @Component({
     selector: "app-add-course-page",
@@ -24,6 +25,9 @@ export class AddCoursePageComponent {
 
     search: string | null = "";
 
+    constructor(private readonly location: Location) {
+    }
+
     @tuiPure
     filter(search: string | null): readonly string[] {
         return this.authors.filter((item) => TUI_DEFAULT_MATCHER(item, search ?? ""));
@@ -35,7 +39,6 @@ export class AddCoursePageComponent {
     }
 
     onCancelClicked(): void {
-        // eslint-disable-next-line no-console
-        console.log("Cancel");
+       this.location.back();
     }
 }

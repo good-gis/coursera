@@ -33,9 +33,11 @@ import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { AuthService } from "./service/auth.service";
 import {AppRoutingModule} from "./app-routing/app-routing.module";
+import { NotFoundComponent } from './not-found/not-found.component';
+import {EditCoursePageModule} from "./edit-course-page/edit-course-page.module";
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, NotFoundComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -61,6 +63,7 @@ import {AppRoutingModule} from "./app-routing/app-routing.module";
         TuiInputDateModule,
         TuiInputNumberModule,
         AddCoursePageModule,
+        EditCoursePageModule,
         AppRoutingModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
