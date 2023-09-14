@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, EMPTY, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, delay, EMPTY, Observable, of, take, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { courses } from "../courses-page/course-list/courses-mock";
@@ -45,13 +45,17 @@ export class CoursesService {
     }
 
     updateCourse(updatedCourse: Course): void {
-        const coursesArray = this.courses$.getValue();
-        let course = coursesArray.find((obj) => obj.id === updatedCourse.id);
+        this.courses$.pipe(take(1)).subscribe((coursesArray) => {
+            const updatedCourses = coursesArray.map((course) => {
+                if (course.id === updatedCourse.id) {
+                    return updatedCourse;
+                }
 
-        if (course) {
-            course = updatedCourse;
-            this.courses$.next(coursesArray);
-        }
+                return course;
+            });
+
+            this.courses$.next(updatedCourses);
+        });
     }
 
     deleteCourse(id: string): void {
