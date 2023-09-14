@@ -26,7 +26,7 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AddCoursePageModule } from "./add-course-page/add-course-page.module";
 import { AppComponent } from "./app.component";
-import { AppRoutingModule } from "./app-routing/app-routing.module";
+import { AppRoutingModule } from "./app-routing.module";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
 import { EditCoursePageModule } from "./edit-course-page/edit-course-page.module";
 import { FooterModule } from "./footer/footer.module";
