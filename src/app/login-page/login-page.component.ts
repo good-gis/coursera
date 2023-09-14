@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { finalize } from "rxjs";
 
 import { LoadingService } from "../loading-overlay/loading.service";
 import { AuthService } from "../service/auth.service";
-import {Router} from "@angular/router";
 
 @Component({
     selector: "app-login-page",
@@ -31,7 +31,7 @@ export class LoginPageComponent {
                     .pipe(
                         finalize(() => {
                             this.loadingService.hide();
-                            this.router.navigate(['/courses']);
+                            void this.router.navigate(["/courses"]);
                         })
                     )
                     .subscribe();

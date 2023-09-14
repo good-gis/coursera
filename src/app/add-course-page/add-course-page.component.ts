@@ -1,9 +1,10 @@
+import { Location } from "@angular/common";
 import { Component } from "@angular/core";
-import { TUI_DEFAULT_MATCHER, TuiDay, tuiPure } from "@taiga-ui/cdk";
+import { TUI_DEFAULT_MATCHER, tuiPure } from "@taiga-ui/cdk";
 
+import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
-import {Location} from "@angular/common";
-import {authors} from "../courses-page/course-list/authors-mock";
+import { emptyCourse } from "../courses-page/course-list/courses-mock";
 
 @Component({
     selector: "app-add-course-page",
@@ -11,21 +12,11 @@ import {authors} from "../courses-page/course-list/authors-mock";
     styleUrls: ["./add-course-page.component.less", "../app.component.less"],
 })
 export class AddCoursePageComponent {
-    course: Course = {
-        id: "",
-        title: "",
-        creationDate: new Date(),
-        duration: 0,
-        description: "",
-        topRated: false,
-        authors: ["Luke Skywalker"],
-        publicationDate: new TuiDay(2022, 8, 20),
-    };
+    course: Course = emptyCourse;
 
     search: string | null = "";
 
-    constructor(private readonly location: Location) {
-    }
+    constructor(private readonly location: Location) {}
 
     @tuiPure
     filter(search: string | null): readonly string[] {
@@ -38,6 +29,6 @@ export class AddCoursePageComponent {
     }
 
     onCancelClicked(): void {
-       this.location.back();
+        this.location.back();
     }
 }

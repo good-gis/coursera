@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { TuiDestroyService } from "@taiga-ui/cdk";
 import { debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
-import {Router} from "@angular/router";
 
 @Component({
     selector: "app-search",
@@ -22,7 +22,7 @@ export class SearchComponent implements AfterViewInit {
         private readonly coursesService: CoursesService,
         private readonly destroy$: TuiDestroyService,
         private readonly loadingService: LoadingService,
-        private readonly router: Router,
+        private readonly router: Router
     ) {}
 
     ngAfterViewInit(): void {
@@ -56,7 +56,7 @@ export class SearchComponent implements AfterViewInit {
             .subscribe();
     }
 
-    onAddCourseClick() {
-        this.router.navigate(['/courses/new']);
+    onAddCourseClick(): void {
+        void this.router.navigate(["/courses/new"]);
     }
 }
