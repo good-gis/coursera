@@ -7,8 +7,11 @@ import { BehaviorSubject, delay, map, Observable, of, tap } from "rxjs";
 export class AuthService {
     private readonly tokenKey = "token";
     private readonly usernameKey = "username";
-
     private readonly authorized$ = new BehaviorSubject<boolean>(this.isAuthorized());
+
+    refreshAuthorizationState(): void {
+        this.authorized$.next(this.isAuthorized());
+    }
 
     isAuthorized$(): Observable<boolean> {
         return this.authorized$.asObservable();
