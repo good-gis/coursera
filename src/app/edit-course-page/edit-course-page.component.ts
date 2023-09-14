@@ -1,7 +1,7 @@
-import {AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Course} from "../courses-page/course-list/course/course";
-import {TUI_DEFAULT_MATCHER, TuiDay, tuiPure} from "@taiga-ui/cdk";
+import {TUI_DEFAULT_MATCHER, TuiDay} from "@taiga-ui/cdk";
 import {Location} from '@angular/common';
 import {CoursesService} from "../service/courses.service";
 import {authors} from "../courses-page/course-list/authors-mock";
@@ -36,7 +36,7 @@ export class EditCoursePageComponent implements OnInit {
         startWith(authors),
     );
 
-    readonly authorsValue = new FormControl(this.course.authors);
+    authorsValue = new FormControl(this.course.authors);
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
@@ -53,6 +53,7 @@ export class EditCoursePageComponent implements OnInit {
                 const course = this.courseService.getCourse(id).shift();
                 if (course) {
                     this.course = course;
+                    this.authorsValue = new FormControl(this.course.authors);
                 } else {
                     this.router.navigate(['/404']);
                 }
@@ -66,6 +67,7 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     onClickSave(updatedCourse: Course): void {
+        updatedCourse.authors = this.authorsValue.value;
         this.courseService.updateCourse(updatedCourse);
         this.router.navigate(['/courses'])
     }

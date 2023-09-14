@@ -8,5 +8,5 @@ export interface Course {
     duration: number;
     description: string;
     topRated: boolean;
-    authors: string[];
+    authors: string[] | null;
 }
