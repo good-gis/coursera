@@ -38,7 +38,7 @@
                     <tui-multi-select
                         (searchChange)="onSearchChange($event)"
                         *tuiLet="items$ | async as items"
-                        [formControl]="authorsValue"
+                        [formControl]="authorsFormControl"
                         [expandable]="true"
                         [tuiTextfieldLabelOutside]="true"
                         (keydown.enter)="onEnterCreateAuthor($event);"

@@ -84,6 +84,6 @@ export const emptyCourse: Course = {
     duration: 0,
     description: "",
     topRated: false,
-    authors: null,
+    authors: [],
     publicationDate: new TuiDay(2022, 8, 20),
 };

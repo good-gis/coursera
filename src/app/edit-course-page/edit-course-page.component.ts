@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
-import { delay, filter, Observable, of, startWith, Subject, switchMap } from "rxjs";
+import { BehaviorSubject, delay, filter, Observable, of, startWith, switchMap } from "rxjs";
 
 import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
@@ -17,15 +17,14 @@ import { CoursesService } from "../service/courses.service";
 })
 export class EditCoursePageComponent implements OnInit {
     course: Course = emptyCourse;
-    searchValue: string | null = "";
-    readonly search$ = new Subject<string | null>();
+    readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
         switchMap((search) => this.serverRequest(search).pipe(startWith<readonly string[] | null>(null))),
         startWith(authors)
     );
 
-    authorsValue = new FormControl(this.course.authors);
+    authorsFormControl = new FormControl(this.course.authors);
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
@@ -35,29 +34,38 @@ export class EditCoursePageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.activatedRoute.paramMap.subscribe((params) => {
-            const id = params.get("id");
+        this.activatedRoute.paramMap
+            .pipe(
+                filter((params) => params.has("id")),
+                switchMap((params) => {
+                    const id = params.get("id");
 
-            if (id) {
-                const course = this.courseService.getCourse(id).shift();
+                    if (id === null) {
+                        return of(undefined);
+                    }
 
+                    return this.courseService.getCourse$(id);
+                })
+            )
+            .subscribe((course: Course | undefined) => {
                 if (course) {
                     this.course = course;
-                    this.authorsValue = new FormControl(this.course.authors);
+                    this.authorsFormControl = new FormControl(this.course.authors);
                 } else {
                     void this.router.navigate(["/404"]);
                 }
-            }
-        });
+            });
     }
 
     onSearchChange(searchQuery: string | null): void {
-        this.searchValue = searchQuery;
         this.search$.next(searchQuery);
     }
 
     onClickSave(updatedCourse: Course): void {
-        updatedCourse.authors = this.authorsValue.value;
+        if (this.authorsFormControl.value) {
+            updatedCourse.authors = this.authorsFormControl.value;
+        }
+
         this.courseService.updateCourse(updatedCourse);
         void this.router.navigate(["/courses"]);
     }
@@ -67,14 +75,11 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     onEnterCreateAuthor(event: any): void {
-        if (event.key === "Enter" && this.searchValue) {
-            authors.push(this.searchValue);
+        if (event.key === "Enter" && this.search$.value) {
+            authors.push(this.search$.value);
+            const currentAuthors = this.authorsFormControl.value ?? [];
 
-            const currentAuthors = this.authorsValue.value ?? [];
-
-            this.authorsValue.setValue([...currentAuthors, this.searchValue]);
-
-            this.searchValue = "";
+            this.authorsFormControl.setValue([...currentAuthors, this.search$.value]);
         }
     }
 

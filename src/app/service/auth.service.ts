@@ -10,7 +10,7 @@ export class AuthService {
     private readonly authorized$ = new BehaviorSubject<boolean>(this.isAuthorized());
 
     refreshAuthorizationState(): void {
-        this.authorized$.next(this.isAuthorized());
+        // this.authorized$.next(this.isAuthorized());
     }
 
     isAuthorized$(): Observable<boolean> {

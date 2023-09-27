@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, EMPTY, Observable, of, take, tap } from "rxjs";
+import { BehaviorSubject, delay, Observable, of, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { courses } from "../courses-page/course-list/courses-mock";
@@ -9,12 +9,14 @@ import { FilterPipe } from "../courses-page/search/filter.pipe";
     providedIn: "root",
 })
 export class CoursesService {
-    private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
+    private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>(courses);
     private readonly filterPipe = new FilterPipe();
 
     loadCourses$(filterString?: string): Observable<null> {
         if (!filterString) {
-            return EMPTY;
+            this.courses$.next(courses);
+
+            return of(null);
         }
 
         return of(null).pipe(
@@ -38,24 +40,24 @@ export class CoursesService {
         this.courses$.next([]);
     }
 
-    getCourse(id: string): Course[] {
+    getCourse$(id: string): Observable<Course> {
         const coursesArray = this.courses$.getValue();
 
-        return coursesArray.filter((course) => course.id === id);
+        return of(coursesArray.filter((course) => course.id === id)[0]);
     }
 
     updateCourse(updatedCourse: Course): void {
-        this.courses$.pipe(take(1)).subscribe((coursesArray) => {
-            const updatedCourses = coursesArray.map((course) => {
-                if (course.id === updatedCourse.id) {
-                    return updatedCourse;
-                }
+        const coursesArray = this.courses$.value;
 
-                return course;
-            });
+        const updatedCourses = coursesArray.map((course) => {
+            if (course.id === updatedCourse.id) {
+                return updatedCourse;
+            }
 
-            this.courses$.next(updatedCourses);
+            return course;
         });
+
+        this.courses$.next(updatedCourses);
     }
 
     deleteCourse(id: string): void {

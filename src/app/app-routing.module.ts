@@ -9,7 +9,7 @@ import { LoginPageComponent } from "./login-page/login-page.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/login", pathMatch: "full" },
+    { path: "", redirectTo: "/courses", pathMatch: "full" },
     { path: "courses", component: CoursesPageComponent, canActivate: [authGuard] },
     { path: "courses/new", component: AddCoursePageComponent, canActivate: [authGuard] },
     { path: "courses/:id", component: EditCoursePageComponent, canActivate: [authGuard] },
