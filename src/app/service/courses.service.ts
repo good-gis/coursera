@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, delay, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, delay, map, Observable, of, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { courses } from "../courses-page/course-list/courses-mock";
@@ -40,10 +40,8 @@ export class CoursesService {
         this.courses$.next([]);
     }
 
-    getCourse$(id: string): Observable<Course> {
-        const coursesArray = this.courses$.getValue();
-
-        return of(coursesArray.filter((course) => course.id === id)[0]);
+    getCourse$(id: string): Observable<Course | undefined> {
+        return this.courses$.pipe(map((coursesArray) => coursesArray.find((course) => course.id === id)));
     }
 
     updateCourse(updatedCourse: Course): void {
