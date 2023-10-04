@@ -5,9 +5,4 @@ import { Component } from "@angular/core";
     templateUrl: "./courses-page.component.html",
     styleUrls: ["../app.component.less"],
 })
-export class CoursesPageComponent {
-    showAddCoursePage = false;
-    onAddCourseClicked(): void {
-        this.showAddCoursePage = true;
-    }
-}
+export class CoursesPageComponent {}

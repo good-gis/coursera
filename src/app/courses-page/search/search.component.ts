@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { TuiDestroyService } from "@taiga-ui/cdk";
-import { debounceTime, EMPTY, finalize, fromEvent, switchMap, takeUntil, tap } from "rxjs";
+import { debounceTime, finalize, fromEvent, switchMap, takeUntil, tap } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
@@ -15,15 +16,13 @@ export class SearchComponent implements AfterViewInit {
     @ViewChild("searchInput")
     searchInput: any;
 
-    @Output()
-    addCourseClicked: EventEmitter<void> = new EventEmitter<void>();
-
     uselessValue = "";
 
     constructor(
         private readonly coursesService: CoursesService,
         private readonly destroy$: TuiDestroyService,
-        private readonly loadingService: LoadingService
+        private readonly loadingService: LoadingService,
+        private readonly router: Router
     ) {}
 
     ngAfterViewInit(): void {
@@ -38,11 +37,12 @@ export class SearchComponent implements AfterViewInit {
                     const searchString = this.searchInput.el.nativeElement.value;
 
                     if (searchString.length < 3) {
-                        this.coursesService.clearCourses();
-                        this.searchInput.el.nativeElement.disabled = false;
-                        this.loadingService.hide();
-
-                        return EMPTY;
+                        return this.coursesService.loadCourses$().pipe(
+                            finalize(() => {
+                                this.loadingService.hide();
+                                this.searchInput.el.nativeElement.disabled = false;
+                            })
+                        );
                     }
 
                     return this.coursesService.loadCourses$(searchString).pipe(
@@ -58,6 +58,6 @@ export class SearchComponent implements AfterViewInit {
     }
 
     onAddCourseClick(): void {
-        this.addCourseClicked.emit();
+        void this.router.navigate(["/courses/new"]);
     }
 }

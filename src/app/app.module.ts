@@ -26,15 +26,18 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 
 import { AddCoursePageModule } from "./add-course-page/add-course-page.module";
 import { AppComponent } from "./app.component";
+import { AppRoutingModule } from "./app-routing.module";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
+import { EditCoursePageModule } from "./edit-course-page/edit-course-page.module";
 import { FooterModule } from "./footer/footer.module";
 import { HeaderModule } from "./header/header.module";
 import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
+import { NotFoundComponent } from "./not-found/not-found.component";
 import { AuthService } from "./service/auth.service";
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, NotFoundComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -60,6 +63,8 @@ import { AuthService } from "./service/auth.service";
         TuiInputDateModule,
         TuiInputNumberModule,
         AddCoursePageModule,
+        EditCoursePageModule,
+        AppRoutingModule,
     ],
     providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
     bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { AuthService } from "../service/auth.service";
 
@@ -10,9 +11,10 @@ import { AuthService } from "../service/auth.service";
 export class HeaderComponent {
     username$ = this.authService.getUserInfo$();
 
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService, private readonly router: Router) {}
 
     logout(): void {
         this.authService.logout();
+        void this.router.navigate(["/login"]);
     }
 }

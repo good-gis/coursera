@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { Course } from "./course";
 
@@ -17,8 +18,14 @@ export class CourseComponent implements OnInit {
 
     backgroundColorClass!: string;
 
+    constructor(private readonly router: Router) {}
+
     ngOnInit(): void {
         this.setBackgroundColor();
+    }
+
+    protected onEditCourse(id: string): void {
+        void this.router.navigate(["/courses", id]);
     }
 
     private setBackgroundColor(): void {

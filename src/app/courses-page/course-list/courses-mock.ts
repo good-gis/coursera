@@ -76,3 +76,14 @@ export const courses: Course[] = [
         publicationDate: new TuiDay(2022, 8, 20),
     },
 ];
+
+export const emptyCourse: Course = {
+    id: "",
+    title: "",
+    creationDate: new Date(),
+    duration: 0,
+    description: "",
+    topRated: false,
+    authors: [],
+    publicationDate: new TuiDay(2022, 8, 20),
+};

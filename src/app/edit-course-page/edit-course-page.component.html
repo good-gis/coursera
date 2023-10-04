@@ -1,0 +1,79 @@
+<div class="root">
+    <app-header></app-header>
+    <div class="content">
+        <div class="edit-course">
+            <h1>Edit course</h1>
+
+            <table class="tui-table course-info tui-table_size_l">
+                <tbody>
+                <tr class="tui-table__tr tui-table__tr_border_none tui-table__tr_hover_disabled">
+                    <td class="tui-table__td left-column">Title</td>
+                    <td class="tui-table__td">{{course.title | titlecase}}</td>
+                </tr>
+                <tr class="tui-table__tr tui-table__tr_border_top tui-table__tr_hover_disabled">
+                    <td class="tui-table__td left-column">Date</td>
+                    <td class="tui-table__td">{{course.publicationDate}}</td>
+                </tr>
+                <tr class="tui-table__tr tui-table__tr_border_top tui-table__tr_hover_disabled">
+                    <td class="tui-table__td left-column">Duration</td>
+                    <td class="tui-table__td">{{course.duration | duration}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="description">
+                <label tuiLabel="Description">
+                    <tui-text-area
+                        [(ngModel)]="course.description"
+                        [tuiTextfieldCleaner]="true"
+                        [tuiTextfieldLabelOutside]="true"
+                        class="description-textarea"
+                        required
+                    >
+                    </tui-text-area>
+                </label>
+            </div>
+            <div class="authors">
+                <label tuiLabel="Authors">
+                    <tui-multi-select
+                        (searchChange)="onSearchChange($event)"
+                        *tuiLet="items$ | async as items"
+                        [formControl]="authorsFormControl"
+                        [expandable]="true"
+                        [tuiTextfieldLabelOutside]="true"
+                        (keydown.enter)="onEnterCreateAuthor($event);"
+                        class="b-form authors-input"
+                    >
+                        <tui-data-list-wrapper
+                            *tuiDataList
+                            [items]="items"
+                        ></tui-data-list-wrapper>
+                    </tui-multi-select>
+                </label>
+            </div>
+            <div class="buttons">
+                <button
+                    (click)="onClickSave(course)"
+                    appearance="primary"
+                    class="save-btn"
+                    size="l"
+                    tuiButton
+                >
+                    Save
+                </button>
+                <button
+                    (click)="onClickCancel()"
+                    appearance="secondary"
+                    class="cancel-btn"
+                    size="l"
+                    tuiButton
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { finalize } from "rxjs";
 
 import { LoadingService } from "../loading-overlay/loading.service";
@@ -16,7 +17,7 @@ export class LoginPageComponent {
         password: new FormControl("", [Validators.required]),
     });
 
-    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService) {}
+    constructor(private readonly authService: AuthService, private readonly loadingService: LoadingService, private readonly router: Router) {}
 
     login(): void {
         if (this.authForm.valid) {
@@ -30,6 +31,7 @@ export class LoginPageComponent {
                     .pipe(
                         finalize(() => {
                             this.loadingService.hide();
+                            void this.router.navigate(["/courses"]);
                         })
                     )
                     .subscribe();
