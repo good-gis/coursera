@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -39,6 +40,7 @@ import { AuthService } from "./service/auth.service";
 @NgModule({
     declarations: [AppComponent, NotFoundComponent],
     imports: [
+        HttpClientModule,
         BrowserModule,
         FormsModule,
         BrowserAnimationsModule,

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject, TemplateRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import { map, Observable } from "rxjs";
+import { finalize, map, Observable } from "rxjs";
 
+import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
 import { Course } from "./course/course";
 
@@ -11,13 +12,27 @@ import { Course } from "./course/course";
     styleUrls: ["./course-list.component.less"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseListComponent {
-    courses$: Observable<Course[]>;
+export class CourseListComponent implements OnInit {
+    courses$?: Observable<Course[]>;
 
-    constructor(private readonly coursesService: CoursesService, @Inject(TuiDialogService) private readonly dialogs: TuiDialogService) {
-        this.courses$ = this.coursesService
-            .getCourses$()
-            .pipe(map((courses) => courses.slice().sort((a, b) => b.creationDate.getTime() - a.creationDate.getTime())));
+    constructor(
+        private readonly coursesService: CoursesService,
+        @Inject(TuiDialogService) private readonly dialogs: TuiDialogService,
+        private readonly loadingService: LoadingService
+    ) {}
+
+    ngOnInit(): void {
+        this.loadingService.show();
+        this.coursesService
+            .loadAllCourses$()
+            .pipe(
+                map((courses) => courses.slice().sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())),
+                finalize(() => {
+                    this.loadingService.hide();
+                })
+            )
+            .subscribe();
+        this.courses$ = this.coursesService.getCourses$();
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {

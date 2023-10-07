@@ -1,0 +1,160 @@
+{
+  "token": {
+    "token": "123"
+  },
+  "courses":  [
+    {
+      "id": "1",
+      "title": "Video Course 3",
+      "creationDate": "2023-10-07T14:43:28Z",
+      "duration": 142,
+      "description": "This is Video Course 3 description.",
+      "topRated": false,
+      "authors": ["Andrey Barkov", "Igor Folk"],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "101",
+      "title": "Mastering Quantum Mechanics",
+      "creationDate": "2023-10-07T15:30:00Z",
+      "duration": 240,
+      "description": "Explore the fascinating world of quantum mechanics in this in-depth video course.",
+      "topRated": true,
+      "authors": ["Dr. Amelia Quantum", "Prof. Felix Wave"],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "102",
+      "title": "The Art of AI Ethics",
+      "creationDate": "2023-10-07T16:15:00Z",
+      "duration": 180,
+      "description": "Delve into the ethical considerations of artificial intelligence with leading experts.",
+      "topRated": true,
+      "authors": ["Dr. Sophia Ethics", "Prof. Martin Morality"],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "103",
+      "title": "Cooking Adventures: World Cuisine",
+      "creationDate": "2023-10-07T17:00:00Z",
+      "duration": 120,
+      "description": "Embark on a culinary journey and master the art of cooking international dishes.",
+      "topRated": false,
+      "authors": ["Chef Julia Culinary", "Chef Carlos Flavor"],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "104",
+      "title": "Mindfulness Meditation Retreat",
+      "creationDate": "2023-10-07T18:45:00Z",
+      "duration": 90,
+      "description": "Find inner peace and tranquility through guided mindfulness meditation sessions.",
+      "topRated": true,
+      "authors": ["Zen Master Zenith", "Guru Serenity"],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "105",
+      "title": "The Science of Space Exploration",
+      "creationDate": "2023-10-08T09:30:00Z",
+      "duration": 210,
+      "description": "Embark on a journey to the stars and learn about the wonders of space exploration.",
+      "topRated": true,
+      "authors": ["Dr. Neil Astronaut", "Prof. Stella Cosmos"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "106",
+      "title": "Digital Marketing Masterclass",
+      "creationDate": "2023-10-08T10:45:00Z",
+      "duration": 150,
+      "description": "Become a digital marketing expert and boost your online presence.",
+      "topRated": true,
+      "authors": ["Marketing Guru Max", "SEO Pro Sarah"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "107",
+      "title": "Photography: Capturing the Perfect Shot",
+      "creationDate": "2023-10-08T12:00:00Z",
+      "duration": 180,
+      "description": "Unleash your creativity and master the art of photography with expert guidance.",
+      "topRated": false,
+      "authors": ["Photographer Paul Lens", "Visual Artist Ava Shutter"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "108",
+      "title": "Creative Writing Workshop",
+      "creationDate": "2023-10-08T13:15:00Z",
+      "duration": 120,
+      "description": "Unlock your imagination and become a skilled writer with interactive writing exercises.",
+      "topRated": true,
+      "authors": ["Author Emma Penman", "Wordsmith William"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "109",
+      "title": "Healthy Living: Nutrition and Fitness",
+      "creationDate": "2023-10-08T14:30:00Z",
+      "duration": 240,
+      "description": "Achieve a balanced and healthy lifestyle through proper nutrition and exercise.",
+      "topRated": true,
+      "authors": ["Nutritionist Nancy Health", "Fitness Guru Frank Fit"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "110",
+      "title": "History Unveiled: Ancient Civilizations",
+      "creationDate": "2023-10-08T15:45:00Z",
+      "duration": 210,
+      "description": "Explore the mysteries of ancient civilizations and their impact on our world.",
+      "topRated": false,
+      "authors": ["Archaeologist Alex Explorer", "Historian Helen Timeless"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "111",
+      "title": "Art of Negotiation",
+      "creationDate": "2023-10-08T17:00:00Z",
+      "duration": 150,
+      "description": "Enhance your negotiation skills and succeed in both personal and professional life.",
+      "topRated": true,
+      "authors": ["Negotiation Ninja Nate", "Deal-Maker Dana"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "112",
+      "title": "Environmental Conservation: A Global Perspective",
+      "creationDate": "2023-10-08T18:15:00Z",
+      "duration": 180,
+      "description": "Learn about the importance of environmental conservation on a global scale.",
+      "topRated": false,
+      "authors": ["Eco Warrior Ethan", "Nature Advocate Nora"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "113",
+      "title": "Psychology of Happiness",
+      "creationDate": "2023-10-08T19:30:00Z",
+      "duration": 160,
+      "description": "Discover the secrets to a happier and more fulfilling life through psychological insights.",
+      "topRated": true,
+      "authors": ["Dr. Joy Psychology", "Positive Thinking Paul"],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "114",
+      "title": "Cybersecurity Essentials",
+      "creationDate": "2023-10-08T20:45:00Z",
+      "duration": 190,
+      "description": "Protect yourself and your data in the digital age with fundamental cybersecurity knowledge.",
+      "topRated": true,
+      "authors": [
+        "Security Expert Sarah",
+        "Hacker Hunter Harry"
+      ],
+      "publicationDate": "2023-10-08"
+    }
+  ]
+}
