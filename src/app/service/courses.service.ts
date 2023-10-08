@@ -41,6 +41,15 @@ export class CoursesService {
         );
     }
 
+    createCourse$(course: Course): Observable<Course> {
+        return this.http.post<Course>(this.url, course).pipe(
+            catchError((error: unknown) => {
+                console.error("Error creating course:", error);
+                throw error;
+            })
+        );
+    }
+
     getCourses$(): Observable<Course[]> {
         return this.courses$.asObservable();
     }
@@ -55,18 +64,15 @@ export class CoursesService {
         return this.courses$.pipe(map((coursesArray) => coursesArray.find((course) => course.id === id)));
     }
 
-    updateCourse(updatedCourse: Course): void {
-        const coursesArray = this.courses$.value;
+    updateCourse$(updatedCourse: Course): Observable<Course> {
+        const courseId = updatedCourse.id;
 
-        const updatedCourses = coursesArray.map((course) => {
-            if (course.id === updatedCourse.id) {
-                return updatedCourse;
-            }
-
-            return course;
-        });
-
-        this.courses$.next(updatedCourses);
+        return this.http.patch<Course>(`${this.url}/${courseId}`, updatedCourse).pipe(
+            catchError((error: unknown) => {
+                console.error("Error updating course:", error);
+                throw error;
+            })
+        );
     }
 
     deleteCourse$(id: string): Observable<Record<string, any>> {

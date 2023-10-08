@@ -1,11 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TuiLetModule } from "@taiga-ui/cdk";
 import { TuiButtonModule, TuiLabelModule, TuiTextfieldControllerModule } from "@taiga-ui/core";
 import { TuiDataListWrapperModule, TuiInputDateModule, TuiInputModule, TuiInputNumberModule, TuiMultiSelectModule, TuiTextAreaModule } from "@taiga-ui/kit";
 
 import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
+import { LoadingService } from "../loading-overlay/loading.service";
 import { SharedPipesModule } from "../shared-pipes/shared-pipes.module";
 import { AddCoursePageComponent } from "./add-course-page.component";
 
@@ -26,7 +28,10 @@ import { AddCoursePageComponent } from "./add-course-page.component";
         FormsModule,
         TuiDataListWrapperModule,
         TuiLabelModule,
+        TuiLetModule,
+        ReactiveFormsModule,
     ],
+    providers: [LoadingService],
     exports: [AddCoursePageComponent],
 })
 export class AddCoursePageModule {}

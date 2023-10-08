@@ -68,15 +68,17 @@
             <div class="authors">
                 <label tuiLabel="Authors">
                     <tui-multi-select
-                        [(ngModel)]="course.authors"
-                        [(search)]="search"
+                        (searchChange)="onSearchChange($event)"
+                        *tuiLet="items$ | async as items"
+                        [formControl]="authorsFormControl"
+                        [expandable]="true"
                         [tuiTextfieldLabelOutside]="true"
-                        class="authors-input"
+                        (keydown.enter)="onEnterCreateAuthor($event);"
+                        class="b-form authors-input"
                     >
                         <tui-data-list-wrapper
                             *tuiDataList
-                            [items]="filter(search)"
-                            tuiMultiSelectGroup
+                            [items]="items"
                         ></tui-data-list-wrapper>
                     </tui-multi-select>
                 </label>

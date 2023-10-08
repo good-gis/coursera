@@ -7,6 +7,7 @@ import { TuiDataListWrapperModule, TuiInputDateModule, TuiInputModule, TuiInputN
 
 import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
+import { LoadingService } from "../loading-overlay/loading.service";
 import { SharedPipesModule } from "../shared-pipes/shared-pipes.module";
 import { EditCoursePageComponent } from "./edit-course-page.component";
 
@@ -30,6 +31,7 @@ import { EditCoursePageComponent } from "./edit-course-page.component";
         TuiLetModule,
         ReactiveFormsModule,
     ],
+    providers: [LoadingService],
     exports: [EditCoursePageComponent],
 })
 export class EditCoursePageModule {}
