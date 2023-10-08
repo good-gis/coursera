@@ -1,46 +1,42 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, of, tap } from "rxjs";
 
 import { BACKEND_URL } from "../config";
 import { Course } from "../courses-page/course-list/course/course";
-import { FilterPipe } from "../courses-page/search/filter.pipe";
 
 @Injectable({
     providedIn: "root",
 })
 export class CoursesService {
     private readonly courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
-    private readonly filterPipe = new FilterPipe();
-    private cachedCoursesAll: Course[] = [];
+    private currentPage = 1;
+    private readonly limit = 3;
+    private isLastPage = false;
+    private readonly url = `${BACKEND_URL}/courses`;
 
     constructor(private readonly http: HttpClient) {}
 
-    loadAllCourses$(): Observable<Course[]> {
-        if (this.cachedCoursesAll.length > 0) {
-            return of(this.cachedCoursesAll);
+    loadCourses$(filterString = ""): Observable<Course[]> {
+        if (this.isLastPage) {
+            return of([]);
         }
 
-        return this.http.get<Course[]>(`${BACKEND_URL}/courses`).pipe(
+        const params = new HttpParams()
+            .set("_page", this.currentPage.toString())
+            .set("_limit", this.limit.toString())
+            .set("_sort", "creationDate")
+            .set("_order", "desc")
+            .set("q", filterString);
+
+        return this.http.get<Course[]>(this.url, { params }).pipe(
             tap((response) => {
-                this.cachedCoursesAll = response;
-                this.courses$.next(response);
-            })
-        );
-    }
-
-    loadCourses$(filterString?: string): Observable<null> {
-        if (!filterString) {
-            this.courses$.next(this.cachedCoursesAll);
-
-            return of(null);
-        }
-
-        return of(null).pipe(
-            tap(() => {
-                const filteredCourses = this.filterPipe.transform(this.cachedCoursesAll, filterString);
-
-                this.courses$.next(filteredCourses);
+                if (response.length === 0) {
+                    this.isLastPage = true;
+                } else {
+                    this.courses$.next([...this.courses$.value, ...response]);
+                    this.currentPage++;
+                }
             })
         );
     }
@@ -51,6 +47,8 @@ export class CoursesService {
 
     clearCourses(): void {
         this.courses$.next([]);
+        this.currentPage = 1;
+        this.isLastPage = false;
     }
 
     getCourse$(id: string): Observable<Course | undefined> {

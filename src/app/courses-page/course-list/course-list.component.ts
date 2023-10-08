@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import { finalize, map, Observable } from "rxjs";
+import { finalize, Observable } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
@@ -23,10 +23,10 @@ export class CourseListComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadingService.show();
+        this.coursesService.clearCourses();
         this.coursesService
-            .loadAllCourses$()
+            .loadCourses$()
             .pipe(
-                map((courses) => courses.slice().sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime())),
                 finalize(() => {
                     this.loadingService.hide();
                 })

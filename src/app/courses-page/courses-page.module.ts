@@ -12,6 +12,7 @@ import { AddCoursePageModule } from "../add-course-page/add-course-page.module";
 import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
 import { CoursesService } from "../service/courses.service";
+import { SearchService } from "../service/search.service";
 import { SharedPipesModule } from "../shared-pipes/shared-pipes.module";
 import { CourseComponent } from "./course-list/course/course.component";
 import { CourseBorderDirective } from "./course-list/course/course-border.directive";
@@ -46,7 +47,7 @@ import { SearchComponent } from "./search/search.component";
         TuiLetModule,
         AddCoursePageModule,
     ],
-    providers: [CoursesService],
+    providers: [CoursesService, SearchService],
     exports: [CoursesPageComponent],
 })
 export class CoursesPageModule {}
