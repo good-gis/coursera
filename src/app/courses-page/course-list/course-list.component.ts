@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import { finalize, Observable } from "rxjs";
+import { finalize, Observable, of, switchMap } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
@@ -36,11 +36,29 @@ export class CourseListComponent implements OnInit {
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {
-        this.dialogs.open(deleteDialog, { label: "Be careful", size: "m" }).subscribe((result: boolean | void) => {
-            if (result === true) {
-                this.coursesService.deleteCourse(courseId);
-            }
-        });
+        this.dialogs
+            .open(deleteDialog, { label: "Be careful", size: "m" })
+            .pipe(
+                switchMap((result: boolean | void) => {
+                    if (result === true) {
+                        this.loadingService.show();
+
+                        return this.coursesService.deleteCourse$(courseId).pipe(
+                            switchMap(() => {
+                                this.coursesService.clearCourses();
+
+                                return this.coursesService.loadCourses$();
+                            }),
+                            finalize(() => {
+                                this.loadingService.hide();
+                            })
+                        );
+                    }
+
+                    return of(undefined);
+                })
+            )
+            .subscribe();
     }
 
     protected trackByCourseId(_: number, course: Course): string {

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, catchError, map, Observable, of, tap } from "rxjs";
 
 import { BACKEND_URL } from "../config";
 import { Course } from "../courses-page/course-list/course/course";
@@ -69,10 +69,12 @@ export class CoursesService {
         this.courses$.next(updatedCourses);
     }
 
-    deleteCourse(id: string): void {
-        const coursesArray = this.courses$.getValue();
-        const updatedCourses = coursesArray.filter((course) => course.id !== id);
-
-        this.courses$.next(updatedCourses);
+    deleteCourse$(id: string): Observable<Record<string, any>> {
+        return this.http.delete<Record<string, any>>(`${this.url}/${id}`).pipe(
+            catchError((error: unknown) => {
+                console.error("Error deleting course:", error);
+                throw error;
+            })
+        );
     }
 }
