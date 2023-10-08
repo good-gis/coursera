@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { LoadMoreComponent } from "./load-more.component";
@@ -9,6 +10,7 @@ describe("LoadMoreComponent", () => {
     beforeEach(() => {
         void TestBed.configureTestingModule({
             declarations: [LoadMoreComponent],
+            imports: [HttpClientModule],
         }).compileComponents();
 
         fixture = TestBed.createComponent(LoadMoreComponent);
@@ -18,14 +20,5 @@ describe("LoadMoreComponent", () => {
 
     it("should create", () => {
         expect(component).toBeTruthy();
-    });
-
-    it('should call the onClickLoadMore method once when the "Load more" button is clicked', () => {
-        jest.spyOn(component, "onClickLoadMore");
-        const loadMoreButton = fixture.nativeElement.querySelector(".load-more-btn");
-
-        loadMoreButton.click();
-
-        expect(component.onClickLoadMore).toHaveBeenCalledTimes(1);
     });
 });

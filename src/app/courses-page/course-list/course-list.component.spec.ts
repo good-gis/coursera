@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
@@ -17,15 +18,19 @@ describe("CourseListComponent", () => {
     beforeEach(() => {
         void TestBed.configureTestingModule({
             declarations: [CourseListComponent, LoadMoreComponent, CourseComponent],
-            imports: [TuiLetModule, SharedPipesModule],
+            imports: [TuiLetModule, SharedPipesModule, HttpClientModule],
             schemas: [NO_ERRORS_SCHEMA],
         }).compileComponents();
     });
 
     beforeEach(() => {
+        window.confirm = jest.fn().mockReturnValue(true);
+        const ngOnInitSpy = jest.spyOn(CourseListComponent.prototype, "ngOnInit");
+
+        ngOnInitSpy.mockImplementation();
+
         fixture = TestBed.createComponent(CourseListComponent);
         component = fixture.componentInstance;
-        window.confirm = jest.fn().mockReturnValue(true);
     });
 
     it("should not display any course component if courses array is empty", () => {
