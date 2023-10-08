@@ -1,4 +1,4 @@
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -36,6 +36,7 @@ import { LoadingOverlayModule } from "./loading-overlay/loading-overlay.module";
 import { LoginPageModule } from "./login-page/login-page.module";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { AuthService } from "./service/auth.service";
+import { TokenInterceptor } from "./token-interceptor";
 
 @NgModule({
     declarations: [AppComponent, NotFoundComponent],
@@ -68,7 +69,11 @@ import { AuthService } from "./service/auth.service";
         EditCoursePageModule,
         AppRoutingModule,
     ],
-    providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }, AuthService],
+    providers: [
+        { provide: TUI_SANITIZER, useClass: NgDompurifySanitizer },
+        AuthService,
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

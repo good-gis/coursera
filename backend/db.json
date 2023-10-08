@@ -79,43 +79,9 @@
         "Leia Organa Solo",
         "Darth Vader",
         "Han Solo",
-        "Obi-Wan Kenobi",
         "Yoda"
       ],
       "publicationDate": "2022-09-14"
-    },
-    {
-      "id": "1696781200887",
-      "title": "234234",
-      "creationDate": "2023-10-08T16:06:27.668Z",
-      "duration": 324,
-      "description": "2342342",
-      "topRated": false,
-      "authors": [],
-      "publicationDate": "2022-09-20"
-    },
-    {
-      "id": "1696781282923",
-      "title": "213123",
-      "creationDate": "2023-10-08T16:07:34.389Z",
-      "duration": 23,
-      "description": "123123",
-      "topRated": false,
-      "authors": [],
-      "publicationDate": "2022-09-20"
-    },
-    {
-      "id": "1696781350809",
-      "title": "123",
-      "creationDate": "2023-10-08T16:09:00.825Z",
-      "duration": 11,
-      "description": "444444",
-      "topRated": false,
-      "authors": [
-        "Darth Vader",
-        "Han Solo"
-      ],
-      "publicationDate": "2022-09-20"
     }
   ]
 }

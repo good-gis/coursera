@@ -48,7 +48,7 @@ export class EditCoursePageComponent implements OnInit {
 
                     return this.courseService.getCourse$(id);
                 }),
-                debounceTime(1000),
+                debounceTime(500),
                 tap((course) => {
                     if (course) {
                         this.course = course;

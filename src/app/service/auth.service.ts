@@ -52,6 +52,10 @@ export class AuthService {
         return this.authorized$.pipe(map((authorized) => (authorized ? localStorage.getItem(this.usernameKey) : null)));
     }
 
+    getToken(): string | null {
+        return localStorage.getItem(this.tokenKey);
+    }
+
     private isAuthorized(): boolean {
         return !!localStorage.getItem(this.usernameKey) && !!localStorage.getItem(this.tokenKey);
     }
