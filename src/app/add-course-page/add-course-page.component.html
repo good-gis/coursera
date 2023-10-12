@@ -68,12 +68,12 @@
             <div class="authors">
                 <label tuiLabel="Authors">
                     <tui-multi-select
+                        (keydown.enter)="onEnterCreateAuthor($event);"
                         (searchChange)="onSearchChange($event)"
                         *tuiLet="items$ | async as items"
-                        [formControl]="authorsFormControl"
                         [expandable]="true"
+                        [formControl]="authorsFormControl"
                         [tuiTextfieldLabelOutside]="true"
-                        (keydown.enter)="onEnterCreateAuthor($event);"
                         class="b-form authors-input"
                     >
                         <tui-data-list-wrapper

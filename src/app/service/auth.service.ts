@@ -22,7 +22,7 @@ export class AuthService {
         return this.authorized$.asObservable();
     }
 
-    login$(username: string, password: string): Observable<any> {
+    login$(username: string, password: string): Observable<unknown> {
         const headers = new HttpHeaders({
             "Content-Type": "application/json",
             Code: btoa(`${username + password}`),

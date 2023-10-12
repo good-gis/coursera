@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map, Observable, of, tap } from "rxjs";
 
@@ -22,12 +22,13 @@ export class CoursesService {
             return of([]);
         }
 
-        const params = new HttpParams()
-            .set("_page", this.currentPage.toString())
-            .set("_limit", this.limit.toString())
-            .set("_sort", "creationDate")
-            .set("_order", "desc")
-            .set("q", filterString);
+        const params = {
+            _page: this.currentPage.toString(),
+            _limit: this.limit.toString(),
+            _sort: "creationDate",
+            _order: "desc",
+            q: filterString,
+        };
 
         return this.http.get<Course[]>(this.url, { params }).pipe(
             tap((response) => {

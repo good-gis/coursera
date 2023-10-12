@@ -1,9 +1,10 @@
 import { Location } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER, tuiPure } from "@taiga-ui/cdk";
-import { BehaviorSubject, delay, filter, finalize, Observable, of, startWith, switchMap } from "rxjs";
+import { BehaviorSubject, catchError, delay, filter, finalize, Observable, of, startWith, switchMap } from "rxjs";
+import { v4 as uuidv4 } from "uuid";
 
 import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
@@ -16,14 +17,13 @@ import { CoursesService } from "../service/courses.service";
     templateUrl: "./add-course-page.component.html",
     styleUrls: ["./add-course-page.component.less", "../app.component.less"],
 })
-export class AddCoursePageComponent {
+export class AddCoursePageComponent implements OnDestroy {
     course: Course = { ...emptyCourse };
     authorsFormControl = new FormControl(this.course.authors);
-    search: string | null = "";
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
-        switchMap((search) => this.serverRequest(search).pipe(startWith<readonly string[] | null>(null))),
+        switchMap((search) => this.serverRequest(search).pipe(startWith(null))),
         startWith(authors)
     );
 
@@ -41,17 +41,8 @@ export class AddCoursePageComponent {
 
     onSubmitClicked(): void {
         this.loadingService.show();
-        this.course.id = new Date().getTime().toString();
-        this.courseService
-            .createCourse$(this.course)
-            .pipe(
-                finalize(() => {
-                    this.loadingService.hide();
-                    void this.router.navigate(["/courses"]);
-                })
-            )
-            .subscribe();
-        this.course = { ...emptyCourse };
+        this.assignUniqueIdAndAuthors();
+        this.createCourseAndNavigate();
     }
 
     onSearchChange(searchQuery: string | null): void {
@@ -69,6 +60,37 @@ export class AddCoursePageComponent {
 
             this.authorsFormControl.setValue([...currentAuthors, this.search$.value]);
         }
+    }
+
+    ngOnDestroy(): void {
+        this.resetCourse();
+    }
+
+    private assignUniqueIdAndAuthors(): void {
+        this.course.id = uuidv4();
+        this.course.authors = this.authorsFormControl.value ?? [];
+    }
+
+    private createCourseAndNavigate(): void {
+        this.courseService
+            .createCourse$(this.course)
+            .pipe(
+                catchError(() => {
+                    throw new Error(`Ошибка при создании курса`);
+                }),
+                finalize(() => {
+                    this.loadingService.hide();
+                })
+            )
+            .subscribe({
+                complete: () => {
+                    void this.router.navigate(["/courses"]);
+                },
+            });
+    }
+
+    private resetCourse(): void {
+        this.course = { ...emptyCourse };
     }
 
     private serverRequest(searchQuery: string | null): Observable<readonly string[]> {
