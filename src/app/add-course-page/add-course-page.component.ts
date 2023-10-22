@@ -3,6 +3,7 @@ import { Component, OnDestroy } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER, tuiPure } from "@taiga-ui/cdk";
+import _ from "lodash";
 import { BehaviorSubject, catchError, delay, filter, finalize, Observable, of, startWith, switchMap } from "rxjs";
 import { v4 as uuidv4 } from "uuid";
 
@@ -18,7 +19,7 @@ import { CoursesService } from "../service/courses.service";
     styleUrls: ["./add-course-page.component.less", "../app.component.less"],
 })
 export class AddCoursePageComponent implements OnDestroy {
-    course: Course = { ...emptyCourse };
+    course: Course = _.cloneDeep(emptyCourse);
     authorsFormControl = new FormControl(this.course.authors);
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<readonly string[] | null> = this.search$.pipe(

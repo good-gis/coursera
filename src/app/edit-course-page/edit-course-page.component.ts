@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
+import _ from "lodash";
 import { BehaviorSubject, debounceTime, delay, filter, finalize, Observable, of, startWith, switchMap, tap } from "rxjs";
 
 import { authors } from "../courses-page/course-list/authors-mock";
@@ -17,7 +18,7 @@ import { CoursesService } from "../service/courses.service";
     styleUrls: ["./edit-course-page.component.less", "../app.component.less"],
 })
 export class EditCoursePageComponent implements OnInit {
-    course: Course = emptyCourse;
+    course: Course = _.cloneDeep(emptyCourse);
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
         filter((value) => value !== null),

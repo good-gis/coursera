@@ -68,9 +68,9 @@
             <div class="authors">
                 <label tuiLabel="Authors">
                     <tui-multi-select
+                        *tuiLet="items$ | async as items"
                         (keydown.enter)="onEnterCreateAuthor($event);"
                         (searchChange)="onSearchChange($event)"
-                        *tuiLet="items$ | async as items"
                         [expandable]="true"
                         [formControl]="authorsFormControl"
                         [tuiTextfieldLabelOutside]="true"

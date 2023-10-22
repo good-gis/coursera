@@ -13,7 +13,7 @@ import { Course } from "./course/course";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseListComponent implements OnInit {
-    courses$?: Observable<Course[]>;
+    courses$: Observable<Course[]> = this.coursesService.getCourses$();
 
     constructor(
         private readonly coursesService: CoursesService,
@@ -32,7 +32,7 @@ export class CourseListComponent implements OnInit {
                 })
             )
             .subscribe();
-        this.courses$ = this.coursesService.getCourses$();
+        // this.courses$ = this.coursesService.getCourses$();
     }
 
     onCourseDeleted(courseId: string, deleteDialog: TemplateRef<any>): void {

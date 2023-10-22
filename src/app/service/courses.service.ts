@@ -76,8 +76,8 @@ export class CoursesService {
         );
     }
 
-    deleteCourse$(id: string): Observable<Record<string, any>> {
-        return this.http.delete<Record<string, any>>(`${this.url}/${id}`).pipe(
+    deleteCourse$(id: string): Observable<any> {
+        return this.http.delete(`${this.url}/${id}`).pipe(
             catchError((error: unknown) => {
                 console.error("Error deleting course:", error);
                 throw error;
