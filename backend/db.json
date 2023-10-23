@@ -1,0 +1,99 @@
+{
+  "token": {
+    "token": "123"
+  },
+  "courses": [
+    {
+      "id": "102",
+      "title": "The Art of AI Ethics",
+      "creationDate": "2023-10-07T16:15:00Z",
+      "duration": 180,
+      "description": "Delve into the ethical considerations of artificial intelligence with leading experts.",
+      "topRated": true,
+      "authors": [
+        "Dr. Sophia Ethics",
+        "Prof. Martin Morality"
+      ],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "103",
+      "title": "Cooking Adventures: World Cuisine",
+      "creationDate": "2023-10-07T17:00:00Z",
+      "duration": 120,
+      "description": "Embark on a culinary journey and master the art of cooking international dishes.",
+      "topRated": false,
+      "authors": [
+        "Chef Julia Culinary",
+        "Chef Carlos Flavor"
+      ],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "104",
+      "title": "Mindfulness Meditation Retreat",
+      "creationDate": "2023-10-07T18:45:00Z",
+      "duration": 90,
+      "description": "Find inner peace and tranquility through guided mindfulness meditation sessions.",
+      "topRated": true,
+      "authors": [
+        "Zen Master Zenith",
+        "Guru Serenity"
+      ],
+      "publicationDate": "2023-10-07"
+    },
+    {
+      "id": "105",
+      "title": "The Science of Space Exploration",
+      "creationDate": "2023-10-08T09:30:00Z",
+      "duration": 210,
+      "description": "Embark on a journey to the stars and learn about the wonders of space exploration.",
+      "topRated": true,
+      "authors": [
+        "Dr. Neil Astronaut",
+        "Prof. Stella Cosmos"
+      ],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "106",
+      "title": "Digital Marketing Masterclass",
+      "creationDate": "2023-10-08T10:45:00Z",
+      "duration": 150,
+      "description": "Become a digital marketing expert and boost your online presence.",
+      "topRated": true,
+      "authors": [
+        "Marketing Guru Max",
+        "SEO Pro Sarah"
+      ],
+      "publicationDate": "2023-10-08"
+    },
+    {
+      "id": "72b6df1b-bc39-4387-8fe3-f88872e66bd9",
+      "title": "1234234",
+      "creationDate": "2023-10-12T19:24:10.740Z",
+      "duration": 3434,
+      "description": "234234",
+      "topRated": false,
+      "authors": [
+        "Luke Skywalker",
+        "Darth Vader",
+        "Yoda"
+      ],
+      "publicationDate": "2022-09-20"
+    },
+    {
+      "id": "382bb659-52bf-4dfb-a947-5142513eaeed",
+      "title": "12312",
+      "creationDate": "2023-10-12T19:46:17.733Z",
+      "duration": 2312,
+      "description": "213123",
+      "topRated": false,
+      "authors": [
+        "Han Solo",
+        "Andrey Barkov"
+      ],
+      "publicationDate": "2022-09-20"
+    }
+  ]
+}

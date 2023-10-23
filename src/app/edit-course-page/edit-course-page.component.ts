@@ -3,11 +3,13 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
-import { BehaviorSubject, delay, filter, Observable, of, startWith, switchMap } from "rxjs";
+import _ from "lodash";
+import { BehaviorSubject, debounceTime, delay, filter, finalize, Observable, of, startWith, switchMap, tap } from "rxjs";
 
 import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
 import { emptyCourse } from "../courses-page/course-list/courses-mock";
+import { LoadingService } from "../loading-overlay/loading.service";
 import { CoursesService } from "../service/courses.service";
 
 @Component({
@@ -16,7 +18,7 @@ import { CoursesService } from "../service/courses.service";
     styleUrls: ["./edit-course-page.component.less", "../app.component.less"],
 })
 export class EditCoursePageComponent implements OnInit {
-    course: Course = emptyCourse;
+    course: Course = _.cloneDeep(emptyCourse);
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
@@ -30,7 +32,8 @@ export class EditCoursePageComponent implements OnInit {
         private readonly activatedRoute: ActivatedRoute,
         private readonly location: Location,
         private readonly router: Router,
-        private readonly courseService: CoursesService
+        private readonly courseService: CoursesService,
+        private readonly loadingService: LoadingService
     ) {}
 
     ngOnInit(): void {
@@ -45,16 +48,18 @@ export class EditCoursePageComponent implements OnInit {
                     }
 
                     return this.courseService.getCourse$(id);
+                }),
+                debounceTime(500),
+                tap((course) => {
+                    if (course) {
+                        this.course = course;
+                        this.authorsFormControl = new FormControl(this.course.authors);
+                    } else {
+                        void this.router.navigate(["/404"]);
+                    }
                 })
             )
-            .subscribe((course: Course | undefined) => {
-                if (course) {
-                    this.course = course;
-                    this.authorsFormControl = new FormControl(this.course.authors);
-                } else {
-                    void this.router.navigate(["/404"]);
-                }
-            });
+            .subscribe();
     }
 
     onSearchChange(searchQuery: string | null): void {
@@ -66,7 +71,15 @@ export class EditCoursePageComponent implements OnInit {
             updatedCourse.authors = this.authorsFormControl.value;
         }
 
-        this.courseService.updateCourse(updatedCourse);
+        this.loadingService.show();
+        this.courseService
+            .updateCourse$(updatedCourse)
+            .pipe(
+                finalize(() => {
+                    this.loadingService.hide();
+                })
+            )
+            .subscribe();
         void this.router.navigate(["/courses"]);
     }
 
@@ -83,9 +96,6 @@ export class EditCoursePageComponent implements OnInit {
         }
     }
 
-    /**
-     * Server request emulation
-     */
     private serverRequest(searchQuery: string | null): Observable<readonly string[]> {
         const result = authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
 
