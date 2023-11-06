@@ -93,7 +93,7 @@ export class AddCoursePageComponent implements OnInit {
             this.authors.push(this.search$.value);
             const currentAuthors = this.courseForm.get("authors")?.value;
 
-            this.courseForm.setValue({
+            this.courseForm.patchValue({
                 authors: [...currentAuthors, this.search$.value],
             });
         }

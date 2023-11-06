@@ -2,8 +2,9 @@ import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
-import { BehaviorSubject, debounceTime, filter, finalize, Observable, of, switchMap, tap } from "rxjs";
+import { TUI_DEFAULT_MATCHER, tuiIsFalsy } from "@taiga-ui/cdk";
+import { TUI_VALIDATION_ERRORS } from "@taiga-ui/kit";
+import { BehaviorSubject, debounceTime, filter, finalize, interval, map, Observable, of, scan, startWith, switchMap, tap } from "rxjs";
 
 import { Course } from "../courses-page/course-list/course/course";
 import { LoadingService } from "../loading-overlay/loading.service";
@@ -14,6 +15,20 @@ import { CoursesService } from "../service/courses.service";
     selector: "app-edit-course-page",
     templateUrl: "./edit-course-page.component.html",
     styleUrls: ["./edit-course-page.component.less", "../app.component.less"],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: "Enter this!",
+                maxlength: ({ requiredLength }: { requiredLength: string }) => `Maximum length — ${requiredLength}`,
+                min: interval(2000).pipe(
+                    scan(tuiIsFalsy, false),
+                    map((val) => (val ? "Fix please" : "Min number 1")),
+                    startWith("Min number 1")
+                ),
+            },
+        },
+    ],
 })
 export class EditCoursePageComponent implements OnInit {
     protected courseForm: FormGroup;
@@ -38,8 +53,8 @@ export class EditCoursePageComponent implements OnInit {
             title: [""],
             description: [""],
             publicationDate: [""],
-            duration: ["", [Validators.required, Validators.min(1)]],
-            authors: [[[]], [Validators.required]],
+            duration: ["", [Validators.required]],
+            authors: [[[]], [Validators.required, Validators.min(1)]],
         });
         this.authorsService.getAuthors$().subscribe((authors) => {
             this.authors = authors;
