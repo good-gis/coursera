@@ -3,87 +3,88 @@
     <div class="content">
         <div class="add-course">
             <h1>New course</h1>
-            <div class="title">
-                <label tuiLabel="Title">
-                    <tui-input
-                        [(ngModel)]="course.title"
-                        [tuiTextfieldCleaner]="true"
-                        [tuiTextfieldLabelOutside]="true"
-                        class="title-input"
-                        required
-                    >
-                        <input tuiTextfield/>
-                    </tui-input>
-                </label>
-            </div>
-            <div class="description">
-                <label tuiLabel="Description">
-                    <tui-text-area
-                        [(ngModel)]="course.description"
-                        [tuiTextfieldCleaner]="true"
-                        [tuiTextfieldLabelOutside]="true"
-                        class="description-textarea"
-                        required
-                    >
-                    </tui-text-area>
-                </label>
-            </div>
-            <div class="date-and-duration">
-                <div class="date">
-                    <label tuiLabel="Date">
-                        <tui-input-date
-                            [(ngModel)]="course.publicationDate"
+            <form [formGroup]="courseForm">
+                <div class="title">
+                    <label tuiLabel="Title">
+                        <tui-input
+                            [tuiTextfieldCleaner]="true"
                             [tuiTextfieldLabelOutside]="true"
-                            class="date-input"
+                            class="title-input"
+                            formControlName="title"
                             required
                         >
-                            dd.mm.yyyy
-                        </tui-input-date>
+                            <input tuiTextfield/>
+                        </tui-input>
                     </label>
                 </div>
-
-                <div class="duration">
-                    <div class="duration-input-badge">
-                        <label tuiLabel="Duration">
-                            <tui-input-number
-                                [(ngModel)]="course.duration"
-                                [tuiTextfieldCleaner]="true"
+                <div class="description">
+                    <label tuiLabel="Description">
+                        <tui-text-area
+                            [tuiTextfieldCleaner]="true"
+                            [tuiTextfieldLabelOutside]="true"
+                            class="description-textarea"
+                            formControlName="description"
+                            required
+                        >
+                        </tui-text-area>
+                    </label>
+                </div>
+                <div class="date-and-duration">
+                    <div class="date">
+                        <label tuiLabel="Date">
+                            <tui-input-date
                                 [tuiTextfieldLabelOutside]="true"
-                                class="duration-input"
+                                class="date-input"
+                                formControlName="publicationDate"
                                 required
                             >
-                                In minutes
-                            </tui-input-number>
+                                dd.mm.yyyy
+                            </tui-input-date>
                         </label>
+                    </div>
 
-                        <div class="duration-badge">
-                            <label
-                                class="badge tui-text_body-m-2"
-                            >{{ course.duration | duration }}
+                    <div class="duration">
+                        <div class="duration-input-badge">
+                            <label tuiLabel="Duration">
+                                <tui-input-number
+                                    [tuiTextfieldCleaner]="true"
+                                    [tuiTextfieldLabelOutside]="true"
+                                    class="duration-input"
+                                    formControlName="duration"
+                                    required
+                                >
+                                    In minutes
+                                </tui-input-number>
                             </label>
+
+                            <div class="duration-badge">
+                                <label
+                                    class="badge tui-text_body-m-2"
+                                >{{ courseForm.value.duration | duration }}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="authors">
-                <label tuiLabel="Authors">
-                    <tui-multi-select
-                        *tuiLet="items$ | async as items"
-                        (keydown.enter)="onEnterCreateAuthor($event);"
-                        (searchChange)="onSearchChange($event)"
-                        [expandable]="true"
-                        [formControl]="authorsFormControl"
-                        [tuiTextfieldLabelOutside]="true"
-                        class="b-form authors-input"
-                    >
-                        <tui-data-list-wrapper
-                            *tuiDataList
-                            [items]="items"
-                        ></tui-data-list-wrapper>
-                    </tui-multi-select>
-                </label>
-            </div>
-            <div class="buttons">
+                <div class="authors">
+                    <label tuiLabel="Authors">
+                        <tui-multi-select
+                            (keydown.enter)="onEnterCreateAuthor($event);"
+                            (searchChange)="onSearchChange($event)"
+                            *tuiLet="items$ | async as items"
+                            [expandable]="true"
+                            [tuiTextfieldLabelOutside]="true"
+                            class="b-form authors-input"
+                            formControlName="authors"
+                        >
+                            <tui-data-list-wrapper
+                                *tuiDataList
+                                [items]="items"
+                            ></tui-data-list-wrapper>
+                        </tui-multi-select>
+                    </label>
+                </div>
+                <div class="buttons">
                 <button
                     (click)="onSubmitClicked()"
                     appearance="primary"
@@ -103,6 +104,7 @@
                     Cancel
                 </button>
             </div>
+            </form>
         </div>
     </div>
     <div class="footer">

@@ -94,6 +94,34 @@
         "Andrey Barkov"
       ],
       "publicationDate": "2022-09-20"
+    },
+    {
+      "id": "08fbd284-e495-437f-b4a7-571c13b8c148",
+      "title": "123123",
+      "description": "23123",
+      "publicationDate": "2022-09-21",
+      "duration": 111,
+      "authors": [
+        "Leia Organa Solo",
+        "Darth Vader"
+      ]
+    },
+    {
+      "id": "19c5d40d-dca8-4096-b0e4-d5f032dfad25",
+      "title": "asdlkjladskjfldksajaklsd",
+      "description": "fdsklafskljafdkljkalfdjjklafdslkjafdskljsfd",
+      "publicationDate": "2022-02-01",
+      "duration": 23,
+      "authors": [
+        "Dr. Lina Povaliy",
+        "Dr. Andrey Barkov"
+      ]
     }
+  ],
+  "authors": [
+    "Dr. Ivan Glushkov",
+    "Dr. Lina Povaliy",
+    "Dr. Anna Koshkona",
+    "Dr. Andrey Barkov"
   ]
 }
