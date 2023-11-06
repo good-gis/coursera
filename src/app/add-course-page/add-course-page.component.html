@@ -15,6 +15,10 @@
                         >
                             <input tuiTextfield/>
                         </tui-input>
+                        <tui-error
+                            formControlName="title"
+                            [error]="[] | tuiFieldError | async"
+                        ></tui-error>
                     </label>
                 </div>
                 <div class="description">
@@ -27,6 +31,10 @@
                             required
                         >
                         </tui-text-area>
+                        <tui-error
+                            formControlName="description"
+                            [error]="[] | tuiFieldError | async"
+                        ></tui-error>
                     </label>
                 </div>
                 <div class="date-and-duration">
@@ -40,6 +48,10 @@
                             >
                                 dd.mm.yyyy
                             </tui-input-date>
+                            <tui-error
+                                formControlName="publicationDate"
+                                [error]="[] | tuiFieldError | async"
+                            ></tui-error>
                         </label>
                     </div>
 
@@ -55,6 +67,10 @@
                                 >
                                     In minutes
                                 </tui-input-number>
+                                <tui-error
+                                    formControlName="duration"
+                                    [error]="[] | tuiFieldError | async"
+                                ></tui-error>
                             </label>
 
                             <div class="duration-badge">
@@ -82,11 +98,16 @@
                                 [items]="items"
                             ></tui-data-list-wrapper>
                         </tui-multi-select>
+                        <tui-error
+                            formControlName="authors"
+                            [error]="[] | tuiFieldError | async"
+                        ></tui-error>
                     </label>
                 </div>
                 <div class="buttons">
                 <button
                     (click)="onSubmitClicked()"
+                    [disabled]="!courseForm.valid"
                     appearance="primary"
                     class="save-btn"
                     size="l"
