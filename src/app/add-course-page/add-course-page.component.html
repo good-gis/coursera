@@ -16,8 +16,8 @@
                             <input tuiTextfield/>
                         </tui-input>
                         <tui-error
-                            formControlName="title"
                             [error]="[] | tuiFieldError | async"
+                            formControlName="title"
                         ></tui-error>
                     </label>
                 </div>
@@ -32,8 +32,8 @@
                         >
                         </tui-text-area>
                         <tui-error
-                            formControlName="description"
                             [error]="[] | tuiFieldError | async"
+                            formControlName="description"
                         ></tui-error>
                     </label>
                 </div>
@@ -49,8 +49,8 @@
                                 dd.mm.yyyy
                             </tui-input-date>
                             <tui-error
-                                formControlName="publicationDate"
                                 [error]="[] | tuiFieldError | async"
+                                formControlName="publicationDate"
                             ></tui-error>
                         </label>
                     </div>
@@ -68,8 +68,8 @@
                                     In minutes
                                 </tui-input-number>
                                 <tui-error
-                                    formControlName="duration"
                                     [error]="[] | tuiFieldError | async"
+                                    formControlName="duration"
                                 ></tui-error>
                             </label>
 
@@ -99,32 +99,32 @@
                             ></tui-data-list-wrapper>
                         </tui-multi-select>
                         <tui-error
-                            formControlName="authors"
                             [error]="[] | tuiFieldError | async"
+                            formControlName="authors"
                         ></tui-error>
                     </label>
                 </div>
                 <div class="buttons">
-                <button
-                    (click)="onSubmitClicked()"
-                    [disabled]="!courseForm.valid"
-                    appearance="primary"
-                    class="save-btn"
-                    size="l"
-                    tuiButton
-                >
-                    Save
-                </button>
-                <button
-                    (click)="onCancelClicked()"
-                    appearance="secondary"
-                    class="cancel-btn"
-                    size="l"
-                    tuiButton
-                >
-                    Cancel
-                </button>
-            </div>
+                    <button
+                        (click)="onSubmitClicked()"
+                        [disabled]="!courseForm.valid"
+                        appearance="primary"
+                        class="save-btn"
+                        size="l"
+                        tuiButton
+                    >
+                        Save
+                    </button>
+                    <button
+                        (click)="onCancelClicked()"
+                        appearance="secondary"
+                        class="cancel-btn"
+                        size="l"
+                        tuiButton
+                    >
+                        Cancel
+                    </button>
+                </div>
             </form>
         </div>
     </div>

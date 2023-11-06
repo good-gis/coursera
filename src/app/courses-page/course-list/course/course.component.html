@@ -1,64 +1,64 @@
-<div class="course" *ngIf="course" [appCourseBorder]="course.creationDate" [ngClass]="backgroundColorClass">
-  <div class="course-info">
-    <div class="date tui-text_body-s-2">{{ course.creationDate | date:'LL.dd.YYYY' }}</div>
-    <div class="title-duration-star">
-      <tui-line-clamp
-        class="title tui-text_body-xl"
-        [content]="title"
-        [lineHeight]="28"
-        [linesLimit]="1"
-      ></tui-line-clamp>
-      <tui-badge
-        class="duration"
-        size="m"
-        value="{{ course.duration | duration }}"
-      ></tui-badge>
-      <tui-svg
-        src="tuiIconStarLarge"
-        class="star"
-        *ngIf="course.topRated"
-      ></tui-svg>
+<div *ngIf="course" [appCourseBorder]="course.creationDate" [ngClass]="backgroundColorClass" class="course">
+    <div class="course-info">
+        <div class="date tui-text_body-s-2">{{ course.creationDate | date:'LL.dd.YYYY' }}</div>
+        <div class="title-duration-star">
+            <tui-line-clamp
+                [content]="title"
+                [lineHeight]="28"
+                [linesLimit]="1"
+                class="title tui-text_body-xl"
+            ></tui-line-clamp>
+            <tui-badge
+                class="duration"
+                size="m"
+                value="{{ course.duration | duration }}"
+            ></tui-badge>
+            <tui-svg
+                *ngIf="course.topRated"
+                class="star"
+                src="tuiIconStarLarge"
+            ></tui-svg>
+        </div>
+        <div class="description tui-text_body-m">
+            <tui-line-clamp
+                [content]="description"
+                [lineHeight]="24"
+                [linesLimit]="2"
+            ></tui-line-clamp>
+        </div>
     </div>
-    <div class="description tui-text_body-m">
-      <tui-line-clamp
-        [content]="description"
-        [lineHeight]="24"
-        [linesLimit]="2"
-      ></tui-line-clamp>
+    <div class="course-buttons">
+        <button
+            (click)="onEditCourse(course.id)"
+            appearance="secondary"
+            class="edit"
+            icon="tuiIconEdit3Large"
+            size="m"
+            tuiButton
+        >
+            Edit
+        </button>
+        <button
+            (click)="courseDeleted.emit(course.id)"
+            appearance="secondary-destructive"
+            class="delete"
+            icon="tuiIconTrash2Large"
+            size="m"
+            tuiButton
+        >
+            Delete
+        </button>
     </div>
-  </div>
-  <div class="course-buttons">
-    <button
-      tuiButton
-      class="edit"
-      icon="tuiIconEdit3Large"
-      size="m"
-      appearance="secondary"
-      (click)="onEditCourse(course.id)"
-    >
-      Edit
-    </button>
-    <button
-      tuiButton
-      class="delete"
-      icon="tuiIconTrash2Large"
-      size="m"
-      appearance="secondary-destructive"
-      (click)="courseDeleted.emit(course.id)"
-    >
-      Delete
-    </button>
-  </div>
 </div>
 
 <ng-template #description>
-  <div class="hint">
-    {{ course.description }}
-  </div>
+    <div class="hint">
+        {{ course.description }}
+    </div>
 </ng-template>
 
 <ng-template #title>
-  <div class="hint">
-    {{ course.title | titlecase }}
-  </div>
+    <div class="hint">
+        {{ course.title | titlecase }}
+    </div>
 </ng-template>
