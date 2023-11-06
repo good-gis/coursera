@@ -63,59 +63,11 @@
       "description": "Become a digital marketing expert and boost your online presence.",
       "topRated": true,
       "authors": [
-        "Marketing Guru Max",
-        "SEO Pro Sarah"
+        "SEO Pro Sarah",
+        "Dr. Lina Povaliy",
+        "Dr. Ivan Glushkov"
       ],
       "publicationDate": "2023-10-08"
-    },
-    {
-      "id": "72b6df1b-bc39-4387-8fe3-f88872e66bd9",
-      "title": "1234234",
-      "creationDate": "2023-10-12T19:24:10.740Z",
-      "duration": 3434,
-      "description": "234234",
-      "topRated": false,
-      "authors": [
-        "Luke Skywalker",
-        "Darth Vader",
-        "Yoda"
-      ],
-      "publicationDate": "2022-09-20"
-    },
-    {
-      "id": "382bb659-52bf-4dfb-a947-5142513eaeed",
-      "title": "12312",
-      "creationDate": "2023-10-12T19:46:17.733Z",
-      "duration": 2312,
-      "description": "213123",
-      "topRated": false,
-      "authors": [
-        "Han Solo",
-        "Andrey Barkov"
-      ],
-      "publicationDate": "2022-09-20"
-    },
-    {
-      "id": "08fbd284-e495-437f-b4a7-571c13b8c148",
-      "title": "123123",
-      "description": "23123",
-      "publicationDate": "2022-09-21",
-      "duration": 111,
-      "authors": [
-        "Leia Organa Solo",
-        "Darth Vader"
-      ]
-    },
-    {
-      "id": "19c5d40d-dca8-4096-b0e4-d5f032dfad25",
-      "title": "asdlkjladskjfldksajaklsd",
-      "description": "fdsklafskljafdkljkalfdjjklafdslkjafdskljsfd",
-      "publicationDate": "2022-02-01",
-      "duration": 23,
-      "authors": [
-        "Dr. Lina Povaliy",
-        "Dr. Andrey Barkov"
-      ]
     }
   ],
   "authors": [
