@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import {debounceTime, finalize, Observable, of, switchMap} from "rxjs";
+import { debounceTime, finalize, Observable, of, switchMap } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
