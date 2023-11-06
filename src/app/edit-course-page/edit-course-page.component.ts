@@ -1,15 +1,13 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
-import _ from "lodash";
-import { BehaviorSubject, debounceTime, delay, filter, finalize, Observable, of, startWith, switchMap, tap } from "rxjs";
+import { BehaviorSubject, debounceTime, filter, finalize, Observable, of, switchMap, tap } from "rxjs";
 
-import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
-import { emptyCourse } from "../courses-page/course-list/courses-mock";
 import { LoadingService } from "../loading-overlay/loading.service";
+import { AuthorsService } from "../service/authors.service";
 import { CoursesService } from "../service/courses.service";
 
 @Component({
@@ -18,25 +16,38 @@ import { CoursesService } from "../service/courses.service";
     styleUrls: ["./edit-course-page.component.less", "../app.component.less"],
 })
 export class EditCoursePageComponent implements OnInit {
-    course: Course = _.cloneDeep(emptyCourse);
+    protected courseForm: FormGroup;
+    protected authors: string[] = [];
     readonly search$ = new BehaviorSubject<string | null>(null);
-    readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
+    readonly items$: Observable<string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
-        switchMap((search) => this.serverRequest(search).pipe(startWith<readonly string[] | null>(null))),
-        startWith(authors)
+        switchMap((search) => this.filterAuthors(search))
     );
-
-    authorsFormControl = new FormControl(this.course.authors);
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
         private readonly location: Location,
         private readonly router: Router,
         private readonly courseService: CoursesService,
-        private readonly loadingService: LoadingService
-    ) {}
+        private readonly loadingService: LoadingService,
+        private readonly authorsService: AuthorsService,
+        private readonly fb: FormBuilder
+    ) {
+        this.courseForm = this.fb.group({
+            id: [""],
+            title: [""],
+            description: [""],
+            publicationDate: [""],
+            duration: ["", [Validators.required, Validators.min(1)]],
+            authors: [[[]], [Validators.required]],
+        });
+        this.authorsService.getAuthors$().subscribe((authors) => {
+            this.authors = authors;
+        });
+    }
 
     ngOnInit(): void {
+        this.loadingService.show();
         this.activatedRoute.paramMap
             .pipe(
                 filter((params) => params.has("id")),
@@ -49,17 +60,30 @@ export class EditCoursePageComponent implements OnInit {
 
                     return this.courseService.getCourse$(id);
                 }),
-                debounceTime(500),
+                debounceTime(2000),
                 tap((course) => {
+                    this.loadingService.hide();
+
                     if (course) {
-                        this.course = course;
-                        this.authorsFormControl = new FormControl(this.course.authors);
+                        this.courseForm.patchValue({
+                            id: course.id,
+                            title: course.title,
+                            description: course.description,
+                            publicationDate: course.publicationDate,
+                            duration: course.duration,
+                            authors: course.authors,
+                        });
                     } else {
                         void this.router.navigate(["/404"]);
                     }
                 })
             )
             .subscribe();
+
+        this.authorsService.getAuthors$().subscribe((authors) => {
+            this.authors = authors;
+            this.search$.next("");
+        });
     }
 
     onSearchChange(searchQuery: string | null): void {
@@ -67,10 +91,6 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     onClickSave(updatedCourse: Course): void {
-        if (this.authorsFormControl.value) {
-            updatedCourse.authors = this.authorsFormControl.value;
-        }
-
         this.loadingService.show();
         this.courseService
             .updateCourse$(updatedCourse)
@@ -89,16 +109,18 @@ export class EditCoursePageComponent implements OnInit {
 
     onEnterCreateAuthor(event: any): void {
         if (event.key === "Enter" && this.search$.value) {
-            authors.push(this.search$.value);
-            const currentAuthors = this.authorsFormControl.value ?? [];
+            this.authors.push(this.search$.value);
+            const currentAuthors = this.courseForm.get("authors")?.value;
 
-            this.authorsFormControl.setValue([...currentAuthors, this.search$.value]);
+            this.courseForm.patchValue({
+                authors: [...currentAuthors, this.search$.value],
+            });
         }
     }
 
-    private serverRequest(searchQuery: string | null): Observable<readonly string[]> {
-        const result = authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
+    private filterAuthors(searchQuery: string | null): Observable<string[]> {
+        const result = this.authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
 
-        return of(result).pipe(delay(1000));
+        return of(result);
     }
 }
