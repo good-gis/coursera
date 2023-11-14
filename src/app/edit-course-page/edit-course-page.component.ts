@@ -32,7 +32,7 @@ import { CoursesService } from "../service/courses.service";
 })
 export class EditCoursePageComponent implements OnInit {
     protected courseForm: FormGroup;
-    protected authors: string[] = [];
+    authors$: Observable<string[]> = this.authorsService.getAuthors$();
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
@@ -55,9 +55,6 @@ export class EditCoursePageComponent implements OnInit {
             publicationDate: [""],
             duration: ["", [Validators.required]],
             authors: [[[]], [Validators.required, Validators.min(1)]],
-        });
-        this.authorsService.getAuthors$().subscribe((authors) => {
-            this.authors = authors;
         });
     }
 
@@ -94,11 +91,7 @@ export class EditCoursePageComponent implements OnInit {
                 })
             )
             .subscribe();
-
-        this.authorsService.getAuthors$().subscribe((authors) => {
-            this.authors = authors;
-            this.search$.next("");
-        });
+        this.search$.next("");
     }
 
     onSearchChange(searchQuery: string | null): void {
@@ -124,7 +117,6 @@ export class EditCoursePageComponent implements OnInit {
 
     onEnterCreateAuthor(event: any): void {
         if (event.key === "Enter" && this.search$.value) {
-            this.authors.push(this.search$.value);
             const currentAuthors = this.courseForm.get("authors")?.value;
 
             this.courseForm.patchValue({
@@ -134,8 +126,15 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     private filterAuthors(searchQuery: string | null): Observable<string[]> {
-        const result = this.authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
+        return this.authors$.pipe(
+            map((authors) => {
+                if (!searchQuery) {
+                    return authors;
+                }
 
-        return of(result);
+                return authors.filter((author) => TUI_DEFAULT_MATCHER(author, searchQuery));
+            }),
+            debounceTime(300)
+        );
     }
 }

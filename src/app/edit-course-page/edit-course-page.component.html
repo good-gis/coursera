@@ -35,10 +35,10 @@
                 <div class="authors">
                     <label tuiLabel="Authors">
                         <tui-multi-select
-                            (searchChange)="onSearchChange($event)"
                             *tuiLet="items$ | async as items"
                             [expandable]="true"
                             [tuiTextfieldLabelOutside]="true"
+                            (searchChange)="onSearchChange($event)"
                             (keydown.enter)="onEnterCreateAuthor($event);"
                             formControlName="authors"
                             class="b-form authors-input"
@@ -52,8 +52,8 @@
                 </div>
                 <div class="buttons">
                 <button
-                    (click)="onClickSave(courseForm.value)"
                     [disabled]="!courseForm.valid"
+                    (click)="onClickSave(courseForm.value)"
                     appearance="primary"
                     class="save-btn"
                     size="l"

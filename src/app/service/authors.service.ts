@@ -8,18 +8,17 @@ import { BACKEND_URL } from "../config";
     providedIn: "root",
 })
 export class AuthorsService {
-    private authors$: BehaviorSubject<string[]> | null = null;
+    private readonly authors$ = new BehaviorSubject<string[]>([]);
+    private loaded = false;
 
     constructor(private readonly http: HttpClient) {}
 
     getAuthors$(): Observable<string[]> {
-        if (this.authors$ === null) {
-            this.authors$ = new BehaviorSubject<string[]>([]);
+        if (!this.loaded) {
             this.loadAuthors$().subscribe({
                 next: (response) => {
-                    if (this.authors$ !== null) {
-                        this.authors$.next(response);
-                    }
+                    this.authors$.next(response);
+                    this.loaded = true;
                 },
                 error: (err: unknown) => {
                     console.error("Error loading authors:", err);

@@ -2,9 +2,9 @@ import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { TUI_DEFAULT_MATCHER, TuiDay, tuiIsFalsy, tuiPure } from "@taiga-ui/cdk";
+import { TUI_DEFAULT_MATCHER, TuiDay, tuiIsFalsy } from "@taiga-ui/cdk";
 import { TUI_VALIDATION_ERRORS } from "@taiga-ui/kit";
-import { BehaviorSubject, catchError, filter, finalize, interval, map, Observable, of, scan, startWith, switchMap } from "rxjs";
+import { BehaviorSubject, catchError, debounceTime, filter, finalize, interval, map, Observable, scan, startWith, switchMap } from "rxjs";
 import { v4 as uuidv4 } from "uuid";
 
 import { Course } from "../courses-page/course-list/course/course";
@@ -32,7 +32,7 @@ import { CoursesService } from "../service/courses.service";
     ],
 })
 export class AddCoursePageComponent implements OnInit {
-    authors: string[] = [];
+    authors$: Observable<string[]> = this.authorsService.getAuthors$();
     courseForm: FormGroup;
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<string[] | null> = this.search$.pipe(
@@ -56,21 +56,10 @@ export class AddCoursePageComponent implements OnInit {
             duration: ["", [Validators.required, Validators.min(1)]],
             authors: [[], [Validators.required]],
         });
-        this.authorsService.getAuthors$().subscribe((authors) => {
-            this.authors = authors;
-        });
-    }
-
-    @tuiPure
-    filter(search: string | null): readonly string[] {
-        return this.authors.filter((item) => TUI_DEFAULT_MATCHER(item, search ?? ""));
     }
 
     ngOnInit(): void {
-        this.authorsService.getAuthors$().subscribe((authors) => {
-            this.authors = authors;
-            this.search$.next("");
-        });
+        this.search$.next("");
     }
 
     onSubmitClicked(): void {
@@ -90,7 +79,6 @@ export class AddCoursePageComponent implements OnInit {
 
     onEnterCreateAuthor(event: any): void {
         if (event.key === "Enter" && this.search$.value) {
-            this.authors.push(this.search$.value);
             const currentAuthors = this.courseForm.get("authors")?.value;
 
             this.courseForm.patchValue({
@@ -118,8 +106,15 @@ export class AddCoursePageComponent implements OnInit {
     }
 
     private filterAuthors(searchQuery: string | null): Observable<string[]> {
-        const result = this.authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
+        return this.authors$.pipe(
+            map((authors) => {
+                if (!searchQuery) {
+                    return authors;
+                }
 
-        return of(result);
+                return authors.filter((author) => TUI_DEFAULT_MATCHER(author, searchQuery));
+            }),
+            debounceTime(300)
+        );
     }
 }
