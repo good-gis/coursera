@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { AfterContentInit, Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER, tuiIsFalsy } from "@taiga-ui/cdk";
@@ -30,8 +30,9 @@ import { CoursesService } from "../service/courses.service";
         },
     ],
 })
-export class EditCoursePageComponent implements OnInit {
+export class EditCoursePageComponent implements OnInit, AfterContentInit {
     protected courseForm: FormGroup;
+    protected isCourseExist = false;
     authors$: Observable<string[]> = this.authorsService.getAuthors$();
     readonly search$ = new BehaviorSubject<string | null>(null);
     readonly items$: Observable<string[] | null> = this.search$.pipe(
@@ -59,7 +60,6 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadingService.show();
         this.activatedRoute.paramMap
             .pipe(
                 filter((params) => params.has("id")),
@@ -72,10 +72,7 @@ export class EditCoursePageComponent implements OnInit {
 
                     return this.courseService.getCourse$(id);
                 }),
-                debounceTime(2000),
                 tap((course) => {
-                    this.loadingService.hide();
-
                     if (course) {
                         this.courseForm.patchValue({
                             id: course.id,
@@ -85,13 +82,20 @@ export class EditCoursePageComponent implements OnInit {
                             duration: course.duration,
                             authors: course.authors,
                         });
+                        this.isCourseExist = true;
                     } else {
-                        void this.router.navigate(["/404"]);
+                        this.isCourseExist = false;
                     }
                 })
             )
             .subscribe();
         this.search$.next("");
+    }
+
+    ngAfterContentInit(): void {
+        if (!this.isCourseExist) {
+            void this.router.navigate(["/404"]);
+        }
     }
 
     onSearchChange(searchQuery: string | null): void {
