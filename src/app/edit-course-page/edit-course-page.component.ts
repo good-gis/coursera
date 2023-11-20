@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { AfterContentInit, Component, OnInit } from "@angular/core";
+import { AfterContentInit, Component, OnInit, Renderer2 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER, tuiIsFalsy } from "@taiga-ui/cdk";
@@ -47,6 +47,7 @@ export class EditCoursePageComponent implements OnInit, AfterContentInit {
         private readonly courseService: CoursesService,
         private readonly loadingService: LoadingService,
         private readonly authorsService: AuthorsService,
+        private readonly renderer: Renderer2,
         private readonly fb: FormBuilder
     ) {
         this.courseForm = this.fb.group({
@@ -126,6 +127,8 @@ export class EditCoursePageComponent implements OnInit, AfterContentInit {
             this.courseForm.patchValue({
                 authors: [...currentAuthors, this.search$.value],
             });
+
+            this.clearAuthorsInput();
         }
     }
 
@@ -140,5 +143,17 @@ export class EditCoursePageComponent implements OnInit, AfterContentInit {
             }),
             debounceTime(300)
         );
+    }
+
+    /**
+     * Удаляет строку, введенную в поле Авторов, не убирает выбранные значения
+     */
+    private clearAuthorsInput(): void {
+        const authorsInput = document.querySelector(".authors-input input");
+
+        if (authorsInput) {
+            this.renderer.setProperty(authorsInput, "value", "");
+            authorsInput.dispatchEvent(new Event("input"));
+        }
     }
 }

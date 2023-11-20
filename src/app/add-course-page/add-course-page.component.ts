@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Renderer2 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TUI_DEFAULT_MATCHER, TuiDay, tuiIsFalsy } from "@taiga-ui/cdk";
@@ -46,6 +46,7 @@ export class AddCoursePageComponent implements OnInit {
         private readonly authorsService: AuthorsService,
         private readonly loadingService: LoadingService,
         private readonly router: Router,
+        private readonly renderer: Renderer2,
         private readonly fb: FormBuilder
     ) {
         this.courseForm = this.fb.group({
@@ -84,6 +85,20 @@ export class AddCoursePageComponent implements OnInit {
             this.courseForm.patchValue({
                 authors: [...currentAuthors, this.search$.value],
             });
+
+            this.clearAuthorsInput();
+        }
+    }
+
+    /**
+     * Удаляет строку, введенную в поле Авторов, не убирает выбранные значения
+     */
+    private clearAuthorsInput(): void {
+        const authorsInput = document.querySelector(".authors-input input");
+
+        if (authorsInput) {
+            this.renderer.setProperty(authorsInput, "value", "");
+            authorsInput.dispatchEvent(new Event("input"));
         }
     }
 
