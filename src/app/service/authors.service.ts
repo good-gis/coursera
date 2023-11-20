@@ -15,12 +15,13 @@ export class AuthorsService {
 
     getAuthors$(): Observable<string[]> {
         if (!this.loaded) {
+            this.loaded = true;
             this.loadAuthors$().subscribe({
                 next: (response) => {
                     this.authors$.next(response);
-                    this.loaded = true;
                 },
                 error: (err: unknown) => {
+                    this.loaded = false;
                     console.error("Error loading authors:", err);
                 },
             });

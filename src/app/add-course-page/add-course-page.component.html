@@ -85,7 +85,7 @@
                 <div class="authors">
                     <label tuiLabel="Authors">
                         <tui-multi-select
-                            *tuiLet="items$ | async as items"
+                            *tuiLet="filteredAuthors$ | async as items"
                             [expandable]="true"
                             [tuiTextfieldLabelOutside]="true"
                             (keydown.enter)="onEnterCreateAuthor($event);"

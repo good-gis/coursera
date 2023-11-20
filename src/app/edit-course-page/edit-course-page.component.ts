@@ -35,7 +35,7 @@ export class EditCoursePageComponent implements OnInit, AfterContentInit {
     protected isCourseExist = false;
     authors$: Observable<string[]> = this.authorsService.getAuthors$();
     readonly search$ = new BehaviorSubject<string | null>(null);
-    readonly items$: Observable<string[] | null> = this.search$.pipe(
+    readonly filteredAuthors$: Observable<string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
         switchMap((search) => this.filterAuthors(search))
     );
