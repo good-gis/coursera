@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef } from "@angular/core";
 import { TuiDialogService } from "@taiga-ui/core";
-import { finalize, Observable, of, switchMap } from "rxjs";
+import { debounceTime, finalize, Observable, of, switchMap } from "rxjs";
 
 import { LoadingService } from "../../loading-overlay/loading.service";
 import { CoursesService } from "../../service/courses.service";
@@ -49,6 +49,7 @@ export class CourseListComponent implements OnInit {
 
                                 return this.coursesService.loadCourses$();
                             }),
+                            debounceTime(1000),
                             finalize(() => {
                                 this.loadingService.hide();
                             })

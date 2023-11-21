@@ -1,49 +1,73 @@
 import { Location } from "@angular/common";
-import { Component, OnDestroy } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { Component, OnInit, Renderer2 } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { TUI_DEFAULT_MATCHER, tuiPure } from "@taiga-ui/cdk";
-import _ from "lodash";
-import { BehaviorSubject, catchError, delay, filter, finalize, Observable, of, startWith, switchMap } from "rxjs";
+import { TUI_DEFAULT_MATCHER, TuiDay, tuiIsFalsy } from "@taiga-ui/cdk";
+import { TUI_VALIDATION_ERRORS } from "@taiga-ui/kit";
+import { BehaviorSubject, catchError, debounceTime, filter, finalize, interval, map, Observable, scan, startWith, switchMap } from "rxjs";
 import { v4 as uuidv4 } from "uuid";
 
-import { authors } from "../courses-page/course-list/authors-mock";
 import { Course } from "../courses-page/course-list/course/course";
-import { emptyCourse } from "../courses-page/course-list/courses-mock";
 import { LoadingService } from "../loading-overlay/loading.service";
+import { AuthorsService } from "../service/authors.service";
 import { CoursesService } from "../service/courses.service";
 
 @Component({
     selector: "app-add-course-page",
     templateUrl: "./add-course-page.component.html",
     styleUrls: ["./add-course-page.component.less", "../app.component.less"],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: "Enter this!",
+                maxlength: ({ requiredLength }: { requiredLength: string }) => `Maximum length — ${requiredLength}`,
+                min: interval(2000).pipe(
+                    scan(tuiIsFalsy, false),
+                    map((val) => (val ? "Fix please" : "Min number 1")),
+                    startWith("Min number 1")
+                ),
+            },
+        },
+    ],
 })
-export class AddCoursePageComponent implements OnDestroy {
-    course: Course = _.cloneDeep(emptyCourse);
-    authorsFormControl = new FormControl(this.course.authors);
+export class AddCoursePageComponent implements OnInit {
+    authors$: Observable<string[]> = this.authorsService.getAuthors$();
+    courseForm: FormGroup;
     readonly search$ = new BehaviorSubject<string | null>(null);
-    readonly items$: Observable<readonly string[] | null> = this.search$.pipe(
+    readonly filteredAuthors$: Observable<string[] | null> = this.search$.pipe(
         filter((value) => value !== null),
-        switchMap((search) => this.serverRequest(search).pipe(startWith(null))),
-        startWith(authors)
+        switchMap((search) => this.filterAuthors(search))
     );
 
     constructor(
         private readonly location: Location,
         private readonly courseService: CoursesService,
+        private readonly authorsService: AuthorsService,
         private readonly loadingService: LoadingService,
-        private readonly router: Router
-    ) {}
+        private readonly router: Router,
+        private readonly renderer: Renderer2,
+        private readonly fb: FormBuilder
+    ) {
+        this.courseForm = this.fb.group({
+            id: [uuidv4()],
+            title: ["", [Validators.required, Validators.maxLength(50)]],
+            description: ["", [Validators.required, Validators.maxLength(500)]],
+            publicationDate: [new TuiDay(2022, 1, 1), Validators.required],
+            duration: ["", [Validators.required, Validators.min(1)]],
+            authors: [[], [Validators.required]],
+        });
+    }
 
-    @tuiPure
-    filter(search: string | null): readonly string[] {
-        return authors.filter((item) => TUI_DEFAULT_MATCHER(item, search ?? ""));
+    ngOnInit(): void {
+        this.search$.next("");
     }
 
     onSubmitClicked(): void {
         this.loadingService.show();
-        this.assignUniqueIdAndAuthors();
-        this.createCourseAndNavigate();
+        const formData: Course = this.courseForm.value;
+
+        this.createCourseAndNavigate(formData);
     }
 
     onSearchChange(searchQuery: string | null): void {
@@ -56,25 +80,31 @@ export class AddCoursePageComponent implements OnDestroy {
 
     onEnterCreateAuthor(event: any): void {
         if (event.key === "Enter" && this.search$.value) {
-            authors.push(this.search$.value);
-            const currentAuthors = this.authorsFormControl.value ?? [];
+            const currentAuthors = this.courseForm.get("authors")?.value;
 
-            this.authorsFormControl.setValue([...currentAuthors, this.search$.value]);
+            this.courseForm.patchValue({
+                authors: [...currentAuthors, this.search$.value],
+            });
+
+            this.clearAuthorsInput();
         }
     }
 
-    ngOnDestroy(): void {
-        this.resetCourse();
+    /**
+     * Удаляет строку, введенную в поле Авторов, не убирает выбранные значения
+     */
+    private clearAuthorsInput(): void {
+        const authorsInput = document.querySelector(".authors-input input");
+
+        if (authorsInput) {
+            this.renderer.setProperty(authorsInput, "value", "");
+            authorsInput.dispatchEvent(new Event("input"));
+        }
     }
 
-    private assignUniqueIdAndAuthors(): void {
-        this.course.id = uuidv4();
-        this.course.authors = this.authorsFormControl.value ?? [];
-    }
-
-    private createCourseAndNavigate(): void {
+    private createCourseAndNavigate(formData: Course): void {
         this.courseService
-            .createCourse$(this.course)
+            .createCourse$(formData)
             .pipe(
                 catchError(() => {
                     throw new Error(`Ошибка при создании курса`);
@@ -90,13 +120,16 @@ export class AddCoursePageComponent implements OnDestroy {
             });
     }
 
-    private resetCourse(): void {
-        this.course = { ...emptyCourse };
-    }
+    private filterAuthors(searchQuery: string | null): Observable<string[]> {
+        return this.authors$.pipe(
+            map((authors) => {
+                if (!searchQuery) {
+                    return authors;
+                }
 
-    private serverRequest(searchQuery: string | null): Observable<readonly string[]> {
-        const result = authors.filter((user) => TUI_DEFAULT_MATCHER(user, searchQuery ?? ""));
-
-        return of(result).pipe(delay(1000));
+                return authors.filter((author) => TUI_DEFAULT_MATCHER(author, searchQuery));
+            }),
+            debounceTime(300)
+        );
     }
 }
