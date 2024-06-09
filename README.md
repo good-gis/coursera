@@ -1,27 +1,60 @@
-# AngularCourse
+# 🎓 Coursenta
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+Coursenta is a course aggregator that allows you to create, delete, and modify courses. The project also includes a convenient search functionality to help users easily find the courses they are interested in.
 
-## Development server
+## 🚀 Getting Started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To start the project, run the following command:
 
-## Code scaffolding
+```bash
+npm run start & node backend/api-run.js
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This command will start the frontend and bring up the mock backend service.
 
-## Build
+## 📋 Main Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- 📚 **Create Courses**: Ability to add new courses with various parameters.
+- ✏️ **Edit Courses**: Ability to make changes to existing courses.
+- ❌ **Delete Courses**: Ability to remove unnecessary courses.
+- 🔍 **Course Search**: Fast and convenient search across all available courses.
 
-## Running unit tests
+## 🛠️ Technologies
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Frontend**: Angular 17
+- **Backend**: Node.js v16, Json Server
+- **Package Manager**: npm 8
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 📦 Installation
 
-## Further help
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/coursenta.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd coursenta
+   ```
+3. Install the dependencies:
+   ```bash
+   npm ci
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 💻 Running the Project
+
+To run the project, use the command:
+
+```bash
+npm run start & node backend/api-run.js
+```
+
+## 🎥 Demo
+
+Check out the demo video to see Coursenta in action:
+
+[![Coursenta Demo](video/image.png)](video/demo.mov)
+
+---
+
+Thank you for using Coursenta! 🎉
