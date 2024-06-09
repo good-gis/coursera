@@ -53,7 +53,7 @@ npm run start & node backend/api-run.js
 
 Check out the demo video to see Coursenta in action:
 
-https://github.com/good-gis/coursera/blob/master/video/demo.mp4
+https://youtu.be/tUgPpFVTYUk
 
 ---
 
